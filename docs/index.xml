@@ -2,69 +2,69 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python/SQL developer but also a human</title>
-    <link>https://louisegrandjonc.github.io/louisemeta.com/</link>
+    <link>https://www.louisemeta.com/</link>
     <description>Recent content on Python/SQL developer but also a human</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>false</copyright>
     <lastBuildDate>Fri, 23 Mar 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://louisegrandjonc.github.io/louisemeta.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.louisemeta.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Understanding a SQL query&#39;s EXPLAIN</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/talks/explain/</link>
+      <link>https://www.louisemeta.com/talks/explain/</link>
       <pubDate>Fri, 23 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/talks/explain/</guid>
+      <guid>https://www.louisemeta.com/talks/explain/</guid>
       <description>Introduction blabla</description>
     </item>
     
     <item>
       <title>Fulltext search with PostgreSQL</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/talks/full_text_search/</link>
+      <link>https://www.louisemeta.com/talks/full_text_search/</link>
       <pubDate>Thu, 22 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/talks/full_text_search/</guid>
+      <guid>https://www.louisemeta.com/talks/full_text_search/</guid>
       <description>Introduction blabla</description>
     </item>
     
     <item>
       <title>Understanding a SQL query&#39;s EXPLAIN</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/secrets/test/</link>
+      <link>https://www.louisemeta.com/secrets/test/</link>
       <pubDate>Fri, 23 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/secrets/test/</guid>
+      <guid>https://www.louisemeta.com/secrets/test/</guid>
       <description>Introduction blabla</description>
     </item>
     
     <item>
       <title>stephanzimmerli.com</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/projects/zim/</link>
+      <link>https://www.louisemeta.com/projects/zim/</link>
       <pubDate>Fri, 23 Mar 2018 22:25:02 -0700</pubDate>
       
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/projects/zim/</guid>
+      <guid>https://www.louisemeta.com/projects/zim/</guid>
       <description>Stephan Zimmerli is an artist who has a tendancy to be brilliant in several fields: architecture, stage design, drawing, photography, music&amp;hellip; So when he came to me with the project of a website that would allow him to show his work, always in between this art forms, I was thrilled.
 The website is still in construction, we are building what he calls a mnemotopy, an architecture, like a house, to visit twenty years of notebooks, music, and videos.</description>
     </item>
     
     <item>
       <title>pgday.paris</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/projects/pgday/</link>
+      <link>https://www.louisemeta.com/projects/pgday/</link>
       <pubDate>Thu, 22 Mar 2018 22:25:02 -0700</pubDate>
       
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/projects/pgday/</guid>
+      <guid>https://www.louisemeta.com/projects/pgday/</guid>
       <description>About three years ago, I met Dimitri Fontaine at the fosdem. He asked me to work on the pgdayParis website. He knew I was a django developer and hoped that I would be good at CSS&amp;hellip;
 But working on this, helped me get into this amazing community (mostly by drinking beers the day of the deployment), use heroku for the first time and made me want to do talks. So, hurray !</description>
     </item>
     
     <item>
       <title>About Louise Grandjonc</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/about/</link>
+      <link>https://www.louisemeta.com/about/</link>
       <pubDate>Tue, 20 Mar 2018 17:39:21 -0700</pubDate>
       
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/about/</guid>
+      <guid>https://www.louisemeta.com/about/</guid>
       <description>My name is Louise, I am a web developer. I&amp;rsquo;ve been working as a lead python developer at Ulule for three years. Previously I worked at peopledoc as a python developer. Before that I was a student at the UTC (not the timezone).
 I am also working on a few sides projects, like a website for a musician, drawer, architect, the pgday paris website and a lot of unfinished experimentations (mostly for fun).</description>
     </item>
