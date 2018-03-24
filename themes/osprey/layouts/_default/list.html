@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+  {{ partial "header.html" . }}
+  <body>
+    {{ partial "body-top" . }}
+    <main>
+
+      <section class="blog" id="blog">
+          <div class="container">
+              <div class="row center-xs">
+                  <div class="col-xs-12"><h1>{{ humanize .Type }}</h1></div>
+              </div>
+              <div class="row">
+                  <div class="col-xs-12 posts-list">
+                      {{ range .Data.Pages }}
+                          <article>
+                              <h2 {{ if .Params.image }}style="text-align: center;"{{ end }}><a href="{{ .Permalink }}">
+                                  {{ if .Params.image }}
+                                  <img src="/images/{{ .Params.image }}">
+                                  {{ end }}
+                                  {{ .Title }}
+                              </a></h2>
+                              {{ if not .Params.image }}
+                              <div class=sub-header>
+                              {{ .Date.Format (.Site.Params.dateform | default "January 2006") }} · {{ .ReadingTime }} minute read
+                              </div>
+                              {{ end }}
+                          </article>
+                      {{ end }}
+                  </div>
+              </div>
+          </div>
+      </section>
+
+    </main>
+    {{ partial "footer.html" . }}
+    {{ partial "body-bottom" . }}
+  </body>
+</html>
