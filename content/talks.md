@@ -24,6 +24,6 @@ You want me to do one? Contact me on twitter or linkedin !
 - djangoCon 2017: **The amazing world behing your ORM**
   - [Slides](https://fr.slideshare.net/LouiseGrandjonc/the-amazing-world-behind-your-orm)
   - [Video](https://www.youtube.com/watch?v=Ph2hXpTW-Zg)
-  - You can read the blog article from the pgdayParis one, the djangoCon talk being is a short version, more ORM oriented one from the pgdayParis.
+  - You can read the blog article from the pgdayParis one, the djangoCon talk being a short version, more ORM oriented one from the pgdayParis.
 - Postgresql User Group Paris: **A use case of postgreSQL fulltext search**
   - [Slides](https://fr.slideshare.net/LouiseGrandjonc/meetup-pg-recherche-fulltext-es-pg)
