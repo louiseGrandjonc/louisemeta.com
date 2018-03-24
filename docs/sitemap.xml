@@ -8,11 +8,6 @@
     </url>
   
     <url>
-      <loc>https://louisegrandjonc.github.io/louisemeta.com/secrets/test/</loc>
-      <lastmod>2018-03-23T00:00:00+00:00</lastmod>
-    </url>
-  
-    <url>
       <loc>https://louisegrandjonc.github.io/louisemeta.com/projects/zim/</loc>
       <lastmod>2018-03-23T22:25:02-07:00</lastmod>
     </url>
@@ -24,6 +19,11 @@
   
     <url>
       <loc>https://louisegrandjonc.github.io/louisemeta.com/about/</loc>
+      <lastmod>2018-03-20T17:39:21-07:00</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/secrets/</loc>
       <lastmod>2018-03-20T17:39:21-07:00</lastmod>
     </url>
   
@@ -52,12 +52,6 @@
     <url>
       <loc>https://louisegrandjonc.github.io/louisemeta.com/projects/</loc>
       <lastmod>2018-03-23T22:25:02-07:00</lastmod>
-      <priority>0</priority>
-    </url>
-  
-    <url>
-      <loc>https://louisegrandjonc.github.io/louisemeta.com/secrets/</loc>
-      <lastmod>2018-03-23T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
   
