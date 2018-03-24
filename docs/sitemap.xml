@@ -3,13 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>https://louisegrandjonc.github.io/louisemeta.com/talks/explain/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</loc>
       <lastmod>2018-03-23T00:00:00+00:00</lastmod>
-    </url>
-  
-    <url>
-      <loc>https://louisegrandjonc.github.io/louisemeta.com/talks/full_text_search/</loc>
-      <lastmod>2018-03-22T00:00:00+00:00</lastmod>
     </url>
   
     <url>
@@ -30,6 +25,17 @@
     <url>
       <loc>https://louisegrandjonc.github.io/louisemeta.com/about/</loc>
       <lastmod>2018-03-20T17:39:21-07:00</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/talks/</loc>
+      <lastmod>2018-03-20T17:39:21-07:00</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/</loc>
+      <lastmod>2018-03-23T00:00:00+00:00</lastmod>
+      <priority>0</priority>
     </url>
   
     <url>
@@ -57,12 +63,6 @@
   
     <url>
       <loc>https://louisegrandjonc.github.io/louisemeta.com/tags/</loc>
-      <priority>0</priority>
-    </url>
-  
-    <url>
-      <loc>https://louisegrandjonc.github.io/louisemeta.com/talks/</loc>
-      <lastmod>2018-03-23T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
   

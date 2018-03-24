@@ -10,7 +10,9 @@
               <h1>{{ if .Params.heading }} {{ .Params.heading }} {{ else }} {{ .Title }} {{ end }}</h1>
 
               <div class="sub-header">
+                  {{ if not .Params.deactivatereading }}
                   {{ .Date.Format (.Site.Params.dateform | default "January 2006") }} · {{ .ReadingTime }} minute read
+                  {{ end }}
               </div>
 
               <article class="entry-content">

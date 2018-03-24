@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on Louise Grandjonc, Python/SQL developer but also a human</title>
+    <link>https://louisegrandjonc.github.io/louisemeta.com/blog/</link>
+    <description>Recent content in Blogs on Louise Grandjonc, Python/SQL developer but also a human</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>false</copyright>
+    <lastBuildDate>Fri, 23 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://louisegrandjonc.github.io/louisemeta.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Understanding query&#39;s EXPLAIN</title>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</link>
+      <pubDate>Fri, 23 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</guid>
+      <description>Introduction As a developer I&amp;rsquo;ve written a lot of stupid code. And I think that if I didn&amp;rsquo;t you could make the conclusion that I don&amp;rsquo;t work much. But one example was when I was an intern at Ulule. I was working on something and the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip; I realized that I was missing some basics :</description>
+    </item>
+    
+  </channel>
+</rss>

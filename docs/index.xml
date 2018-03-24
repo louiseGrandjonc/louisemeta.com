@@ -14,20 +14,11 @@
     
     <item>
       <title>Understanding query&#39;s EXPLAIN</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/talks/explain/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</link>
       <pubDate>Fri, 23 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/talks/explain/</guid>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</guid>
       <description>Introduction As a developer I&amp;rsquo;ve written a lot of stupid code. And I think that if I didn&amp;rsquo;t you could make the conclusion that I don&amp;rsquo;t work much. But one example was when I was an intern at Ulule. I was working on something and the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip; I realized that I was missing some basics :</description>
-    </item>
-    
-    <item>
-      <title>Fulltext search with PostgreSQL</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/talks/full_text_search/</link>
-      <pubDate>Thu, 22 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/talks/full_text_search/</guid>
-      <description>Introduction blabla</description>
     </item>
     
     <item>
@@ -67,6 +58,17 @@ But working on this, helped me get into this amazing community (mostly by drinki
       <guid>https://louisegrandjonc.github.io/louisemeta.com/about/</guid>
       <description>My name is Louise, I am a web developer. I&amp;rsquo;ve been working as a lead python developer at Ulule for three years. Previously I worked at peopledoc as a python developer. Before that I was a student at the UTC (not the timezone).
 I am also working on a few sides projects, like a website for a musician, drawer, architect, the pgday paris website and a lot of unfinished experimentations (mostly for fun).</description>
+    </item>
+    
+    <item>
+      <title>Talks and Slides</title>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/talks/</link>
+      <pubDate>Tue, 20 Mar 2018 17:39:21 -0700</pubDate>
+      
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/talks/</guid>
+      <description>Upcoming talks Well none for now, though I have ideas :)
+You want me to do one? Contact me on twitter or linkedin !
+Passed talks  pgdayParis : Becoming a better developer with EXPLAIN  Slides Video (upcoming !) Blog article  PostgreSQL User Group Paris: A word on pgexercises.com  Slides  djangoCon 2017: The amazing world behing your ORM  Slides Video You can read the blog article from the pgdayParis one, as it is a short version, more ORM oriented from this one.</description>
     </item>
     
   </channel>
