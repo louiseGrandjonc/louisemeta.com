@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Talks on Python/SQL developer but also a human</title>
-    <link>https://louisemeta.com/talks/</link>
+    <link>https://louisegrandjonc.github.io/talks/</link>
     <description>Recent content in Talks on Python/SQL developer but also a human</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>false</copyright>
     <lastBuildDate>Fri, 23 Mar 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://louisemeta.com/talks/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://louisegrandjonc.github.io/talks/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Understanding a SQL query&#39;s EXPLAIN</title>
-      <link>https://louisemeta.com/talks/explain/</link>
+      <link>https://louisegrandjonc.github.io/talks/explain/</link>
       <pubDate>Fri, 23 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://louisemeta.com/talks/explain/</guid>
+      <guid>https://louisegrandjonc.github.io/talks/explain/</guid>
       <description>Introduction blabla</description>
     </item>
     
     <item>
       <title>Fulltext search with PostgreSQL</title>
-      <link>https://louisemeta.com/talks/full_text_search/</link>
+      <link>https://louisegrandjonc.github.io/talks/full_text_search/</link>
       <pubDate>Thu, 22 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://louisemeta.com/talks/full_text_search/</guid>
+      <guid>https://louisegrandjonc.github.io/talks/full_text_search/</guid>
       <description>Introduction blabla</description>
     </item>
     
