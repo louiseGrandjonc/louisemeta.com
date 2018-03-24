@@ -13,12 +13,12 @@
     
     
     <item>
-      <title>Understanding a SQL query&#39;s EXPLAIN</title>
+      <title>Understanding query&#39;s EXPLAIN</title>
       <link>https://louisegrandjonc.github.io/louisemeta.com/talks/explain/</link>
       <pubDate>Fri, 23 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/talks/explain/</guid>
-      <description>Introduction blabla</description>
+      <description>Introduction As a developer I&amp;rsquo;ve written a lot of stupid code. And I think that if I didn&amp;rsquo;t you could make the conclusion that I don&amp;rsquo;t work much. But one example was when I was an intern at Ulule. I was working on something and the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip; I realized that I was missing some basics :</description>
     </item>
     
     <item>

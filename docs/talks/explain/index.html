@@ -6,11 +6,11 @@
   <title>
     
     
-        Understanding a SQL query&#39;s EXPLAIN | Louise Grandjonc, Python/SQL developer but also a human
+        Understanding query&#39;s EXPLAIN | Louise Grandjonc, Python/SQL developer but also a human
     
   </title>
 
-  <meta name="title" content="Understanding a SQL query&#39;s EXPLAIN | Louise Grandjonc, Python/SQL developer but also a human">
+  <meta name="title" content="Understanding query&#39;s EXPLAIN | Louise Grandjonc, Python/SQL developer but also a human">
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -35,7 +35,7 @@
     <meta name="twitter:creator" content="@louisemeta">
   
 
-  <meta property="og:title" content="Understanding a SQL query&#39;s EXPLAIN | Louise Grandjonc, Python/SQL developer but also a human">
+  <meta property="og:title" content="Understanding query&#39;s EXPLAIN | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
 
@@ -112,18 +112,114 @@
 
       <section class="container">
           <section class="content">
-              <h1> Understanding a SQL query&#39;s EXPLAIN </h1>
+              <h1> Understanding query&#39;s EXPLAIN </h1>
 
               <div class="sub-header">
-                  March 2018 · 1 minute read
+                  March 2018 · 3 minute read
               </div>
 
               <article class="entry-content">
                   
 
-<h2 id="introduction">Introduction</h2>
+<h1 id="introduction">Introduction</h1>
 
-<p>blabla</p>
+<p>As a developer I&rsquo;ve written a lot of stupid code. And I think that if I didn&rsquo;t you could make the conclusion that I don&rsquo;t work much. But one example was when I was an intern at <a href="www.ulule.com">Ulule</a>. I was working on something and the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&hellip;
+I realized that I was missing some basics :</p>
+
+<ul>
+<li>Like a lot of web developers I didn&rsquo;t think of looking into my logs to know what my ORM was doing</li>
+<li>Once I knew, I didn&rsquo;t understand why some queries were slow</li>
+</ul>
+
+<p>After that I became a bit obsessed with performances and realized that I would have loved to see a talk on that subject when I started working with postgreSQL and Django.</p>
+
+<p>So that&rsquo;s the story of why I submitted a talk at the <a href="https://2017.djangocon.eu/">django con</a>, and then at the <a href="https://2018.pgday.paris/">pgdayParis</a>.</p>
+
+<p>The conference at pgdayParis lasting 50 minutes, I had a bit more time to get into details. I will add the video as soon as I have it. But in the meantime here is the one from the djangocon, it&rsquo;s more django oriented (obviously ;) ) than the one at pgday.</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/Ph2hXpTW-Zg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0" title="YouTube Video"></iframe>
+ </div>
+
+
+<p>And here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a></p>
+
+<h1 id="a-word-on-logs">A word on logs</h1>
+
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_metal_01.png" alt="Alt text" /></p>
+
+<p>If you&rsquo;re using an ORM and have never looked for your logs, let me show you how to find them.</p>
+
+<p>First go in your psql:</p>
+
+<pre><code class="language-code"> $ psql -U user -d your_database_name
+</code></pre>
+
+<p>Then you will find the path of your log files.</p>
+
+<pre><code class="language-code">
+owl_conference=# show data_directory ;
+     data_directory
+-------------------------
+ /usr/local/var/postgres
+
+owl_conference=# show log_directory ;
+ log_directory
+---------------
+ pg_log
+
+owl_conference=# show log_filename ;
+      log_filename
+-------------------------
+ postgresql-%Y-%m-%d.log
+</code></pre>
+
+<p>So in this case you would find your logs in</p>
+
+<pre><code class="language-code">/usr/local/var/postgres/pg_log/postgresql-2018-03-23.log
+</code></pre>
+
+<p>If you&rsquo;re a developer, working localy, in order to have all you queries into your logs you will need to change your <code>postgresql.conf</code> and put</p>
+
+<pre><code class="language-code">log_statement = 'all'
+logging_collector = on
+log_min_duration_statement = 0
+</code></pre>
+
+<h1 id="about-explain">About EXPLAIN</h1>
+
+<p>To use EXPLAIN, take a query and run</p>
+
+<p><code>EXPLAIN ANALYZE your_query;</code></p>
+
+<p>You will get a result that will look like this:</p>
+
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/explain.png" alt="Alt text" /></p>
+
+<h2 id="sequential-scan">Sequential scan</h2>
+
+<p>On the image above, you can see a <code>seq scan</code>. The sequential scan simply reads the entire table and retrieves the rows matching the <code>where</code> clause.</p>
+
+<h2 id="index-scan">Index scan</h2>
+
+<p>If you see instead of the <code>seq scan</code> and <code>index scan</code> it means that and index is used to filter you rows. If the concept of indexes isn&rsquo;t quite clear, I encourage you to <a href="https://youtu.be/Ph2hXpTW-Zg?t=16m43s">watch</a> my conference where I explain it.</p>
+
+<h2 id="bitmap-heap-scan">Bitmap heap scan</h2>
+
+<h2 id="nested-loops">Nested loops</h2>
+
+<h2 id="hash-join">Hash join</h2>
+
+<h2 id="merge-join">Merge join</h2>
+
+<h2 id="quicksort">Quicksort</h2>
+
+<h2 id="top-n-heap-sort">Top-N heap sort</h2>
+
+<h2 id="a-word-on-offset">A word on offset</h2>
+
+<h1 id="conclusion">Conclusion</h1>
 
               </article>
 
