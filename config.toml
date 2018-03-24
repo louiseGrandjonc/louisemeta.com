@@ -1,0 +1,45 @@
+title = "Python/SQL developer but also a human"
+baseURL = "https://louisemeta.com"
+tags = ["portfolio", "web design", "blog"]
+languageCode = "en-US"
+config = "config.toml"
+theme = "osprey"
+canonifyURLS = true
+googleAnalytics = ""
+disqusShortname = "tomanistor"
+disableKinds = ["taxonomy", "taxonomyTerm"] # This theme does not currently use "tag" and "category" taxonomies
+
+[Params]
+    tagline = "LouiseMeta"
+    author = "Louise Grandjonc"
+    description = "Python/Django/SQL developer, PostgreSQL enthousiast"
+    logoBig = "/images/Owls_dance_04.png"
+    logoSmall = "/images/Owls_dance_04.png"
+    favicon = "favicon.ico"
+    opengraphImage = "/images/osprey.png"
+    twitter = "louisemeta"
+    linkedin = "louise-grandjonc-81502b80"
+    github = "louiseGrandjonc"
+    facebook = ""
+    email = ""
+    googleTagManger = ""
+    highlightJS = true
+    copyright = false
+    credit = false
+    customCSS = false
+    cacheBustCSS = false
+    cacheBustJS = false
+    ajaxFormspree = false
+
+[[menu.main]]
+    name = "About"
+    url  = "/#about"
+    weight = 1
+[[menu.main]]
+    name = "Talks"
+    url  = "/talks/"
+    weight = 2
+[[menu.main]]
+    name = "Projects"
+    url  = "/projects/"
+    weight = 3
