@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Python/SQL developer but also a human</title>
-    <link>https://www.louisemeta.com/categories/</link>
+    <link>https://louisegrandjonc.github.io/louisemeta.com/categories/</link>
     <description>Recent content in Categories on Python/SQL developer but also a human</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>false</copyright>
     
-	<atom:link href="https://www.louisemeta.com/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://louisegrandjonc.github.io/louisemeta.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
