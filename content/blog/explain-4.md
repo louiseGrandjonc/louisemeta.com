@@ -5,3 +5,10 @@ linktitle: Understanding EXPLAIN - part 4 - Ordering and a word on offset
 title: Understanding EXPLAIN - part 4 - Ordering and a word on offset
 weight: 1
 ---
+
+
+## Quicksort
+
+## Top-N heap sort
+
+## A word on offset

@@ -27,7 +27,8 @@
       <pubDate>Sat, 24 Mar 2018 17:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/</guid>
-      <description>blabla</description>
+      <description>Introduction As a reminder, if you ended up on this page by looking up on bing pg_stat_statements, first I&amp;rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the pgdayParis and here are the slides
+What is pg_stat_statements ? pg_stat_statement is a postgreSQL extension, once you enable it, it tracks statistics on the queries executed by a server. It will help you find slow queries.</description>
     </item>
     
     <item>
@@ -36,7 +37,10 @@
       <pubDate>Sat, 24 Mar 2018 16:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</guid>
-      <description>Introduction As a developer I&amp;rsquo;ve written a lot of stupid code. And I think that if I didn&amp;rsquo;t you could make the conclusion that I don&amp;rsquo;t work much. But one example was when I was an intern at Ulule. I was working on something and the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip; I realized that I was missing some basics :</description>
+      <description> Introduction About EXPLAIN To use EXPLAIN, take a query and run
+EXPLAIN ANALYZE your_query;
+You will get a result that will look like this:
+What are costs and actual times ? Conclusion </description>
     </item>
     
     <item>
@@ -45,7 +49,8 @@
       <pubDate>Sat, 24 Mar 2018 15:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/</guid>
-      <description></description>
+      <description>Sequential scan On the image above, you can see a seq scan. The sequential scan simply reads the entire table and retrieves the rows matching the where clause.
+Index scan If you see instead of the seq scan and index scan it means that and index is used to filter you rows. If the concept of indexes isn&amp;rsquo;t quite clear, I encourage you to watch my conference where I explain it.</description>
     </item>
     
     <item>
@@ -54,7 +59,7 @@
       <pubDate>Sat, 24 Mar 2018 14:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-3/</guid>
-      <description></description>
+      <description> Nested loops Hash join Merge join </description>
     </item>
     
     <item>
@@ -63,7 +68,7 @@
       <pubDate>Sat, 24 Mar 2018 14:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-4/</guid>
-      <description></description>
+      <description> Quicksort Top-N heap sort A word on offset </description>
     </item>
     
     <item>

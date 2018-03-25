@@ -5,3 +5,12 @@ linktitle: Understanding EXPLAIN - part 3 - Joins
 title: Understanding EXPLAIN - part 3 - Joins
 weight: 1
 ---
+
+
+
+
+## Nested loops
+
+## Hash join
+
+## Merge join

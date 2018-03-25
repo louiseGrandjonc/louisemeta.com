@@ -121,12 +121,25 @@
 
               <div class="sub-header">
                   
-                  March 2018 · 0 minute read
+                  March 2018 · 1 minute read
                   
               </div>
 
               <article class="entry-content">
                   
+
+<h2 id="sequential-scan">Sequential scan</h2>
+
+<p>On the image above, you can see a <code>seq scan</code>. The sequential scan simply reads the entire table and retrieves the rows matching the <code>where</code> clause.</p>
+
+<h2 id="index-scan">Index scan</h2>
+
+<p>If you see instead of the <code>seq scan</code> and <code>index scan</code> it means that and index is used to filter you rows. If the concept of indexes isn&rsquo;t quite clear, I encourage you to <a href="https://youtu.be/Ph2hXpTW-Zg?t=16m43s">watch</a> my conference where I explain it.</p>
+
+<h2 id="bitmap-heap-scan">Bitmap heap scan</h2>
+
+<h1 id="conclusion">Conclusion</h1>
+
               </article>
 
               <div class="pagination">
