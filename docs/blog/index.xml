@@ -37,10 +37,8 @@ What is pg_stat_statements ? pg_stat_statement is a postgreSQL extension, once y
       <pubDate>Sat, 24 Mar 2018 16:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</guid>
-      <description> Introduction About EXPLAIN To use EXPLAIN, take a query and run
-EXPLAIN ANALYZE your_query;
-You will get a result that will look like this:
-What are costs and actual times ? Conclusion </description>
+      <description>Introduction As a reminder, if you ended up on this page by looking up on bing EXPLAIN, first I&amp;rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the pgdayParis and here are the slides
+If you want to test the queries, here is the github project for the talk. You can find a dump of the database, and the SQL using generate_series to fill the DB.</description>
     </item>
     
     <item>

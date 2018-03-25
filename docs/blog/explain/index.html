@@ -121,7 +121,7 @@
 
               <div class="sub-header">
                   
-                  March 2018 · 1 minute read
+                  March 2018 · 2 minute read
                   
               </div>
 
@@ -129,6 +129,34 @@
                   
 
 <h1 id="introduction">Introduction</h1>
+
+<p>As a reminder, if you ended up on this page by looking up on bing <code>EXPLAIN</code>, first I&rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a></p>
+
+<p>If you want to test the queries, here is the <a href="https://github.com/louiseGrandjonc/owl-conference">github project</a> for the talk. You can find a dump of the database, and the <a href="https://github.com/louiseGrandjonc/owl-conference/blob/master/sql/01_generate_data.sql">SQL</a> using <code>generate_series</code> to fill the DB.</p>
+
+<p>Let&rsquo;s say you have a slow query, if you never have this problem, a few advices:</p>
+
+<ul>
+<li>close this page, it&rsquo;s useless</li>
+<li>start working a bit, if you&rsquo;ve never written any stupid code, what do you do ?</li>
+</ul>
+
+<p>So, back to our slow query, what you would want is understand why it&rsquo;s slow, so basicaly &ldquo;what the hell is postgres doing?&rdquo;. To do that, we are going to look into the query plan.</p>
+
+<h2 id="what-is-a-query-plan">What is a query plan?</h2>
+
+<p>You&rsquo;re wondering what I&rsquo;m talking about? Well let&rsquo;s start at the begining of the story, you are sending a query to your DB server and you get a result. Like this
+<img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/query.png" alt="Alt text" /></p>
+
+<p>What is happening there ?</p>
+
+<ul>
+<li>First the query is parsed into a query tree (an internal data structure). The syntax errors are detected.</li>
+<li>Then the planner and optimizer generates query plans (ways to execute the query) and calculate the cost of this plans.</li>
+<li>The best query plan is executed and then the results are returned to you.</li>
+</ul>
+
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/query_path.png" alt="Alt text" /></p>
 
 <h1 id="about-explain">About EXPLAIN</h1>
 
@@ -141,6 +169,10 @@
 <p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/explain.png" alt="Alt text" /></p>
 
 <h1 id="what-are-costs-and-actual-times">What are costs and actual times ?</h1>
+
+<p>If you&rsquo;re using <code>EXPLAIN</code> without <code>ANALYZE</code> and the <code>rows</code> seem really of from the reality, you can force postgres to collect statistics on a table by running.</p>
+
+<p><code>ANALYZE my_table;</code></p>
 
 <h1 id="conclusion">Conclusion</h1>
 
