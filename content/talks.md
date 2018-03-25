@@ -18,7 +18,7 @@ You want me to do one? Contact me on twitter or linkedin !
 - pgdayParis : **Becoming a better developer with EXPLAIN**
   - [Slides](https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain)
   - Video (upcoming !)
-  - [Blog article](/blog/explain/)
+  - You can read a [serie of articles](/blog/explain/) I wrote from that talk
 - PostgreSQL User Group Paris: **A word on [pgexercises.com](pgexercises.com)**
   - [Slides](https://fr.slideshare.net/LouiseGrandjonc/pg-exercices)
 - djangoCon 2017: **The amazing world behing your ORM**

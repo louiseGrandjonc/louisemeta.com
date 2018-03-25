@@ -1,8 +1,8 @@
 ---
 author: "Louise Grandjonc"
-date: 2018-03-23
-linktitle: Understanding query's EXPLAIN
-title: Understanding query's EXPLAIN
+date: 2018-03-24T16:39:21-07:00
+linktitle: Understanding EXPLAIN - part 1 - Costs and actual time
+title: Understanding EXPLAIN - part 1 - Costs and actual time
 weight: 1
 ---
 

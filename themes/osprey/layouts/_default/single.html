@@ -3,8 +3,7 @@
   {{ partial "header.html" . }}
   <body>
     {{ partial "body-top" . }}
-    <main>
-
+      <main>
       <section class="container">
           <section class="content">
               <h1>{{ if .Params.heading }} {{ .Params.heading }} {{ else }} {{ .Title }} {{ end }}</h1>
@@ -20,11 +19,11 @@
               </article>
 
               <div class="pagination">
-                  {{ if .PrevInSection }}
-                      <a href="{{ .PrevInSection.Permalink }}">&laquo; {{ .PrevInSection.Title }}</a>
-                  {{ end }}
                   {{ if .NextInSection }}
-                      <a href="{{ .NextInSection.Permalink }}">{{ .NextInSection.Title }} &raquo;</a>
+                      <a href="{{ .NextInSection.Permalink }}">&laquo; {{ string .NextInSection.Title | truncate 32 }}</a>
+                  {{ end }}
+                  {{ if .PrevInSection }}
+                      <a href="{{ .PrevInSection.Permalink }}">{{ string .PrevInSection.Title | truncate 32 }} &raquo;</a>
                   {{ end }}
               </div>
           </section>
