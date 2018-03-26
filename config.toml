@@ -5,7 +5,7 @@ languageCode = "en-US"
 config = "config.toml"
 theme = "osprey"
 canonifyURLS = true
-googleAnalytics = ""
+googleAnalytics = "UA-116410295-1"
 publishDir = "docs"
 
 [Params]

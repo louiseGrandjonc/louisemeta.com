@@ -1,6 +1,6 @@
 ---
 author: "Louise Grandjonc"
-date: 2018-03-24T18:39:21-07:00
+date: 2018-01-31T18:39:21-07:00
 linktitle: PostgreSQL's logs - a developer's best friend
 title: PostgreSQL's logs - a developer's best friend
 weight: 1
@@ -16,7 +16,7 @@ I realized that I was missing some basics :
 - Like a lot of web developers I didn't think of looking into my logs to know what my ORM was doing
 - Once I knew, I didn't understand why some queries were slow
 
-After that I became a bit obsessed with performances and that's the story of why I submitted a talk at the [django con](https://2017.djangocon.eu/), and then at the [pgdayParis](https://2018.pgday.paris/).
+After that I became a bit obsessed with performances and that's the story of why I submitted a talk at the [django con 2017](https://2017.djangocon.eu/), and then at the [pgdayParis 2018](https://2018.pgday.paris/).
 
 The conference at pgdayParis lasting 50 minutes, I had a bit more time to get into details. I will add the video as soon as I have it. But in the meantime here is the one from the djangocon, it's more django oriented (obviously ;) ) than the one at pgday.
 

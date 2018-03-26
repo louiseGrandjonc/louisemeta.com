@@ -121,7 +121,7 @@
 
               <div class="sub-header">
                   
-                  March 2018 · 2 minute read
+                  February 2018 · 2 minute read
                   
               </div>
 
@@ -130,7 +130,7 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>As a reminder, if you ended up on this page by looking up on bing <code>pg_stat_statements</code>, first I&rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a></p>
+<p>As a reminder, if you ended up on this page by looking up on bing <code>pg_stat_statements</code>, first I&rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis 2018</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a></p>
 
 <h2 id="what-is-pg-stat-statements">What is pg_stat_statements ?</h2>
 
@@ -143,10 +143,10 @@
 
 <p>First go in your psql:</p>
 
-<pre><code class="language-code"> $ psql -U user -d your_database_name
+<pre><code class="language-code"> $ psql -U owl -d owl_conference
 </code></pre>
 
-<p>And create the extension</p>
+<p>And create the extension. Only superuser or database owner can create extensions. So you might need to check the privileges of the user you are connecting with.</p>
 
 <pre><code class="language-code">CREATE EXTENSION pg_stat_statements;
 </code></pre>
@@ -178,10 +178,10 @@ LIMIT 100;
 
               <div class="pagination">
                   
-                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/">&laquo; PostgreSQL&#39;s logs - a …</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">&laquo; Understanding EXPLAIN - part 1 - …</a>
                   
                   
-                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">Understanding EXPLAIN - part 1 - … &raquo;</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/">PostgreSQL&#39;s logs - a … &raquo;</a>
                   
               </div>
           </section>

@@ -1,6 +1,6 @@
 ---
 author: "Louise Grandjonc"
-date: 2018-03-24T17:39:21-07:00
+date: 2018-02-28T17:39:21-07:00
 linktitle: pg_stat_statements - finding ugly queries
 title: pg_stat_statements - finding ugly queries
 weight: 1
@@ -9,7 +9,7 @@ weight: 1
 
 # Introduction
 
-As a reminder, if you ended up on this page by looking up on bing `pg_stat_statements`, first I'm impressed, you get results with bing ? But also, this article is based on a talk that I did at the [pgdayParis](http://2018.pgday.paris) and here are the [slides](https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain)
+As a reminder, if you ended up on this page by looking up on bing `pg_stat_statements`, first I'm impressed, you get results with bing ? But also, this article is based on a talk that I did at the [pgdayParis 2018](http://2018.pgday.paris) and here are the [slides](https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain)
 
 ## What is pg_stat_statements ?
 
@@ -23,10 +23,10 @@ You can use it in your local environment but also on production, if you are afra
 First go in your psql:
 
 ```code
- $ psql -U user -d your_database_name
+ $ psql -U owl -d owl_conference
 ```
 
-And create the extension
+And create the extension. Only superuser or database owner can create extensions. So you might need to check the privileges of the user you are connecting with.
 
 ```code
 CREATE EXTENSION pg_stat_statements;
