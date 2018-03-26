@@ -56,4 +56,4 @@ LIMIT 100;
 
 # Conclusion
 
-Well that's it ! But now that you know which queries are slow, you probably want to dunderstand what's wrong and how to fix it. To do that, I encourage you to use EXPLAIN, if you want to read about it, I have written a series of article starting [here](/blog/explain/).
+Well that's it ! But now that you know which queries are slow, you probably want to understand what's wrong. To do that, I encourage you to use EXPLAIN, if you want to read about it, I have written a series of article starting [here](/blog/explain/).
