@@ -9,7 +9,7 @@ deactivatereading = true
 
 ## Upcoming talks
 
-Well none for now, though I have ideas :)
+None for now, though I have ideas :)
 
 You want me to do one? Contact me on twitter or linkedin !
 
