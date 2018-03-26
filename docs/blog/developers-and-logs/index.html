@@ -121,7 +121,7 @@
 
               <div class="sub-header">
                   
-                  March 2018 · 4 minute read
+                  March 2018 · 3 minute read
                   
               </div>
 
@@ -130,7 +130,7 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>As a developer I&rsquo;ve written a lot of stupid code. And I think that if I didn&rsquo;t you could make the conclusion that I don&rsquo;t work much. But one example was when I was an intern at <a href="www.ulule.com">Ulule</a>. I was working on something and the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&hellip;
+<p>A few years back, when I was an intern, the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&hellip;
 I realized that I was missing some basics :</p>
 
 <ul>
@@ -154,28 +154,11 @@ I realized that I was missing some basics :</p>
 
 <p>If you want to skip this, you can directly read about <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/">pg_stat_statements</a> and how you can use it to find slow queries, or directly the part on <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">EXPLAIN</a>.</p>
 
-<h1 id="why-do-we-use-orms">Why do we use ORMs</h1>
-
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_breakdown.png" alt="Alt text" />
-If you are lucky enough to know DBAs, you probably have heard them tell you how ORMs are evil and anyone using them should burn in hell (hell being somewhere without beer).</p>
-
-<p>So if ORMs are that bad ? Why are we using them?</p>
-
-<ul>
-<li>Technical debt, the project is too big to rewrite it, and even if we wanted to, often this kind of tasks are postponed because of the priority given by business to new fun features.</li>
-<li>The application doesn’t need any fun SQL feature so the ORM is enough</li>
-<li>We are a bit afraid of SQL (Something between being lazy and under a pile of tickets and not finding time to learn&hellip;)</li>
-<li>The object mapping, simply, it&rsquo;s easier to keep working in python, php, ruby and retrieve objects, isn&rsquo;t it ?</li>
-<li>The ORM handles the DB connections</li>
-<li>We don&rsquo;t have to worry about SQL injections</li>
-</ul>
-
-<p>If you are a DBA, you are already complaining about these reasons, but well, that&rsquo;s unfortunatly a reality&hellip; Like Trump being president of the US, you kind of have to accept it even if it drives you crazy&hellip; But I&rsquo;m being a bit harsh on ORMs, sorry.</p>
-
-<h1 id="why-should-we-be-careful-about-them">Why should we be careful about them</h1>
+<h1 id="why-should-we-be-careful-about-orms">Why should we be careful about ORMs</h1>
 
 <p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_gnihihi.png" alt="Alt text" />
-So if ORMs are often used, what&rsquo;s wrong with them?</p>
+Most developers tend to work with an ORM for many reasons that we are not going to develop here, but the question is: <strong>what&rsquo;s wrong with them?</strong>
+Why are DBAs always saying they are evil and anyone using them should burn in hell (hell being somewhere without beer) ?</p>
 
 <ul>
 <li>The ORM <strong>executes queries that you might not expect</strong></li>

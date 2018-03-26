@@ -18,7 +18,8 @@
       <pubDate>Sat, 24 Mar 2018 18:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/</guid>
-      <description>Introduction As a developer I&amp;rsquo;ve written a lot of stupid code. And I think that if I didn&amp;rsquo;t you could make the conclusion that I don&amp;rsquo;t work much. But one example was when I was an intern at Ulule. I was working on something and the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip; I realized that I was missing some basics :</description>
+      <description>Introduction A few years back, when I was an intern, the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip; I realized that I was missing some basics :
+ Like a lot of web developers I didn&amp;rsquo;t think of looking into my logs to know what my ORM was doing Once I knew, I didn&amp;rsquo;t understand why some queries were slow  After that I became a bit obsessed with performances and that&amp;rsquo;s the story of why I submitted a talk at the django con, and then at the pgdayParis.</description>
     </item>
     
     <item>

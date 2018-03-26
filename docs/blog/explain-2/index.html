@@ -121,7 +121,7 @@
 
               <div class="sub-header">
                   
-                  March 2018 · 4 minute read
+                  March 2018 · 3 minute read
                   
               </div>
 
@@ -146,7 +146,7 @@
 
 <h1 id="sequential-scan">Sequential scan</h1>
 
-<p>In the previous article we where analyzing the result of this <code>EXPLAIN</code><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/query.png" alt="Alt text" />
+<p>In the previous article we where analyzing the result of this <code>EXPLAIN</code><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/explain.png" alt="Alt text" />
 On the image above, you can see a <code>seq scan</code>. The sequential scan simply scans the entire table and retrieves the rows matching the <code>where</code> clause.</p>
 
 <p>It&rsquo;s much like reading an entire encyclopaedia to get the information you need. You understand how it can be expensive for a big table.</p>
@@ -159,18 +159,13 @@ On the image above, you can see a <code>seq scan</code>. The sequential scan sim
 
 <p><code>CREATE INDEX ON owl (employer_name);</code></p>
 
-<h2 id="what-is-an-index">What is an index ?</h2>
+<p>After creating the index, if we run the same query, it suddenly starts using the index</p>
 
-<p>An index is a B-Tree. Each leave of the tree contains a tuple (value, pointer to the row).</p>
-
-<h2 id="multi-column-indexes">Multi column indexes</h2>
-
-<p>Back to our query then ! After creating the index, if we run the same query, it suddenly starts using the index</p>
-
-<pre><code class="language-code">owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name='Ulule';
-                                                         QUERY PLAN
-----------------------------------------------------------------------------------------------------------------------------
- Index Scan using owl_employer_name_idx on owl  (cost=0.29..8.30 rows=1 width=35) (actual time=2.399..2.400 rows=1 loops=1)
+<pre><code class="language-code">EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name='Ulule';
+                                    QUERY PLAN
+-------------------------------------------------------------------------------------------
+ Index Scan using owl_employer_name_idx on owl  (cost=0.29..8.30 rows=1 width=35)
+                                                (actual time=2.399..2.400 rows=1 loops=1)
    Index Cond: ((employer_name)::text = 'Ulule'::text)
  Planning time: 0.111 ms
  Execution time: 0.065 ms
@@ -201,22 +196,20 @@ If you are reading an encyclopaedia on birds and want to know everything about b
 
 <p>I have 2000 owls working at Hogwarts (it&rsquo;s a pretty big employer, not as big as the post office, but still).</p>
 
-<p>The result of
-<code>EXPLAIN ANALYZE SELECT * FROM owl WHERE owl.employer_name = 'Hogwarts';</code>
-is
-```code
-owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name=&lsquo;Hogwarts&rsquo;;</p>
+<p>The result of</p>
 
-<h2 id="query-plan">QUERY PLAN</h2>
+<p><code>EXPLAIN ANALYZE SELECT * FROM owl WHERE owl.employer_name = 'Hogwarts';</code></p>
 
-<p>Bitmap Heap Scan on owl  (cost=47.78..152.78 rows=2000 width=35) (actual time=0.239..0.565 rows=2000 loops=1)
-   Recheck Cond: ((employer_name)::text = &lsquo;Hogwarts&rsquo;::text)
+<p>is</p>
+
+<pre><code class="language-code"> Bitmap Heap Scan on owl  (cost=47.78..152.78 rows=2000 width=35) (actual time=0.239..0.565 rows=2000 loops=1)
+   Recheck Cond: ((employer_name)::text = 'Hogwarts'::text)
    Heap Blocks: exact=79
    -&gt;  Bitmap Index Scan on owl_employer_name_idx  (cost=0.00..47.28 rows=2000 width=0) (actual time=0.227..0.227 rows=2000 loops=1)
-         Index Cond: ((employer_name)::text = &lsquo;Hogwarts&rsquo;::text)
+         Index Cond: ((employer_name)::text = 'Hogwarts'::text)
  Planning time: 0.098 ms
  Execution time: 0.663 ms
-(7 rows)```</p>
+</code></pre>
 
 <p>It&rsquo;s using something called a Bitmap Heap Scan.</p>
 

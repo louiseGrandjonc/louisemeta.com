@@ -24,7 +24,7 @@ You can find a dump of this DB [here](https://github.com/louiseGrandjonc/owl-con
 
 # Sequential scan
 
-In the previous article we where analyzing the result of this `EXPLAIN`![Alt text](/images/explain/query.png)
+In the previous article we where analyzing the result of this `EXPLAIN`![Alt text](/images/explain/explain.png)
 On the image above, you can see a `seq scan`. The sequential scan simply scans the entire table and retrieves the rows matching the `where` clause.
 
 It's much like reading an entire encyclopaedia to get the information you need. You understand how it can be expensive for a big table.
@@ -37,20 +37,14 @@ Let's try on to add an index on the column `employer_name` used in our previous 
 
 `CREATE INDEX ON owl (employer_name);`
 
-## What is an index ?
-
-An index is a B-Tree. Each leave of the tree contains a tuple (value, pointer to the row).
-
-## Multi column indexes
-
-
-Back to our query then ! After creating the index, if we run the same query, it suddenly starts using the index
+After creating the index, if we run the same query, it suddenly starts using the index
 
 ```code
-owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name='Ulule';
-                                                         QUERY PLAN
-----------------------------------------------------------------------------------------------------------------------------
- Index Scan using owl_employer_name_idx on owl  (cost=0.29..8.30 rows=1 width=35) (actual time=2.399..2.400 rows=1 loops=1)
+EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name='Ulule';
+                                    QUERY PLAN
+-------------------------------------------------------------------------------------------
+ Index Scan using owl_employer_name_idx on owl  (cost=0.29..8.30 rows=1 width=35)
+                                                (actual time=2.399..2.400 rows=1 loops=1)
    Index Cond: ((employer_name)::text = 'Ulule'::text)
  Planning time: 0.111 ms
  Execution time: 0.065 ms
@@ -82,12 +76,12 @@ If you are reading an encyclopaedia on birds and want to know everything about b
 I have 2000 owls working at Hogwarts (it's a pretty big employer, not as big as the post office, but still).
 
 The result of
+
 `EXPLAIN ANALYZE SELECT * FROM owl WHERE owl.employer_name = 'Hogwarts';`
+
 is
+
 ```code
-owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name='Hogwarts';
-                                                             QUERY PLAN
--------------------------------------------------------------------------------------------------------------------------------------
  Bitmap Heap Scan on owl  (cost=47.78..152.78 rows=2000 width=35) (actual time=0.239..0.565 rows=2000 loops=1)
    Recheck Cond: ((employer_name)::text = 'Hogwarts'::text)
    Heap Blocks: exact=79
@@ -95,7 +89,7 @@ owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name='Hogwarts
          Index Cond: ((employer_name)::text = 'Hogwarts'::text)
  Planning time: 0.098 ms
  Execution time: 0.663 ms
-(7 rows)```
+ ```
 
 It's using something called a Bitmap Heap Scan.
 
