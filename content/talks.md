@@ -13,7 +13,7 @@ Well none for now, though I have ideas :)
 
 You want me to do one? Contact me on twitter or linkedin !
 
-## Passed talks
+## Past talks
 
 - pgdayParis : **Becoming a better developer with EXPLAIN**
   - [Slides](https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain)
