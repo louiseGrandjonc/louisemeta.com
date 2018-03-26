@@ -76,6 +76,8 @@ The actual time is only displayed if you are using `ANALYZE`.
 
 `(actual time=1.945..1.946 rows=1 loops=1)` means that the `seq scan` was executed once (`loops=1`), retrieved one row `rows=1` and took 1.946ms.
 
+Be careful about the `loops`, if the scan takes 5ms but is executed 1000 times in a loop, it can be the reason of a slow query !
+
 # Conclusion
 
 Now it's time to understand the different scans used by postgreSQL. I mentionned the sequential scan (`seq scan`), the next [article](/blog/explain-2/) focuses on that. 

@@ -15,6 +15,7 @@ In this article, I'm going to try to clarify the different types of scans used t
 I'm here taking the example of a letter delivery system. Owls deliver letters between humans. Here is the data model![Alt text](/images/explain/UML.png)
 
 In this tables I have:
+
 - 10 002 Owls
 - 10 000 Humans
 - 413861 Letters
@@ -62,14 +63,10 @@ The explain shows that it is using a sequential scan, and retrieving 7000 rows. 
 
 In a sequential scan, the reading head reads in memory order, so it only has to go to the next memory block to scan the tables. In the case of an index it has to "jump" between the pointers given by the tuples in the index.
 
-Moving the reading head is 1000 slower than reading the next physical block.
+**Moving the reading head is 1000 slower than reading the next physical block.**
+When you read a book, reading the next page is easier for you than jump to the page 34, then 98, then... It's the same for the reading head :)
 
-You will notice that I give a lot of encyclopaedia examples... But... When you read a book, reading the next page is easier for you than jump to the page 34, then 98, then... It's the same for the reading head :)
-
-So if a value is "common" (about over 20% of your table), it's quicker to simply read everything.
-
-The image that I can give you to understand that is the following:
-If you are reading an encyclopaedia on birds and want to know everything about birds except owls (so basically most of your book but a few pages), it would be quicker to read the entire book page after page than to list the pages where it's not about owls and look for each of this pages.
+So if a value is common in your table, it's quicker to simply read everything.
 
 # Bitmap heap scan
 
@@ -93,7 +90,22 @@ is
 
 It's using something called a Bitmap Heap Scan.
 
+In this algorithm, the tuple-pointer from index are **ordered by physical memory into a map**. The goal is to limit the "jumps" of the reading head between rows.
+When you think about it, a encyclopaedia's index is close from the structure of this map. For the word that you are looking for, the pages are ordered.
 
+But here you can see `Recheck Cond: ((employer_name)::text = 'Hogwarts'::text)`.
+
+If there are too many rows, the bitmap then contains the pages where the rows are. Then this pages are scanned, physical block after another, and the condition is rechecked.
+
+It would be like having in your encyclopaedia the list of chapters where you can find what a pretty common word instead of each page.
 
 
 # Conclusion
+
+So there are three types of scans:
+
+- The sequential Scan
+- The Index Scan
+- The Bitmap Heap Scan
+
+Now the next article will cover the joins. (I'm currently working on it :) )
