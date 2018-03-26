@@ -24,7 +24,8 @@ The conference at pgdayParis lasting 50 minutes, I had a bit more time to get in
 
 And here are the [slides](https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain)
 
-This first article covers why and how we, developers, should always look into our logs !
+This first article covers why and how we, developers, should always **look into our logs** !
+
 If you want to skip this, you can directly read about [pg_stat_statements](/blog/pg-stat-statements/) and how you can use it to find slow queries, or directly the part on [EXPLAIN](/blog/explain/).
 
 # Why do we use ORMs
@@ -33,11 +34,12 @@ If you are lucky enough to know DBAs, you probably have heard them tell you how 
 
 So if ORMs are that bad ? Why are we using them?
 
-- Technical debt, the project is too big to rewrite it, do you imagine telling your Project Owner "I really need to rewrite most of the project to only use raw SQL, and not add anything", in the reality of deadlines, it's often that this kind of tasks are postponed till... Well... Never ?
+- Technical debt, the project is too big to rewrite it, and even if we wanted to, often this kind of tasks are postponed because of the priority given by business to new fun features.
 - The application doesn’t need any fun SQL feature so the ORM is enough
 - We are a bit afraid of SQL (Something between being lazy and under a pile of tickets and not finding time to learn...)
-- The object mapping, simply, it's so much easier to keep working in python, php, ruby and retrieve objects, isn't it ?
-- We can avoid having to worry about DB connections
+- The object mapping, simply, it's easier to keep working in python, php, ruby and retrieve objects, isn't it ?
+- The ORM handles the DB connections
+- We don't have to worry about SQL injections
 
 If you are a DBA, you are already complaining about these reasons, but well, that's unfortunatly a reality... Like Trump being president of the US, you kind of have to accept it even if it drives you crazy... But I'm being a bit harsh on ORMs, sorry. 
 
@@ -45,8 +47,8 @@ If you are a DBA, you are already complaining about these reasons, but well, tha
 ![Alt text](/images/Owls_gnihihi.png)
 So if ORMs are often used, what's wrong with them?
 
-- The ORM executes queries that you might not expect
-- Your queries might not be optimised and you won’t know about it
+- The ORM **executes queries that you might not expect**
+- Your queries might **not be optimised** and you won’t know about it
 
 I'm going to give the example of the loops to show you how ugly it can get if you're not careful...
 
@@ -71,7 +73,7 @@ SELECT id, name FROM job WHERE id = 1
 …
 ```
 
-So it's pretty obvious that ORMs have to be handled with a lot of care if you don't want to have a slow website and an angry DBA.
+So it's pretty obvious that ORMs have to be handled with a lot of **care** if you don't want to have a slow website and an angry DBA.
 
 # So where are my logs ?
 

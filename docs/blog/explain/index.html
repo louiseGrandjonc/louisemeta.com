@@ -121,7 +121,7 @@
 
               <div class="sub-header">
                   
-                  March 2018 · 2 minute read
+                  March 2018 · 3 minute read
                   
               </div>
 
@@ -130,9 +130,9 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>As a reminder, if you ended up on this page by looking up on bing <code>EXPLAIN</code>, first I&rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a></p>
+<p>If you didn&rsquo;t read the articles on <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/">logs</a> and <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/">pg_stat_statements</a> this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a>. The video should be online soon, you can watch the <a href="https://www.youtube.com/watch?v=Ph2hXpTW-Zg">short version</a> from the djangoConEurope 2017.</p>
 
-<p>If you want to test the queries, here is the <a href="https://github.com/louiseGrandjonc/owl-conference">github project</a> for the talk. You can find a dump of the database, and the <a href="https://github.com/louiseGrandjonc/owl-conference/blob/master/sql/01_generate_data.sql">SQL</a> using <code>generate_series</code> to fill the DB.</p>
+<p>If you want to test the queries, <strong>here is the <a href="https://github.com/louiseGrandjonc/owl-conference">github project</a></strong> for the talk. You can find a <strong>dump of the database</strong>, and the <a href="https://github.com/louiseGrandjonc/owl-conference/blob/master/sql/01_generate_data.sql">SQL</a> using <code>generate_series</code> to fill the DB.</p>
 
 <p>Let&rsquo;s say you have a slow query, if you never have this problem, a few advices:</p>
 
@@ -151,9 +151,9 @@
 <p>What is happening there ?</p>
 
 <ul>
-<li>First the query is parsed into a query tree (an internal data structure). The syntax errors are detected.</li>
-<li>Then the planner and optimizer generates query plans (ways to execute the query) and calculate the cost of this plans.</li>
-<li>The best query plan is executed and then the results are returned to you.</li>
+<li>First the query is <strong>parsed into a query tree</strong> (an internal data structure). The syntax errors are detected.</li>
+<li>Then the planner and optimizer generates <strong>query plans</strong> (ways to execute the query) and <strong>calculate the cost</strong> of this plans.</li>
+<li>The best <strong>query plan is executed</strong> and then the results are returned to you.</li>
 </ul>
 
 <p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/query_path.png" alt="Alt text" /></p>
@@ -162,7 +162,16 @@
 
 <p>To use EXPLAIN, take a query and run</p>
 
-<p><code>EXPLAIN ANALYZE your_query;</code></p>
+<p><code>EXPLAIN (ANALYZE) your_query;</code></p>
+
+<p>If you use <code>ANALYZE</code>, your query will be executed, without it you get only the query plan with the estimated costs.</p>
+
+<p>If you want to use <code>EXPLAIN ANALYZE</code> on an <code>UPDATE</code> or <code>DELETE</code>, you can rollback</p>
+
+<pre><code class="language-code">BEGIN;
+EXPLAIN ANALYZE my_query;
+ROLLBACK
+</code></pre>
 
 <p>You will get a result that will look like this:</p>
 
@@ -170,11 +179,32 @@
 
 <h1 id="what-are-costs-and-actual-times">What are costs and actual times ?</h1>
 
+<h2 id="costs">Costs</h2>
+
+<p>The costs are calculated using database statistics. They look like this :</p>
+
+<p><code>(cost=0.00..205.01 rows=1 width=35)</code></p>
+
+<ul>
+<li>The part <code>cost=0.00..205.01</code> has two numbers, the first one indicates the <strong>cost of retrieving the first row</strong>, and the second one, the estimated <strong>cost of retrieving all the rows</strong>.
+You might wonder why the first cost is 0.00 and the second one 205.01 if there is only one row. Why are the numbers not the same ? It&rsquo;s because it is using a sequential scan (explained in <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/">this article</a>, the cost of reading the first row of the table is 0, but the cost of retrieving the one matching the <code>WHERE</code> clause is higher. It&rsquo;s like with a book, reading the first line costs you nothing.</li>
+<li><code>rows=1</code> is the estimated number of rows returned in your result</li>
+<li><code>width=35</code> is the average size of a row in kB.</li>
+</ul>
+
 <p>If you&rsquo;re using <code>EXPLAIN</code> without <code>ANALYZE</code> and the <code>rows</code> seem really of from the reality, you can force postgres to collect statistics on a table by running.</p>
 
 <p><code>ANALYZE my_table;</code></p>
 
+<h2 id="actual-times">Actual times</h2>
+
+<p>The actual time is only displayed if you are using <code>ANALYZE</code>.</p>
+
+<p><code>(actual time=1.945..1.946 rows=1 loops=1)</code> means that the <code>seq scan</code> was executed once (<code>loops=1</code>), retrieved one row <code>rows=1</code> and took 1.946ms.</p>
+
 <h1 id="conclusion">Conclusion</h1>
+
+<p>Now it&rsquo;s time to understand the different scans used by postgreSQL. I mentionned the sequential scan (<code>seq scan</code>), the next <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/">article</a> focuses on that.</p>
 
               </article>
 

@@ -13,7 +13,7 @@ As a reminder, if you ended up on this page by looking up on bing `pg_stat_state
 
 ## What is pg_stat_statements ?
 
-pg_stat_statement is a postgreSQL extension, once you enable it, it tracks statistics on the queries executed by a server. It will help you find slow queries.
+pg_stat_statement is a **postgreSQL extension**, once you enable it, it **tracks statistics on the queries** executed by a server. It will help you find slow queries.
 ![Alt text](/images/Owls_attack.png)
 
 You can use it in your local environment but also on production, if you are afraid of the performances loss, here is an [article](http://pgsnaga.blogspot.fr/2011/10/performance-impact-of-pgstatstatements.html) on the subject.

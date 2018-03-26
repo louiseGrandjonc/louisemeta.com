@@ -121,22 +121,104 @@
 
               <div class="sub-header">
                   
-                  March 2018 · 1 minute read
+                  March 2018 · 4 minute read
                   
               </div>
 
               <article class="entry-content">
                   
 
-<h2 id="sequential-scan">Sequential scan</h2>
+<h1 id="introduction">Introduction</h1>
 
-<p>On the image above, you can see a <code>seq scan</code>. The sequential scan simply reads the entire table and retrieves the rows matching the <code>where</code> clause.</p>
+<p>If you don&rsquo;t know <code>EXPLAIN</code> and are starting with this article, I really encourage you to start from the beginning, to understand better what a query plan is and how to use <code>EXPLAIN</code>. The <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain]">previous article</a> covers that.</p>
 
-<h2 id="index-scan">Index scan</h2>
+<p>In this article, I&rsquo;m going to try to clarify the different types of scans used to filter tables and retrieve the exptected rows.</p>
 
-<p>If you see instead of the <code>seq scan</code> and <code>index scan</code> it means that and index is used to filter you rows. If the concept of indexes isn&rsquo;t quite clear, I encourage you to <a href="https://youtu.be/Ph2hXpTW-Zg?t=16m43s">watch</a> my conference where I explain it.</p>
+<p>I&rsquo;m here taking the example of a letter delivery system. Owls deliver letters between humans. Here is the data model<img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/UML.png" alt="Alt text" /></p>
 
-<h2 id="bitmap-heap-scan">Bitmap heap scan</h2>
+<p>In this tables I have:
+- 10 002 Owls
+- 10 000 Humans
+- 413861 Letters
+- 7 Jobs</p>
+
+<p>You can find a dump of this DB <a href="https://github.com/louiseGrandjonc/owl-conference/tree/master/sql">here</a>.</p>
+
+<h1 id="sequential-scan">Sequential scan</h1>
+
+<p>In the previous article we where analyzing the result of this <code>EXPLAIN</code><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/query.png" alt="Alt text" />
+On the image above, you can see a <code>seq scan</code>. The sequential scan simply scans the entire table and retrieves the rows matching the <code>where</code> clause.</p>
+
+<p>It&rsquo;s much like reading an entire encyclopaedia to get the information you need. You understand how it can be expensive for a big table.</p>
+
+<p>You might need an index.</p>
+
+<h1 id="index-scan">Index scan</h1>
+
+<p>Let&rsquo;s try on to add an index on the column <code>employer_name</code> used in our previous query.</p>
+
+<p><code>CREATE INDEX ON owl (employer_name);</code></p>
+
+<h2 id="what-is-an-index">What is an index ?</h2>
+
+<p>An index is a B-Tree. Each leave of the tree contains a tuple (value, pointer to the row).</p>
+
+<h2 id="multi-column-indexes">Multi column indexes</h2>
+
+<p>Back to our query then ! After creating the index, if we run the same query, it suddenly starts using the index</p>
+
+<pre><code class="language-code">owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name='Ulule';
+                                                         QUERY PLAN
+----------------------------------------------------------------------------------------------------------------------------
+ Index Scan using owl_employer_name_idx on owl  (cost=0.29..8.30 rows=1 width=35) (actual time=2.399..2.400 rows=1 loops=1)
+   Index Cond: ((employer_name)::text = 'Ulule'::text)
+ Planning time: 0.111 ms
+ Execution time: 0.065 ms
+</code></pre>
+
+<p>An Index Scan explores the B-Tree and walks through the leaves to retrieve the matching rows.</p>
+
+<h2 id="index-scan-or-sequential-scan">Index Scan or Sequential scan ?</h2>
+
+<p>If I try this query</p>
+
+<p><code>EXPLAIN SELECT * FROM owl WHERE employer_name = 'post office';</code></p>
+
+<p>The explain shows that it is using a sequential scan, and retrieving 7000 rows. As there is an index, it might seem weird to you.</p>
+
+<p>In a sequential scan, the reading head reads in memory order, so it only has to go to the next memory block to scan the tables. In the case of an index it has to &ldquo;jump&rdquo; between the pointers given by the tuples in the index.</p>
+
+<p>Moving the reading head is 1000 slower than reading the next physical block.</p>
+
+<p>You will notice that I give a lot of encyclopaedia examples&hellip; But&hellip; When you read a book, reading the next page is easier for you than jump to the page 34, then 98, then&hellip; It&rsquo;s the same for the reading head :)</p>
+
+<p>So if a value is &ldquo;common&rdquo; (about over 20% of your table), it&rsquo;s quicker to simply read everything.</p>
+
+<p>The image that I can give you to understand that is the following:
+If you are reading an encyclopaedia on birds and want to know everything about birds except owls (so basically most of your book but a few pages), it would be quicker to read the entire book page after page than to list the pages where it&rsquo;s not about owls and look for each of this pages.</p>
+
+<h1 id="bitmap-heap-scan">Bitmap heap scan</h1>
+
+<p>I have 2000 owls working at Hogwarts (it&rsquo;s a pretty big employer, not as big as the post office, but still).</p>
+
+<p>The result of
+<code>EXPLAIN ANALYZE SELECT * FROM owl WHERE owl.employer_name = 'Hogwarts';</code>
+is
+```code
+owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name=&lsquo;Hogwarts&rsquo;;</p>
+
+<h2 id="query-plan">QUERY PLAN</h2>
+
+<p>Bitmap Heap Scan on owl  (cost=47.78..152.78 rows=2000 width=35) (actual time=0.239..0.565 rows=2000 loops=1)
+   Recheck Cond: ((employer_name)::text = &lsquo;Hogwarts&rsquo;::text)
+   Heap Blocks: exact=79
+   -&gt;  Bitmap Index Scan on owl_employer_name_idx  (cost=0.00..47.28 rows=2000 width=0) (actual time=0.227..0.227 rows=2000 loops=1)
+         Index Cond: ((employer_name)::text = &lsquo;Hogwarts&rsquo;::text)
+ Planning time: 0.098 ms
+ Execution time: 0.663 ms
+(7 rows)```</p>
+
+<p>It&rsquo;s using something called a Bitmap Heap Scan.</p>
 
 <h1 id="conclusion">Conclusion</h1>
 

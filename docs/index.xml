@@ -37,7 +37,7 @@ What is pg_stat_statements ? pg_stat_statement is a postgreSQL extension, once y
       <pubDate>Sat, 24 Mar 2018 16:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</guid>
-      <description>Introduction As a reminder, if you ended up on this page by looking up on bing EXPLAIN, first I&amp;rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the pgdayParis and here are the slides
+      <description>Introduction If you didn&amp;rsquo;t read the articles on logs and pg_stat_statements this article is based on a talk that I did at the pgdayParis and here are the slides. The video should be online soon, you can watch the short version from the djangoConEurope 2017.
 If you want to test the queries, here is the github project for the talk. You can find a dump of the database, and the SQL using generate_series to fill the DB.</description>
     </item>
     
@@ -47,8 +47,9 @@ If you want to test the queries, here is the github project for the talk. You ca
       <pubDate>Sat, 24 Mar 2018 15:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/</guid>
-      <description>Sequential scan On the image above, you can see a seq scan. The sequential scan simply reads the entire table and retrieves the rows matching the where clause.
-Index scan If you see instead of the seq scan and index scan it means that and index is used to filter you rows. If the concept of indexes isn&amp;rsquo;t quite clear, I encourage you to watch my conference where I explain it.</description>
+      <description>Introduction If you don&amp;rsquo;t know EXPLAIN and are starting with this article, I really encourage you to start from the beginning, to understand better what a query plan is and how to use EXPLAIN. The previous article covers that.
+In this article, I&amp;rsquo;m going to try to clarify the different types of scans used to filter tables and retrieve the exptected rows.
+I&amp;rsquo;m here taking the example of a letter delivery system.</description>
     </item>
     
     <item>

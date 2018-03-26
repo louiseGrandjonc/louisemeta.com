@@ -150,8 +150,9 @@ I realized that I was missing some basics :</p>
 
 <p>And here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a></p>
 
-<p>This first article covers why and how we, developers, should always look into our logs !
-If you want to skip this, you can directly read about <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/">pg_stat_statements</a> and how you can use it to find slow queries, or directly the part on <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">EXPLAIN</a>.</p>
+<p>This first article covers why and how we, developers, should always <strong>look into our logs</strong> !</p>
+
+<p>If you want to skip this, you can directly read about <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/">pg_stat_statements</a> and how you can use it to find slow queries, or directly the part on <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">EXPLAIN</a>.</p>
 
 <h1 id="why-do-we-use-orms">Why do we use ORMs</h1>
 
@@ -161,11 +162,12 @@ If you are lucky enough to know DBAs, you probably have heard them tell you how 
 <p>So if ORMs are that bad ? Why are we using them?</p>
 
 <ul>
-<li>Technical debt, the project is too big to rewrite it, do you imagine telling your Project Owner &ldquo;I really need to rewrite most of the project to only use raw SQL, and not add anything&rdquo;, in the reality of deadlines, it&rsquo;s often that this kind of tasks are postponed till&hellip; Well&hellip; Never ?</li>
+<li>Technical debt, the project is too big to rewrite it, and even if we wanted to, often this kind of tasks are postponed because of the priority given by business to new fun features.</li>
 <li>The application doesn’t need any fun SQL feature so the ORM is enough</li>
 <li>We are a bit afraid of SQL (Something between being lazy and under a pile of tickets and not finding time to learn&hellip;)</li>
-<li>The object mapping, simply, it&rsquo;s so much easier to keep working in python, php, ruby and retrieve objects, isn&rsquo;t it ?</li>
-<li>We can avoid having to worry about DB connections</li>
+<li>The object mapping, simply, it&rsquo;s easier to keep working in python, php, ruby and retrieve objects, isn&rsquo;t it ?</li>
+<li>The ORM handles the DB connections</li>
+<li>We don&rsquo;t have to worry about SQL injections</li>
 </ul>
 
 <p>If you are a DBA, you are already complaining about these reasons, but well, that&rsquo;s unfortunatly a reality&hellip; Like Trump being president of the US, you kind of have to accept it even if it drives you crazy&hellip; But I&rsquo;m being a bit harsh on ORMs, sorry.</p>
@@ -176,8 +178,8 @@ If you are lucky enough to know DBAs, you probably have heard them tell you how 
 So if ORMs are often used, what&rsquo;s wrong with them?</p>
 
 <ul>
-<li>The ORM executes queries that you might not expect</li>
-<li>Your queries might not be optimised and you won’t know about it</li>
+<li>The ORM <strong>executes queries that you might not expect</strong></li>
+<li>Your queries might <strong>not be optimised</strong> and you won’t know about it</li>
 </ul>
 
 <p>I&rsquo;m going to give the example of the loops to show you how ugly it can get if you&rsquo;re not careful&hellip;</p>
@@ -201,7 +203,7 @@ SELECT id, name FROM job WHERE id = 1
 …
 </code></pre>
 
-<p>So it&rsquo;s pretty obvious that ORMs have to be handled with a lot of care if you don&rsquo;t want to have a slow website and an angry DBA.</p>
+<p>So it&rsquo;s pretty obvious that ORMs have to be handled with a lot of <strong>care</strong> if you don&rsquo;t want to have a slow website and an angry DBA.</p>
 
 <h1 id="so-where-are-my-logs">So where are my logs ?</h1>
 
