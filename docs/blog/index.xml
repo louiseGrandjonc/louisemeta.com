@@ -52,23 +52,5 @@ In this article, I&amp;rsquo;m going to try to clarify the different types of sc
 I&amp;rsquo;m here taking the example of a letter delivery system.</description>
     </item>
     
-    <item>
-      <title>Understanding EXPLAIN - part 3 - Joins</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-3/</link>
-      <pubDate>Sat, 24 Mar 2018 14:39:21 -0700</pubDate>
-      
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-3/</guid>
-      <description> Nested loops Hash join Merge join </description>
-    </item>
-    
-    <item>
-      <title>Understanding EXPLAIN - part 4 - Ordering and a word on offset</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-4/</link>
-      <pubDate>Sat, 24 Mar 2018 14:39:21 -0700</pubDate>
-      
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-4/</guid>
-      <description> Quicksort Top-N heap sort A word on offset </description>
-    </item>
-    
   </channel>
 </rss>
