@@ -1,6 +1,6 @@
 ---
 author: "Louise Grandjonc"
-date: 2018-02-28T17:39:21-07:00
+date: 2018-03-23T17:39:21-07:00
 linktitle: pg_stat_statements - finding ugly queries
 title: pg_stat_statements - finding ugly queries
 weight: 1
@@ -56,4 +56,4 @@ LIMIT 100;
 
 # Conclusion
 
-Well that's it ! But now that you know which queries are slow, you probably want to understand what's wrong. To do that, I encourage you to use EXPLAIN, if you want to read about it, I have written a series of article starting [here](/blog/explain/).
+Well that's it ! But now that you know which queries are slow, you probably want to understand what's wrong. To do that, I encourage you to use EXPLAIN, if you want to read about it, I am currently finishing writting articles on `EXPLAIN`, so be patient, they should be available in the next few days :)

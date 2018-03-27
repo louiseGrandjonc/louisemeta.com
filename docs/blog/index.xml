@@ -7,36 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>false</copyright>
-    <lastBuildDate>Sun, 25 Mar 2018 19:39:21 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 23 Mar 2018 17:39:21 -0700</lastBuildDate>
     
 	<atom:link href="https://louisegrandjonc.github.io/louisemeta.com/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Understanding EXPLAIN - part 2 - Scans</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/</link>
-      <pubDate>Sun, 25 Mar 2018 19:39:21 -0700</pubDate>
-      
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/</guid>
-      <description>Introduction If you don&amp;rsquo;t know EXPLAIN and are starting with this article, I really encourage you to start from the beginning, to understand better what a query plan is and how to use EXPLAIN. The previous article covers that.
-In this article, I&amp;rsquo;m going to try to clarify the different types of scans used to filter tables and retrieve the exptected rows.
-I&amp;rsquo;m here taking the example of a letter delivery system.</description>
-    </item>
-    
-    <item>
-      <title>Understanding EXPLAIN - part 1 - Costs and actual time</title>
-      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</link>
-      <pubDate>Sat, 24 Mar 2018 16:39:21 -0700</pubDate>
-      
-      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</guid>
-      <description>Introduction If you didn&amp;rsquo;t read the articles on logs and pg_stat_statements this article is based on a talk that I did at the pgdayParis and here are the slides. The video should be online soon, you can watch the short version from the djangoConEurope 2017.
-If you want to test the queries, here is the github project for the talk. You can find a dump of the database, and the SQL using generate_series to fill the DB.</description>
-    </item>
-    
-    <item>
       <title>pg_stat_statements - finding ugly queries</title>
       <link>https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/</link>
-      <pubDate>Wed, 28 Feb 2018 17:39:21 -0700</pubDate>
+      <pubDate>Fri, 23 Mar 2018 17:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/</guid>
       <description>Introduction As a reminder, if you ended up on this page by looking up on bing pg_stat_statements, first I&amp;rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the pgdayParis 2018 and here are the slides
@@ -46,7 +25,7 @@ What is pg_stat_statements ? pg_stat_statement is a postgreSQL extension, once y
     <item>
       <title>PostgreSQL&#39;s logs - a developer&#39;s best friend</title>
       <link>https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/</link>
-      <pubDate>Wed, 31 Jan 2018 18:39:21 -0700</pubDate>
+      <pubDate>Wed, 21 Mar 2018 18:39:21 -0700</pubDate>
       
       <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/</guid>
       <description>Introduction A few years back, when I was an intern, the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip; I realized that I was missing some basics :

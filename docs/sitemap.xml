@@ -3,23 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/</loc>
-      <lastmod>2018-03-25T19:39:21-07:00</lastmod>
-    </url>
-  
-    <url>
-      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</loc>
-      <lastmod>2018-03-24T16:39:21-07:00</lastmod>
-    </url>
-  
-    <url>
       <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/</loc>
-      <lastmod>2018-02-28T17:39:21-07:00</lastmod>
+      <lastmod>2018-03-23T17:39:21-07:00</lastmod>
     </url>
   
     <url>
       <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/</loc>
-      <lastmod>2018-01-31T18:39:21-07:00</lastmod>
+      <lastmod>2018-03-21T18:39:21-07:00</lastmod>
     </url>
   
     <url>
@@ -38,18 +28,13 @@
     </url>
   
     <url>
-      <loc>https://louisegrandjonc.github.io/louisemeta.com/secrets/</loc>
-      <lastmod>2018-03-20T17:39:21-07:00</lastmod>
-    </url>
-  
-    <url>
       <loc>https://louisegrandjonc.github.io/louisemeta.com/talks/</loc>
       <lastmod>2018-03-20T17:39:21-07:00</lastmod>
     </url>
   
     <url>
       <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/</loc>
-      <lastmod>2018-03-25T19:39:21-07:00</lastmod>
+      <lastmod>2018-03-23T17:39:21-07:00</lastmod>
       <priority>0</priority>
     </url>
   
@@ -60,7 +45,7 @@
   
     <url>
       <loc>https://louisegrandjonc.github.io/louisemeta.com/</loc>
-      <lastmod>2018-03-25T19:39:21-07:00</lastmod>
+      <lastmod>2018-03-23T17:39:21-07:00</lastmod>
       <priority>0</priority>
     </url>
   

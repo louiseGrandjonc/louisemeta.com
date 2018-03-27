@@ -1,6 +1,6 @@
 ---
 author: "Louise Grandjonc"
-date: 2018-01-31T18:39:21-07:00
+date: 2018-03-21T18:39:21-07:00
 linktitle: PostgreSQL's logs - a developer's best friend
 title: PostgreSQL's logs - a developer's best friend
 weight: 1
@@ -24,9 +24,8 @@ The conference at pgdayParis lasting 50 minutes, I had a bit more time to get in
 
 And here are the [slides](https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain)
 
-This first article covers why and how we, developers, should always **look into our logs** !
+I am currently writting a series of articles on the subjects covered during this talk. This first one is about logs, why and how we, developers, should always **look into our logs** !
 
-If you want to skip this, you can directly read about [pg_stat_statements](/blog/pg-stat-statements/) and how you can use it to find slow queries, or directly the part on [EXPLAIN](/blog/explain/).
 
 # Why should we be careful about ORMs
 ![Alt text](/images/Owls_gnihihi.png)

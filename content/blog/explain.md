@@ -4,6 +4,7 @@ date: 2018-03-24T16:39:21-07:00
 linktitle: Understanding EXPLAIN - part 1 - Costs and actual time
 title: Understanding EXPLAIN - part 1 - Costs and actual time
 weight: 1
+draft: true
 ---
 
 

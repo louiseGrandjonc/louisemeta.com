@@ -4,6 +4,7 @@ date: 2018-03-25T19:39:21-07:00
 linktitle: Understanding EXPLAIN - part 2 - Scans
 title: Understanding EXPLAIN - part 2 - Scans
 weight: 1
+draft: true
 ---
 
 # Introduction
