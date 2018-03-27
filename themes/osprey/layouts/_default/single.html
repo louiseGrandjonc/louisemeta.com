@@ -19,12 +19,13 @@
               </article>
 
               <div class="pagination">
-                  {{ if .NextInSection }}
-                      <a href="{{ .NextInSection.Permalink }}">&laquo; {{ string .NextInSection.Title | truncate 32 }}</a>
-                  {{ end }}
                   {{ if .PrevInSection }}
-                      <a href="{{ .PrevInSection.Permalink }}">{{ string .PrevInSection.Title | truncate 32 }} &raquo;</a>
+                      <a href="{{ .PrevInSection.Permalink }}">&laquo; {{ string .PrevInSection.Title | truncate 32 }}</a>
                   {{ end }}
+                  {{ if .NextInSection }}
+                      <a href="{{ .NextInSection.Permalink }}">{{ string .NextInSection.Title | truncate 32 }} &raquo;</a>
+                  {{ end }}
+
               </div>
           </section>
           <br>

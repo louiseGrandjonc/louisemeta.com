@@ -76,4 +76,4 @@ So from that you understand:
 
 # Conclusion
 
-Well that's it ! But now that you know which queries are slow, you probably want to understand what's wrong. To do that, I encourage you to use EXPLAIN, if you want to read about it, I am currently finishing writting articles on `EXPLAIN`, so be patient, they should be available in the next few days :)
+Well that's it ! But now that you know which queries are slow, you probably want to understand what's wrong. To do that, I encourage you to use EXPLAIN, if you want to read about it, I am currently writing articles on `EXPLAIN`, so be patient, they should be available in the next few days :)
