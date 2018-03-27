@@ -118,3 +118,4 @@ config_file
 # Conclusion
 
 So here we are, you have your logs and you know why it's so important to look into them ! The next step would be having something to help you find slow queries with [pg_stat_statements](/blog/pg-stat-statements/) :)
+
