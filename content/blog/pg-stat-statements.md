@@ -54,6 +54,26 @@ ORDER BY mean_time DESC
 LIMIT 100;
 ```
 
+You will get a set of results looking like:
+
+```code
+-[ RECORD 1 ]---------------------------------------------------------
+total_time | 643.624
+min_time   | 54.424
+max_time   | 531.417
+mean_time  | 214.541333333333
+calls      | 3
+query      | SELECT COUNT(*) FROM letters;
+```
+
+So from that you understand:
+
+- The query has been executed 3 times (`calls`)
+- The execution time was between 54 and 531 ms (`min_time`, `max_time`)
+- The `total_time` is the sum of the time of each execution
+- The `mean_time` is total_time/calls
+
+
 # Conclusion
 
 Well that's it ! But now that you know which queries are slow, you probably want to understand what's wrong. To do that, I encourage you to use EXPLAIN, if you want to read about it, I am currently finishing writting articles on `EXPLAIN`, so be patient, they should be available in the next few days :)
