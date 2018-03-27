@@ -96,12 +96,22 @@ So in this case you would find your logs in
 /usr/local/var/postgres/pg_log/postgresql-2018-03-23.log
 ```
 
-If you're a developer, working localy, in order to have all you queries into your logs you will need to change your `postgresql.conf` and put
+If you're a developer, working localy, in order to log all queries, you need to change your `postgresql.conf` and put
 
 ```code
 log_statement = 'all'
 logging_collector = on
 log_min_duration_statement = 0
+```
+
+If you can't find your configuration file, you can run in psql:
+
+```code
+owl_conference=# SHOW config_file;
+config_file
+-----------------------------------------
+ /usr/local/var/postgres/postgresql.conf
+(1 row)
 ```
 
 

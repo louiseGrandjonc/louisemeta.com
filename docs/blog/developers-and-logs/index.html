@@ -231,11 +231,20 @@ owl_conference=# show log_filename ;
 <pre><code class="language-code">/usr/local/var/postgres/pg_log/postgresql-2018-03-23.log
 </code></pre>
 
-<p>If you&rsquo;re a developer, working localy, in order to have all you queries into your logs you will need to change your <code>postgresql.conf</code> and put</p>
+<p>If you&rsquo;re a developer, working localy, in order to log all queries, you need to change your <code>postgresql.conf</code> and put</p>
 
 <pre><code class="language-code">log_statement = 'all'
 logging_collector = on
 log_min_duration_statement = 0
+</code></pre>
+
+<p>If you can&rsquo;t find your configuration file, you can run in psql:</p>
+
+<pre><code class="language-code">owl_conference=# SHOW config_file;
+config_file
+-----------------------------------------
+ /usr/local/var/postgres/postgresql.conf
+(1 row)
 </code></pre>
 
 <h1 id="conclusion">Conclusion</h1>
