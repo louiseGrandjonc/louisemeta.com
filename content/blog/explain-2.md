@@ -4,7 +4,6 @@ date: 2018-03-25T19:39:21-07:00
 linktitle: Understanding EXPLAIN - part 2 - Scans
 title: Understanding EXPLAIN - part 2 - Scans
 weight: 1
-draft: true
 ---
 
 # Introduction
@@ -26,8 +25,23 @@ You can find a dump of this DB [here](https://github.com/louiseGrandjonc/owl-con
 
 # Sequential scan
 
-In the previous article we where analyzing the result of this `EXPLAIN`![Alt text](/images/explain/explain.png)
-On the image above, you can see a `seq scan`. The sequential scan simply scans the entire table and retrieves the rows matching the `where` clause.
+In the previous article we where analyzing the result of this `EXPLAIN`
+
+```code
+owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl
+                 WHERE owl.employer_name = 'Ulule';
+                 QUERY PLAN
+------------------------------------------------------------
+ Seq Scan on owl  (cost=0.00..205.03 rows=1 width=35)
+                  (actual time=1.904..1.904 rows=1 loops=1)
+   Filter: ((employer_name)::text = 'Ulule'::text)
+   Rows Removed by Filter: 10001
+ Planning time: 0.251 ms
+ Execution time: 1.956 ms
+(5 rows)
+```
+
+You can see a `seq scan`. The sequential scan simply scans the entire table and retrieves the rows matching the `where` clause.
 
 It's much like reading an entire encyclopaedia to get the information you need. You understand how it can be expensive for a big table.
 
@@ -56,16 +70,25 @@ An Index Scan explores the B-Tree and walks through the leaves to retrieve the m
 
 ## Index Scan or Sequential scan ?
 
-If I try this query
+![Alt Text](/images/Owls_shazam.png)If I try this query
 
-`EXPLAIN SELECT * FROM owl WHERE employer_name = 'post office';`
+```code
+owl_conference=# EXPLAIN SELECT * FROM owl
+                 WHERE employer_name = 'post office';
+                       QUERY PLAN
+---------------------------------------------------------
+ Seq Scan on owl  (cost=0.00..205.03 rows=7001 width=35)
+   Filter: ((employer_name)::text = 'post office'::text)
+(2 rows)
+
+```
 
 The explain shows that it is using a sequential scan, and retrieving 7000 rows. As there is an index, it might seem weird to you.
 
-In a sequential scan, the reading head reads in memory order, so it only has to go to the next memory block to scan the tables. In the case of an index it has to "jump" between the pointers given by the tuples in the index.
+In a sequential scan, the reading head reads in memory order, so it only has to go to the next memory block to scan the tables. In the case of an index it has to "jump" between the pointers given by the tuples (value, pointer) in the index.
 
 **Moving the reading head is 1000 slower than reading the next physical block.**
-When you read a book, reading the next page is easier for you than jump to the page 34, then 98, then... It's the same for the reading head :)
+When you read a book, reading the next page is easier for you than jumping to the page 34, then 98, then 12... It's the same for the reading head :)
 
 So if a value is common in your table, it's quicker to simply read everything.
 
@@ -73,21 +96,24 @@ So if a value is common in your table, it's quicker to simply read everything.
 
 I have 2000 owls working at Hogwarts (it's a pretty big employer, not as big as the post office, but still).
 
-The result of
-
-`EXPLAIN ANALYZE SELECT * FROM owl WHERE owl.employer_name = 'Hogwarts';`
-
-is
+Let's look at the result of the `EXPLAIN`
 
 ```code
- Bitmap Heap Scan on owl  (cost=47.78..152.78 rows=2000 width=35) (actual time=0.239..0.565 rows=2000 loops=1)
+owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl
+                 WHERE owl.employer_name = 'Hogwarts';
+                               QUERY PLAN
+-------------------------------------------------------------------------------------------------
+ Bitmap Heap Scan on owl  (cost=47.78..152.78 rows=2000 width=35)
+                          (actual time=12.424..17.496 rows=2000 loops=1)
    Recheck Cond: ((employer_name)::text = 'Hogwarts'::text)
    Heap Blocks: exact=79
-   ->  Bitmap Index Scan on owl_employer_name_idx  (cost=0.00..47.28 rows=2000 width=0) (actual time=0.227..0.227 rows=2000 loops=1)
+   ->  Bitmap Index Scan on owl_employer_name_idx  (cost=0.00..47.28 rows=2000 width=0)
+                                                   (actual time=12.331..12.331 rows=2000 loops=1)
          Index Cond: ((employer_name)::text = 'Hogwarts'::text)
- Planning time: 0.098 ms
- Execution time: 0.663 ms
- ```
+ Planning time: 0.117 ms
+ Execution time: 17.702 ms
+(7 rows)
+```
 
 It's using something called a Bitmap Heap Scan.
 
@@ -98,15 +124,15 @@ But here you can see `Recheck Cond: ((employer_name)::text = 'Hogwarts'::text)`.
 
 If there are too many rows, the bitmap then contains the pages where the rows are. Then this pages are scanned, physical block after another, and the condition is rechecked.
 
-It would be like having in your encyclopaedia the list of chapters where you can find what a pretty common word instead of each page.
+It would be like having in your encyclopaedia the list of chapters where you can find what a pretty common word instead of a very long list of pages. You would then read the chapters and perform your own recheck condition by just ignoring the information you're not interested in.
 
 
 # Conclusion
 
-So there are three types of scans:
+![Alt Text](/images/Owls_yes!.png)So there are three types of scans:
 
 - The sequential Scan
 - The Index Scan
 - The Bitmap Heap Scan
 
-Now the next article will cover the joins. (I'm currently working on it :) )
+Now the next article will cover the joins. (I'm currently working on it :) ). I will be adding in the next couple of days !

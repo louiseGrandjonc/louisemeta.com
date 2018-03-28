@@ -13,3 +13,6 @@ draft: true
 An index is a B-Tree. Each leave of the tree contains a tuple (value, pointer to the row).
 
 ## Multi column indexes
+
+
+## Different types of indexes and their use case

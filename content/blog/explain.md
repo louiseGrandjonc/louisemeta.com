@@ -4,7 +4,6 @@ date: 2018-03-24T16:39:21-07:00
 linktitle: Understanding EXPLAIN - part 1 - Costs and actual time
 title: Understanding EXPLAIN - part 1 - Costs and actual time
 weight: 1
-draft: true
 ---
 
 
@@ -14,10 +13,10 @@ If you didn't read the articles on [logs](/blog/developers-and-logs/) and [pg_st
 
 If you want to test the queries, **here is the [github project](https://github.com/louiseGrandjonc/owl-conference)** for the talk. You can find a **dump of the database**, and the [SQL](https://github.com/louiseGrandjonc/owl-conference/blob/master/sql/01_generate_data.sql) using `generate_series` to fill the DB.
 
-Let's say you have a slow query, if you never have this problem, a few advices:
+Let's say you have a slow query, if you've never had this problem, a few advices:
 
 - close this page, it's useless
-- start working a bit, if you've never written any stupid code, what do you do ?
+- start working a bit, if you've never written any stupid code, what are you doing ?
 
 So, back to our slow query, what you would want is understand why it's slow, so basicaly "what the hell is postgres doing?". To do that, we are going to look into the query plan.
 
@@ -36,13 +35,14 @@ What is happening there ?
 
 # About EXPLAIN
 
-To use EXPLAIN, take a query and run
+`EXPLAIN` is the command that gives you the query plan used for a given query. By using it, you will know how the query is executed and it can help you understand why it is slow.
+
+To use `EXPLAIN`, take a query and run
 
 `EXPLAIN (ANALYZE) your_query;`
 
 If you use `ANALYZE`, your query will be executed, without it you get only the query plan with the estimated costs.
-
-If you want to use `EXPLAIN ANALYZE` on an `UPDATE` or `DELETE`, you can rollback
+If you want to add the `ANALYZE` option on an `UPDATE` or `DELETE`, you can rollback
 
 ```code
 BEGIN;
@@ -63,7 +63,7 @@ The costs are calculated using database statistics. They look like this :
 `(cost=0.00..205.01 rows=1 width=35)`
 
 - The part `cost=0.00..205.01` has two numbers, the first one indicates the **cost of retrieving the first row**, and the second one, the estimated **cost of retrieving all the rows**.
-  You might wonder why the first cost is 0.00 and the second one 205.01 if there is only one row. Why are the numbers not the same ? It's because it is using a sequential scan (explained in [this article](/blog/explain-2/), the cost of reading the first row of the table is 0, but the cost of retrieving the one matching the `WHERE` clause is higher. It's like with a book, reading the first line costs you nothing.
+  You might wonder why the first cost is 0.00 and the second one 205.01. If there is only one row, why are the numbers not the same ? It's because it is using a sequential scan (explained in [this article](/blog/explain-2/), the cost of reading the first row of the table is 0, but the cost of retrieving the one matching the `WHERE` clause is higher. It's like with a book, reading the first line of it costs you nothing, but reading the block that interests you is a bit more "expensive".
 - `rows=1` is the estimated number of rows returned in your result
 - `width=35` is the average size of a row in kB.
 

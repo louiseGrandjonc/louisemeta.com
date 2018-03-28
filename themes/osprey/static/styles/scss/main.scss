@@ -324,3 +324,15 @@ footer {
     color: #FFF;
   }
 }
+
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: 25%;
+    border: 1px solid black;
+}
+
+th, td {
+    border: 1px solid black;
+}

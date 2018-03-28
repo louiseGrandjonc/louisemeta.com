@@ -7,10 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>false</copyright>
-    <lastBuildDate>Fri, 23 Mar 2018 17:39:21 -0700</lastBuildDate>
+    <lastBuildDate>Sun, 25 Mar 2018 19:39:21 -0700</lastBuildDate>
     
 	<atom:link href="http://www.louisemeta.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Understanding EXPLAIN - part 2 - Scans</title>
+      <link>http://www.louisemeta.com/blog/explain-2/</link>
+      <pubDate>Sun, 25 Mar 2018 19:39:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/blog/explain-2/</guid>
+      <description>Introduction If you don&amp;rsquo;t know EXPLAIN and are starting with this article, I really encourage you to start from the beginning, to understand better what a query plan is and how to use EXPLAIN. The previous article covers that.
+In this article, I&amp;rsquo;m going to try to clarify the different types of scans used to filter tables and retrieve the exptected rows.
+I&amp;rsquo;m here taking the example of a letter delivery system.</description>
+    </item>
+    
+    <item>
+      <title>Understanding EXPLAIN - part 1 - Costs and actual time</title>
+      <link>http://www.louisemeta.com/blog/explain/</link>
+      <pubDate>Sat, 24 Mar 2018 16:39:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/blog/explain/</guid>
+      <description>Introduction If you didn&amp;rsquo;t read the articles on logs and pg_stat_statements this article is based on a talk that I did at the pgdayParis and here are the slides. The video should be online soon, you can watch the short version from the djangoConEurope 2017.
+If you want to test the queries, here is the github project for the talk. You can find a dump of the database, and the SQL using generate_series to fill the DB.</description>
+    </item>
     
     <item>
       <title>pg_stat_statements - finding ugly queries</title>
