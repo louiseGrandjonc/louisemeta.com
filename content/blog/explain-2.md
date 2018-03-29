@@ -8,7 +8,7 @@ weight: 1
 
 # Introduction
 
-If you don't know `EXPLAIN` and are starting with this article, I really encourage you to start from the beginning, to understand better what a query plan is and how to use `EXPLAIN`. The [previous article](/blog/explain]) covers that.
+If you don't know `EXPLAIN` and are starting with this article, I really encourage you to start from the beginning, to understand better what a query plan is and how to use `EXPLAIN`. The [previous article](/blog/explain/) covers that.
 
 In this article, I'm going to try to clarify the different types of scans used to filter tables and retrieve the exptected rows.
 
