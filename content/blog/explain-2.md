@@ -135,4 +135,4 @@ It would be like having in your encyclopaedia the list of chapters where you can
 - The Index Scan
 - The Bitmap Heap Scan
 
-Now the next article will cover the joins. (I'm currently working on it :) ). I will be adding in the next couple of days !
+Now the [next article](/blog/explain-3/) will cover the joins.

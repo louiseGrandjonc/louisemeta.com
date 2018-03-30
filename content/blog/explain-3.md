@@ -4,14 +4,16 @@ date: 2018-03-26T14:39:21-07:00
 linktitle: Understanding EXPLAIN - part 3 - Joins
 title: Understanding EXPLAIN - part 3 - Joins
 weight: 1
-draft: true
 ---
 
 # Introduction
 
-Now that you're a bit more familiar with `EXPLAIN`, the notions of costs, actual times, the different algorithm of scans, this article is going to be about joining tables.
-
 If you haven't read the previous articles, I really encourage to start from the beginning, `EXPLAIN` can seem a bit complicated if you don't have the basics. So don't hesitate to take a look at [the first](/blog/explain/) and [second](/blog/explain-2/) article on the subject. Moreover reading them will give you the data model and a bit more information on the examples used here !
+
+But if you have read them, welcome back !![Alt text](/images/Owls_metal_01.png)
+
+Now that you're a bit more familiar with `EXPLAIN`, the notions of costs, actual times, the different algorithm of scans, let's talk about joining tables.
+
 
 # Nested loops
 
@@ -41,7 +43,7 @@ owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl JOIN job ON (job.id = owl.job
 (10 rows)
 ```
 
-To perform a join, this `Nested Loops` algorithm loops on the owls, and for each owl, it loops over the jobs and join on the `owl.job_id` column.
+To perform a join, this `Nested Loops` algorithm loops on the owls, and for each owl, it loops over the jobs and joins on the `owl.job_id` column.
 
 If I wrote a nested loop in Python, it would be something like
 
@@ -56,7 +58,7 @@ for owl in owls:
             break
 ```
 
-In the explain you can see on the `Materialize` line, `loops=10002`, which is the number of owls. Here because of the filter we only have `rows=2` jobs, but the complexity being O(n*m), you can imagine how slow it could get on big tables.
+The complexity being O(n*m), you can imagine how slow it could get on big tables.
 
 # Hash join
 
@@ -84,9 +86,9 @@ owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl JOIN job ON (job.id = owl.job
 (10 rows)
 ```
 
-You can see that now we don't have any `loops` bigger than 1. So that's nice but why ?
 
 To perform a hash join:
+
 - A hash table is created in memory with the join values and a pointer to the rows.
 - This hash is used to join
 
@@ -96,23 +98,24 @@ For the Python developers, it would be like creating a dictionnary for the `job`
 
 ```python
 jobs = Job.objects.all()
-owls = Owl.objects.all()
 
+jobs_dict = {}
+for job in jobs:
+    jobs_dict[job.id] = job
+
+owls = Owl.objects.all()
 for owl in owls:
-    for job in jobs:
-        if owl.job_id == job.id:
-            owl.job = job
-            break
+    owl.job = jobs_dict[owl.job_id]
 ```
 
 This is much more efficient than the nested loop isn't it? So why isn't it used **all the time** ?
 
 - For small tables, the complexity of building the hash table makes it less efficient than a nested loop.
-- The hash table has to fit in memory (you can see it with `Memory Usage: 9kB` in the `EXPLAIN`), so for a big set of data, it can't be used. The same way you wouldn't make a dictionnary containing 1M values.
+- The hash table has to fit in memory (you can see it with `Memory Usage: 9kB` in the `EXPLAIN`), so for a big set of data, it can't be used. The same way you wouldn't create a dictionnary containing 1M values.
 
 # Merge join
 
-So now we have the case of joining tables that would be too big to either use `Nested Loops` or `Hash Join`.
+If neither `Nested Loop` or `Hash Join` can be used for joining big tables, what is the algorithm used then?
 
 I am here joining the letters (about 400 000 rows) with the human table on the `receiver_id` column. So basically I want all the letters with their recipients, ordered by recipients.
 
@@ -145,6 +148,7 @@ owl_conference=# EXPLAIN ANALYZE SELECT * FROM letters JOIN human ON (receiver_i
 ```
 
 What you can see here is that it's using a `Merge Join`. To do that:
+
 - The two tables are sorted on the join value
 - The join is performed on the sorted tables
 
