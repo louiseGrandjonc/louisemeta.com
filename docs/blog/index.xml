@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <copyright>false</copyright>
-    <lastBuildDate>Mon, 26 Mar 2018 14:39:21 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 27 Mar 2018 14:39:21 -0700</lastBuildDate>
     
 	<atom:link href="http://www.louisemeta.com/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Understanding EXPLAIN - part 4 - Ordering and a word on offset</title>
+      <link>http://www.louisemeta.com/blog/explain-4/</link>
+      <pubDate>Tue, 27 Mar 2018 14:39:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/blog/explain-4/</guid>
+      <description>Introduction Here we are, the last article of this serie. This one will cover the algorithms used to sort rows, and why OFFSET should be banned from your applications. Previously on the EXPLAIN show  You learned that it all starts with logs You met the amazing pg_stat_statements You got to know a bit more about the life of a query, how EXPLAIN can be used and what are costs and actual time in this episode You understood (I hope!</description>
+    </item>
     
     <item>
       <title>Understanding EXPLAIN - part 3 - Joins</title>

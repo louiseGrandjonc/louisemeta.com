@@ -4,7 +4,6 @@ date: 2018-03-27T14:39:21-07:00
 linktitle: Understanding EXPLAIN - part 4 - Ordering and a word on offset
 title: Understanding EXPLAIN - part 4 - Ordering and a word on offset
 weight: 1
-draft: true
 ---
 
 # Introduction
@@ -42,7 +41,7 @@ owl_conference=# EXPLAIN ANALYZE SELECT * FROM human ORDER BY last_name;
 (6 rows)
 ```
 
-Quicksort simply orders all rows in memory and return them ordered. For a big table it's quite costly in terms of memory. Here you can see that `1167kB` were needed and it took `251.324ms` (cf `actual time` for the `Sort`) which is quite a lot.
+Quicksort simply orders all rows in memory and return them ordered. For a big table it's quite expensive in terms of memory. Here you can see that `1167kB` were needed and it took `251.324ms` (cf `actual time` for the `Sort`) which is quite a lot.
 
 In this kind of situation you can wonder if you **really** need all of the rows...![Alt text](/images/Owls_perplexed.png)
 
@@ -84,8 +83,8 @@ The algorithm for a top-N heapsort is the following:
 - For each row
   - If the heap isn't full: add row in heap
   - Else
-    - If the value is smaller than the current values (for ASC): insert row in heap, pop last
-    - Else pass
+        - If the value is smaller than the current values (for ASC): insert row in heap, pop last
+        - Else pass
 
 
 To make it more understandable, here are the first rows of my human table and a drawing of the first iterations.
@@ -180,7 +179,7 @@ The good news is that you can live without `OFFSET`, here is a [wonderful articl
 
 # Conclusion
 
-Keep in mind that ordering can be a reason of a slow query, especially if you are ordering on a big table, all rows, without indexes. If you are doing that, maybe you should look into why you need this and how you could change your product to have better performances.
+Keep in mind that ordering can be a reason of a slow query, especially if you are ordering a big table, all rows, without indexes. If you are doing that, maybe you should look into why you need this and how you could change your application to have better performances.
 And avoid `OFFSET`... It's the worst, I know that most ORMs use it to paginate, but keep in mind that there are alternatives, like paginating by key, and libraries exist, like [django infinite pagination](https://pypi.python.org/pypi/django-infinite-scroll-pagination).
 
 So here you are. You have finished reading this series of articles on `EXPLAIN`, congratulations, I hope that you enjoyed them and will use `EXPLAIN` more often :) !

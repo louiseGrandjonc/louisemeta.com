@@ -186,4 +186,4 @@ The query is still slow, so this is the kind of situation where you would have t
 
 I hope that you enjoyed reading this article and that now, you feel familiar with costs, actual times, scans and joins.
 
-The next step will be using `ORDER BY` and the article should come really shortly !
+The last step will be using `ORDER BY` and the serie of articles on `EXPLAIN` is over ! So [here it is](/blog/explain-4/) :)

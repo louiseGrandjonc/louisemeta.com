@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
+      <loc>http://www.louisemeta.com/blog/explain-4/</loc>
+      <lastmod>2018-03-27T14:39:21-07:00</lastmod>
+    </url>
+  
+    <url>
       <loc>http://www.louisemeta.com/blog/explain-3/</loc>
       <lastmod>2018-03-26T14:39:21-07:00</lastmod>
     </url>
@@ -49,7 +54,7 @@
   
     <url>
       <loc>http://www.louisemeta.com/blog/</loc>
-      <lastmod>2018-03-26T14:39:21-07:00</lastmod>
+      <lastmod>2018-03-27T14:39:21-07:00</lastmod>
       <priority>0</priority>
     </url>
   
@@ -60,7 +65,7 @@
   
     <url>
       <loc>http://www.louisemeta.com/</loc>
-      <lastmod>2018-03-26T14:39:21-07:00</lastmod>
+      <lastmod>2018-03-27T14:39:21-07:00</lastmod>
       <priority>0</priority>
     </url>
   
