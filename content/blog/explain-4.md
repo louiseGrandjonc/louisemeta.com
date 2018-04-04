@@ -12,7 +12,7 @@ Here we are, the last article of this serie. This one will cover the algorithms 
 
 ### Previously on the `EXPLAIN` show
 
-- You learned that it all starts with [logs](/blog/developers-and-log/)
+- You learned that it all starts with [logs](/blog/developers-and-logs/)
 - You met the amazing [pg_stat_statements](/blog/pg-stat-statements/)
 - You got to know a bit more about the life of a query, how `EXPLAIN` can be used and what are costs and actual time in [this episode](/blog/explain/)
 - You understood (I hope!) [the three types of scans](/blog/explain-2/)
