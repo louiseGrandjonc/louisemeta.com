@@ -9,7 +9,7 @@ weight: 1
 
 # Introduction
 
-If you didn't read the articles on [logs](/blog/developers-and-logs/) and [pg_stat_statements](/blog/pg-stat-statements/) this article is based on a talk that I did at the [pgdayParis](http://2018.pgday.paris) and here are the [slides](https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain). The video should be online soon, you can watch the [short version](https://www.youtube.com/watch?v=Ph2hXpTW-Zg) from the djangoConEurope 2017.
+If you didn't read the articles on [logs](/blog/developers-and-logs/) and [pg_stat_statements](/blog/pg-stat-statements/) this article is based on a talk that I did at the [pgdayParis](http://2018.pgday.paris) and here are the [slides](https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain). You can watch the [Djangocon Europe 2017 version](https://www.youtube.com/watch?v=Ph2hXpTW-Zg), it's more django developer oriented, which can be interesting if you're using django's ORM. And here is [the video from the PGdayParis](https://www.youtube.com/watch?v=IwahVdNboc8).
 
 If you want to test the queries, **here is the [github project](https://github.com/louiseGrandjonc/owl-conference)** for the talk. You can find a **dump of the database**, and the [SQL](https://github.com/louiseGrandjonc/owl-conference/blob/master/sql/01_generate_data.sql) using `generate_series` to fill the DB.
 

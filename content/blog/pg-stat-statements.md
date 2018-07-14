@@ -11,6 +11,10 @@ weight: 1
 
 As a reminder, if you ended up on this page by looking up on bing `pg_stat_statements`, first I'm impressed, you get results with bing ? But also, this article is based on a talk that I did at the [pgdayParis 2018](http://2018.pgday.paris) and here are the [slides](https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain)
 
+
+{{< youtube IwahVdNboc8 >}}
+
+
 ## What is pg_stat_statements ?
 
 pg_stat_statement is a **postgreSQL extension**, once you enable it, it **tracks statistics on the queries** executed by a server. It will help you find slow queries.

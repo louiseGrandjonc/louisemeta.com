@@ -18,9 +18,11 @@ I realized that I was missing some basics :
 
 After that I became a bit obsessed with performances and that's the story of why I submitted a talk at the [django con 2017](https://2017.djangocon.eu/), and then at the [pgdayParis 2018](https://2018.pgday.paris/).
 
-The conference at pgdayParis lasting 50 minutes, I had a bit more time to get into details. I will add the video as soon as I have it. But in the meantime here is the one from the djangocon, it's more django oriented (obviously ;) ) than the one at pgday.
+The conference at pgdayParis lasting 50 minutes, I had a bit more time to get into details but if you're using Django's ORM, maybe the Djangocon Europe version is more interesting. I'll let you decide ;)
 
 {{< youtube Ph2hXpTW-Zg >}}
+
+{{< youtube IwahVdNboc8 >}}
 
 And here are the [slides](https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain)
 

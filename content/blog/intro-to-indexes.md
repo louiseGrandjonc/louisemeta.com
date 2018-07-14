@@ -18,15 +18,14 @@ I also hope that studying what's going on internally might raise, us developers,
 
 So in this series of article, I will cover the magical world of the following indexes types:
 
-- BTrees
+- [BTrees](/blog/indexes-btree)
 - Gin Indexes
 - GiST
 - SPGiST
 - BRIN
 - Hash
 
-This first article will focus on BTrees and their implementation in PostgreSQL.
-But first, I'd like to talk a bit more about what are indexes are used for. We talked a little bit about tunning queries, but that's not their only purpose.
+Before I get into the subject, I thought that it could be interesting to introduce a bit what indexes are for. We talked a little bit about tunning queries, but that's not their only purpose.
 
 # Let's talk about crocodiles
 
@@ -123,16 +122,28 @@ If you want to know more about constraints, I really recommend watching [Will Le
 
 The second use for indexes is to tune your queries. As I'm going to talk a lot about that in the following articles, I'm not going to bore you right now with it.
 
-But that's for that usecase that you might need to understand better the indexes internal data structure. It will help you choose an indexing strategy.
+Understanding better the indexes internal data structure might help you choose an indexing strategy.
 
 There's a lot to think about when you decide to add an index.
-Indeed the index that you need will depend of the operations that you're doing on the columns, the type of data, 
+Maybe you are already using [pg_stat_statements](/blog/pg-stat-statements), if you don't maybe consider it, it's awesome :). So, often we want to add an index to make a particular query faster, and there a lot of questions appear:
 
--> choose the queries you need to optimize, remember there is a cost to maintaining indexes on create/update/deletes.
-Indexes are redundant, they repeat data from your table and have to be consistent with the data in the rows. Which mean that on commit of a data change (on inserts, delete or update), it will need to be updated.
+- Which column(s) do I want to index ?
+- What data type I want to index
+- What operations are done on this columns (=, <, && etc.)
+- Will this index usefull for other queries ?
+- Do I *really* need an index ?
+- ...
+
+All this questions are important ones.
+
+The first three will help you choose an index type. By default PostgreSQL uses BTrees, maybe this is the one you need in your case, or maybe an other type of index could fit better. If you're a developer handling your indexes with an ORM chances that you won't use them. Which is a shame.
+
+As for the other questions, it's important to remember that maintaining an index has a cost depending of its type.  Indeed indexes are redundant, they repeat data from your table and have to be consistent with the data in the rows. Which mean that on commit of a data change (on inserts, delete or update), it will need to be updated.
 For each index type, I will explain the algorithm used to maintain the data in the index, and I hope that it will help understand why there's for some indexes more risk to slower your data manipulation queries.
-It's important to think about the strategy that you choose when you decide to add an index.
 
-So wether it's for constraint indexes, postgres uses Btree as the default, postgres has its own implementation of BTrees.
 
-But other types of indexes that can fit more, if you're a developer handling your indexes with an ORM chances that you won't use them. Which is a shame
+# Conclusion
+
+I didn't want in this article to get into too much detail on indexes types and strategies like multi-column or partial indexes. We will let that for an other day. The main thing to remember is that indexes have two purposes, contraints and optimization.
+
+And now it's time to take a little jump into the [internal data structure of BTrees](/blog/indexes-btree) ! I know this is very exciting.
