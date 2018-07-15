@@ -1,8 +1,8 @@
 ---
 author: "Louise Grandjonc"
 date: 2018-06-22T10:20:21-07:00
-linktitle: PostgreSQL's indexes - BTrees
-title: PostgreSQL's indexes - BTrees
+linktitle: PostgreSQL's indexes - BTrees internal data structure
+title: PostgreSQL's indexes - BTrees internal data structure 
 weight: 1
 draft: true
 ---
@@ -13,7 +13,7 @@ BTree is the index type used by default on `CREATE INDEX`. As I said in the [int
 
 Before I start going into the internal structure of BTree, I'd like to talk to you about a [tiny python library](https://github.com/louiseGrandjonc/pageinspect_inspector) to have a graphical representation of what's going on inside PostgreSQL's BTrees.
 You pass your index to a command line and it generates a HTML allowing you to explore pages and items of your index.
-I wrote it using the extension [pageinspect](https://www.postgresql.org/docs/10/static/pageinspect.html). All images in this article (except the crocodiles ;) ) come from it.
+I wrote it using the extension [pageinspect](https://www.postgresql.org/docs/10/static/pageinspect.html). All the images in this article come from it.
 
 Here is a little video to show you how it works (where you *might* notice that I'm not a great frontend developer).
 
@@ -30,7 +30,7 @@ ADD DRAWING OF BTREE
 
 # BTrees in postgres
 
-Postgres implements the Lehman & Yao Btree which has a few specificities that you will discover in this article, or if you're **really** into it, go read their [research paper](https://www.csd.uoc.gr/~hy460/pdf/p650-lehman.pdf). I did and it was a lot of fun (I guess).
+Postgres implements the Lehman & Yao Btree which has a few specificities that you will discover in this article, or if you're *really* into it, go read their [research paper](https://www.csd.uoc.gr/~hy460/pdf/p650-lehman.pdf). I did and it was a lot of fun (I guess).
 
 Let's talk again about crocos. So as we said in the [previous article](/blog/intro-to-indexes), crocodiles eat candies like 10yo left alone with money for dinner, and their number of teeth changes over life. It grows and then when they get old, they fall. Like humans. (Honestly, this is probably not 100% accurate, if you're a vet, sorry about that, also, what are you doing here?).
 So, we want to be able to filter on the number of teeth and run queries like:
@@ -58,7 +58,7 @@ Here we see the metapage of the index and the root. The metapage is always the f
 - A block number for the fast root
 - The level of the fast root
 
-The pointer to the root can change. It's a bit early to go into the details, but after an insert, it can be necessary to split the current root into two pages, in which case a new root is created with pointers on the splitted pages. Pages splits will be detailed in [the insert algorithm part of this article](/blog/indexes-btree#inserting-in-a-btree).
+The pointer to the root can change. It's a bit early to go into the details, but after an insert, it can be necessary to split the current root into two pages, in which case a new root is created with pointers on the splitted pages. Pages splits will be detailed in [the insert algorithm part of the next article](/blog/indexes-btree-algorithms#inserting-in-a-btree).
 
 
 If you prefer using `pageinspect` here is the query returning information on the metapage.
@@ -71,7 +71,7 @@ croco=# SELECT * FROM bt_metap('crocodile_number_of_teeth_idx');
 (1 row)
 ```
 
-You may be confused by this fast root thing that here is redundant with the root, but let's keep some of the suspense for [the deletion algorithm part...](/blog/indexes-btree#deleting-from-a-btree)
+You may be confused by this fast root thing that here is redundant with the root, but let's keep some of the suspense for [the deletion algorithm part...](/blog/indexes-btree-algorithms#deleting-from-a-btree)
 
 ## Pages and items
 
@@ -175,7 +175,7 @@ Here is what leaf level items look like.
 ![Alt text](/images/indexes/leaves_items.png)
 
 
-## To sum it up
+# To sum it up
 
 - A Btree is a balanced tree. PostgreSQL implements the Lehmann & Yao algorithm.
 - A BTree starts with a metapage containing information on the root and fast root block numbers and levels.
@@ -185,86 +185,4 @@ Here is what leaf level items look like.
 
 Sometimes an image is worth a thousand words, so don't hesitate to try [pageinspect_inspector](https://github.com/louiseGrandjonc/pageinspect_inspector) to visualize one of your own BTree indexes.
 
-# Searching in a BTree
-
-In order to search in a BTree, postgres first uses the query scan to define scan keys. If possible, redundants keys in your query are eliminated to keep only the tightest bounds. If you did something real smart like
-
-```code
-SELECT email, number_of teeth FROM crocodile WHERE number_of_teeth > 4
-AND number_of_teeth > 5 ORDER BY number_of_teeth ASC;
-```
-
- The tightest bound is `number_of_teeth > 5`, so the result of the query would be
-
-```code
-                 email                  | number_of_teeth
-----------------------------------------+-----------------
- anne.chow222131@croco.com              |               6
- valentin.williams222154@croco.com      |               6
- pauline.lal222156@croco.com            |               6
- han.yadav232276@croco.com              |               6
-```
-
-The scankeys are passed to the `_bt_search` function. Its purpose is to find the first leaf page where the scankey can be found. A boolean passed to the function defines if we are looking for the first item with the value >= scankey or strictly > scankey.
-To do that, it's going to descend the tree.
-
-The algorithm is the following:
-
-- A page pointer (`bufP`) is initalized with pointer to root
-- While the page is not a leaf
-  - expliquer le move right
-  - 
-
-
-
-
-
-## Searching in a multicolumn index
-
-
-Creation de Scankey qui peut n'avoir que les premières colonnes de l'index, pas obligatoire d'avoir toutes les colonnes de l'index
-
-bt_binsrch() -> va utiliser scankey pour trouver le premier item d'une page ayant cette key
-Dans une page leaf -> retourne l'offset de la première occurence >= à la clé (si nextkey=False, sinon >)
-
-si scankey > à toutes les clés de la page, retourne nb keys de la page + 1
-
-Dans un niveau parent, bt_binsrch retourne l'offset du dernier item dont la valeur < item.value si nextkey est false, sinon dernier item ayant value <= scankey
-
-
-bt_binsrch appelle bt_compare. A priori pour mettre en place le binary search et trouver la mid key
-
-
-
-
-The algorithm used to search in a BTree
-
-If count or only columns from index, index only scan. Otherwise retrieve rows from table using the pointers
-
-Explaining the algorithm, and so, why it fits best for certain operations
-Multiple pages can have the same high key, difference with Lehmann & Yao algorithm
-
-Insertion
-scankeys are built within the btree code (eg, by _bt_mkscankey()) and are
-used to locate the starting point of a scan, as well as for locating the
-place to insert a new index tuple.  (Note: in the case of an insertion
-scankey built from a search scankey, there might be fewer keys than
-index columns, indicating that we have no constraints for the remaining
-index columns.)  After we have located the starting point of a scan, the
-original search scankey is consulted as each index entry is sequentially
-scanned to decide whether to return the entry and whether the scan can
-stop (see _bt_checkkeys()).
-
-Explain locks
-
-
-# Inserting in a BTREE
-Finding the page where we can insert
-Page splits
-Two levels order, the rows need to be ordered at the leaf level and at the parent level
-
-# Deleting from a BTree
-
-- Fast root
-- Pages deleted only when no node and after VACCUUM
-- What happens after delete from large set of data
+In the [next article](/blog/indexes-btree-algorithms) we will go over the algorithms used to search and maintain a BTree index. 
