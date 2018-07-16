@@ -46,3 +46,6 @@ publishDir = "docs"
     name = "Projects"
     url  = "/projects/"
     weight = 4
+
+[blackfriday]
+  extensions = ["hardLineBreak"]
