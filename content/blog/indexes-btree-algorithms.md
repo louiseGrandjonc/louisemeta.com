@@ -4,7 +4,6 @@ date: 2018-06-23T10:20:21-07:00
 linktitle: PostgreSQL's indexes - BTrees algorithms
 title: PostgreSQL's indexes - BTrees algorithms
 weight: 1
-draft: true
 ---
 
 # Introduction
@@ -115,11 +114,10 @@ Once we have the offset of the item
 - the `bufP` pointer is updated to point to the item child page
 - a read lock is put on the new `bufP` page and the read lock on the parent is released
 
-
 **About read locks**
 
-I mentionned the fact that we put read locks on the currently examined page. This read locks ensure that the records on that page are not motified while reading it.
-Of course, it doesn't mean that there is not a concurrent insert on a child page, which is why we still need to possibly move to the right page.
+I mentionned the fact that we put read locks on the currently examined page. This **read locks** ensure that the **records on that page are not motified while reading** it.
+Of course, it doesn't mean that there is not a concurrent insert on a child page, which is why **we still need to possibly move to the right page**.
 
 ## To sum up
 
@@ -143,42 +141,38 @@ Then what we want is to find on which page our new tuple (key, pointer) should b
 
 ### Index on an auto-incremented value
 
-Very often an index is on an auto-incremented value, for example the primary key I used for the `crocodile` table is a serial, and of course postgreSQL created the `crocodile_pkey` on its own.
+Very often an index is on an **auto-incremented value**, for example the primary key I used for the `crocodile` table is a serial, and of course postgreSQL created the `crocodile_pkey` on its own.
 
-In this case a new key will always be *inserted in the right-most leaf page.*
+In this case a new key will always be **inserted in the right-most leaf page.**
 To avoid using the search algorithm to find the right page, postgres uses a fast path.
 
 **Step 1: retrieving the cached page**
-
-The right-most leaf of the index is cached into a buffer. So we retrieve the page using this buffer.
+The **right-most leaf** of the index is **cached into a buffer**. So we retrieve the page using this buffer.
 
 ** Step 2: checking the page**
 
 There are three condictions that need to be verified in order to be able to use a fast path:
 
-- The cached page must still be the right-most leaf page
-- The first key on the page must be strictly lower than the scan key
-- There must be enough free space on the page for the new tuple
+- The cached page must **still be the right-most leaf page**
+- The first key on the page must be **strictly lower than the scan key**
+- There must be **enough free space** on the page for the new tuple
 
 If this conditions are met, the `fastpath` variable is set to `true`.
 
 ### Index on a "normal" value
 
-If the value of `fastpath` is `false`, it means that the indexes BTree has to be searched in order to find the right page for our tuple.
+If the value of `fastpath` is `false`, it means that the indexes BTree has to be searched in order to **find the right page for our tuple**.
 
 **Step 1: searching for the right page**
-
-The insert uses `_bt_search` to find the first page containing the key.
+The insert uses **`_bt_search`** to find the first page containing the key.
 
 **Step 2: locking**
-
-In the `_bt_search` we locked the page being red. Here we trade the read lock for a write lock.
+In the `_bt_search` we locked the page being red. Here we **trade the read lock for a write lock**.
 
 The write lock is necessary for blahblah
 
 **Step 3: move right ?**
-
-It's possible that, during the lock trade, the page was split. So as in the search algorithm, we re-use the `_bt_moveright` function to decide if it's necessary to change the page to its right sibling.
+It's possible that, during the lock trade, the page was split. So as in the search algorithm, we re-use the **`_bt_moveright`** function to decide if it's necessary to **change the page to its right sibling**.
 
 ## Inserting the tuple and page splits
 

@@ -17,7 +17,7 @@ I also hope that studying what's going on internally might raise, us developers,
 
 So in this series of article, I will cover the magical world of the following indexes types:
 
-- [BTrees](/drafts/indexes-btree)
+- [BTrees](/blog/indexes-btree)
 - Gin Indexes
 - GiST
 - SPGiST
@@ -140,9 +140,29 @@ The first three will help you choose an index type. By default PostgreSQL uses B
 As for the other questions, it's important to remember that maintaining an index has a cost depending of its type.  Indeed indexes are redundant, they repeat data from your table and have to be consistent with the data in the rows. Which mean that on commit of a data change (on inserts, delete or update), it will need to be updated.
 For each index type, I will explain the algorithm used to maintain the data in the index, and I hope that it will help understand why there's for some indexes more risk to slower your data manipulation queries.
 
+## But why do indexes make my queries faster
+
+In a previous talk I compared indexes in a database to the index of an encyclopaedia.
+
+If you want to know everything about crocodiles, without an index you would need to read the entire encyclopaedia and read a lot of things you didn't need. But instead, you go to the index and it gives you a list of pages to read.
+
+A database index works the same. In the index, we store tuples with the value of the column(s) you want to index and a pointer to the row.
+
+If we created an index for the crocodile emails, it would look like that:
+
+![Alt text](/images/indexes/index_croco.png)
+
+Here you can see tuples with emails and the pointers.
+
+This tuples, that we're going to call items, are stored in pages. An index has several pages containing this items.
+
+As having a simple list of items like on the previous picture would mean reading the entire index to get a value, we instead use trees to optimize searching and updating.
+It's the subject of the next article, understanding the BTree structure and how it's implemented in postgres.
+
+
 
 # Conclusion
 
 I didn't want in this article to get into too much detail on indexes types and strategies like multi-column or partial indexes. We will let that for an other day. The main thing to remember is that indexes have two purposes, contraints and optimization.
 
-And now it's time to take a little jump into the [internal data structure of BTrees](/drafts/indexes-btree) ! I know this is very exciting.
+And now it's time to take a little jump into the [internal data structure of BTrees](/blog/indexes-btree) ! I know this is very exciting...
