@@ -67,13 +67,16 @@
   
     
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-116410295-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-116410295-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
   
@@ -137,7 +140,7 @@ ga('send', 'pageview');
                   
               </div>
 
-              <article class="entry-content">
+              <article class="entry-content" style="text-align: justify;">
                   
 
 <h1 id="introduction">Introduction</h1>
@@ -147,11 +150,12 @@ ga('send', 'pageview');
 <h3 id="previously-on-the-explain-show">Previously on the <code>EXPLAIN</code> show</h3>
 
 <ul>
-<li>You learned that it all starts with <a href="http://www.louisemeta.com/blog/developers-and-logs/">logs</a></li>
-<li>You met the amazing <a href="http://www.louisemeta.com/blog/pg-stat-statements/">pg_stat_statements</a></li>
-<li>You got to know a bit more about the life of a query, how <code>EXPLAIN</code> can be used and what are costs and actual time in <a href="http://www.louisemeta.com/blog/explain/">this episode</a></li>
-<li>You understood (I hope!) <a href="http://www.louisemeta.com/blog/explain-2/">the three types of scans</a></li>
-<li>And also you learned about <a href="http://www.louisemeta.com/blog/explain-3/">how postgres joins tables</a></li>
+<li>You learned that it all starts with <a href="http://www.louisemeta.com/blog/developers-and-logs/">logs</a><br /></li>
+<li>You met the amazing <a href="http://www.louisemeta.com/blog/pg-stat-statements/">pg_stat_statements</a><br /></li>
+<li>You got to know a bit more about the life of a query, how <code>EXPLAIN</code> can be used and what are costs and actual time in <a href="http://www.louisemeta.com/blog/explain/">this episode</a><br /></li>
+<li>You understood (I hope!) <a href="http://www.louisemeta.com/blog/explain-2/">the three types of scans</a><br /></li>
+<li>And also you learned about <a href="http://www.louisemeta.com/blog/explain-3/">how postgres joins tables</a><br />
+<br /></li>
 </ul>
 
 <p>I hope that this made you want to look at <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">the slides</a> of the talk at the PgdayParis 2018. And I&rsquo;ll post the video as soon as I have it. You can watch the <a href="https://www.youtube.com/watch?v=Ph2hXpTW-Zg">short version</a> from the djangoConEurope 2017.</p>
@@ -207,24 +211,28 @@ ga('send', 'pageview');
 <p>Here you can see several things:</p>
 
 <ul>
-<li>The memory used drops from 1167kB to 25kB</li>
-<li>The execution time is much lower</li>
-<li>It&rsquo;s using a mysterious sort method called <code>top-N heapsort</code></li>
+<li>The memory used drops from 1167kB to 25kB<br /></li>
+<li>The execution time is much lower<br /></li>
+<li>It&rsquo;s using a mysterious sort method called <code>top-N heapsort</code><br />
+<br />
+<br /></li>
 </ul>
 
 <p>The algorithm for a top-N heapsort is the following:</p>
 
 <ul>
-<li>A heap (a type of tree) is used with a limited size</li>
-<li>For each row
+<li>A heap (a type of tree) is used with a limited size<br /></li>
+<li>For each row<br />
 
 <ul>
-<li>If the heap isn&rsquo;t full: add row in heap</li>
-<li>Else
+<li>If the heap isn&rsquo;t full: add row in heap<br /></li>
+<li>Else<br />
 
 <ul>
-<li>If the value is smaller than the current values (for ASC): insert row in heap, pop last</li>
-<li>Else pass</li>
+<li>If the value is smaller than the current values (for ASC): insert row in heap, pop last<br /></li>
+<li>Else pass<br />
+<br />
+<br /></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -275,10 +283,11 @@ ga('send', 'pageview');
 <p><img src="http://www.louisemeta.com/images/explain/top-n.png" alt="Alt text" /></p>
 
 <ul>
-<li>The first three iterations simply fill up the tree</li>
-<li>The 4th iteration compares the value <code>Weasley</code> to the ones in the tree, it&rsquo;s &ldquo;bigger&rdquo; than all of them, the row is skipped</li>
-<li>The fifth iteration compares <code>Caroll</code>, as it&rsquo;s &ldquo;smaller&rdquo; than <code>Potter</code>, <code>Potter</code> is removed from the tree and the row for <code>Caroll</code> in inserted in the heap.</li>
-<li>&hellip; It continues like this till the end of your table</li>
+<li>The first three iterations simply fill up the tree<br /></li>
+<li>The 4th iteration compares the value <code>Weasley</code> to the ones in the tree, it&rsquo;s &ldquo;bigger&rdquo; than all of them, the row is skipped<br /></li>
+<li>The fifth iteration compares <code>Caroll</code>, as it&rsquo;s &ldquo;smaller&rdquo; than <code>Potter</code>, <code>Potter</code> is removed from the tree and the row for <code>Caroll</code> in inserted in the heap.<br /></li>
+<li>&hellip; It continues like this till the end of your table<br />
+<br /></li>
 </ul>
 
 <p>This example is of course for a <code>ASC</code> order.</p>
@@ -349,7 +358,7 @@ ga('send', 'pageview');
 
 <h1 id="conclusion">Conclusion</h1>
 
-<p>Keep in mind that ordering can be a reason of a slow query, especially if you are ordering a big table, all rows, without indexes. If you are doing that, maybe you should look into why you need this and how you could change your application to have better performances.
+<p>Keep in mind that ordering can be a reason of a slow query, especially if you are ordering a big table, all rows, without indexes. If you are doing that, maybe you should look into why you need this and how you could change your application to have better performances.<br />
 And avoid <code>OFFSET</code>&hellip; It&rsquo;s the worst, I know that most ORMs use it to paginate, but keep in mind that there are alternatives, like paginating by key, and libraries exist, like <a href="https://pypi.python.org/pypi/django-infinite-scroll-pagination">django infinite pagination</a>.</p>
 
 <p>So here you are. You have finished reading this series of articles on <code>EXPLAIN</code>, congratulations, I hope that you enjoyed them and will use <code>EXPLAIN</code> more often :) !</p>

@@ -67,13 +67,16 @@
   
     
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-116410295-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-116410295-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
   
@@ -137,27 +140,34 @@ ga('send', 'pageview');
                   
               </div>
 
-              <article class="entry-content">
+              <article class="entry-content" style="text-align: justify;">
                   
 
 <h1 id="introduction">Introduction</h1>
 
-<p>A few years back, when I was an intern, the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&hellip;
+<p>A few years back, when I was an intern, the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&hellip;<br />
 I realized that I was missing some basics :</p>
 
 <ul>
-<li>Like a lot of web developers I didn&rsquo;t think of looking into my logs to know what my ORM was doing</li>
-<li>Once I knew, I didn&rsquo;t understand why some queries were slow</li>
+<li>Like a lot of web developers I didn&rsquo;t think of looking into my logs to know what my ORM was doing<br /></li>
+<li>Once I knew, I didn&rsquo;t understand why some queries were slow<br />
+<br /></li>
 </ul>
 
 <p>After that I became a bit obsessed with performances and that&rsquo;s the story of why I submitted a talk at the <a href="https://2017.djangocon.eu/">django con 2017</a>, and then at the <a href="https://2018.pgday.paris/">pgdayParis 2018</a>.</p>
 
-<p>The conference at pgdayParis lasting 50 minutes, I had a bit more time to get into details. I will add the video as soon as I have it. But in the meantime here is the one from the djangocon, it&rsquo;s more django oriented (obviously ;) ) than the one at pgday.</p>
+<p>The conference at pgdayParis lasting 50 minutes, I had a bit more time to get into details but if you&rsquo;re using Django&rsquo;s ORM, maybe the Djangocon Europe version is more interesting. I&rsquo;ll let you decide ;)</p>
 
 
 <div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
   <iframe src="//www.youtube.com/embed/Ph2hXpTW-Zg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0" title="YouTube Video"></iframe>
- </div>
+</div>
+
+
+
+<div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/IwahVdNboc8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0" title="YouTube Video"></iframe>
+</div>
 
 
 <p>And here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a></p>
@@ -166,13 +176,14 @@ I realized that I was missing some basics :</p>
 
 <h1 id="why-should-we-be-careful-about-orms">Why should we be careful about ORMs</h1>
 
-<p><img src="http://www.louisemeta.com/images/Owls_gnihihi.png" alt="Alt text" />
-Most developers tend to work with an ORM for many reasons that we are not going to develop here, but the question is: <strong>what&rsquo;s wrong with them?</strong>
+<p><img src="http://www.louisemeta.com/images/Owls_gnihihi.png" alt="Alt text" /><br />
+Most developers tend to work with an ORM for many reasons that we are not going to develop here, but the question is: <strong>what&rsquo;s wrong with them?</strong><br />
 Why are DBAs always saying they are evil and anyone using them should burn in hell (hell being somewhere without beer) ?</p>
 
 <ul>
-<li>The ORM <strong>executes queries that you might not expect</strong></li>
-<li>Your queries might <strong>not be optimised</strong> and you won’t know about it</li>
+<li>The ORM <strong>executes queries that you might not expect</strong><br /></li>
+<li>Your queries might <strong>not be optimised</strong> and you won’t know about it<br />
+<br /></li>
 </ul>
 
 <p>I&rsquo;m going to give the example of the loops to show you how ugly it can get if you&rsquo;re not careful&hellip;</p>

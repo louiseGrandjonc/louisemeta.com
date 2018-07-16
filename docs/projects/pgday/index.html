@@ -67,13 +67,16 @@
   
     
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-116410295-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-116410295-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
   
@@ -137,7 +140,7 @@ ga('send', 'pageview');
                   
               </div>
 
-              <article class="entry-content">
+              <article class="entry-content" style="text-align: justify;">
                   <p><img src="http://www.louisemeta.com/images/pgday.png" alt="Alt text" /></p>
 
 <p>About three years ago, I met <a href="https://tapoueh.org/">Dimitri Fontaine</a> at the fosdem. He asked me to work on the <a href="2015.pgday.paris">pgdayParis</a> website. He knew I was a django developer and hoped that I would be good at CSS&hellip;</p>

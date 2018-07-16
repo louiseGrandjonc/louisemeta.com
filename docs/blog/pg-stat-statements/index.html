@@ -67,13 +67,16 @@
   
     
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-116410295-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-116410295-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
   
@@ -137,16 +140,22 @@ ga('send', 'pageview');
                   
               </div>
 
-              <article class="entry-content">
+              <article class="entry-content" style="text-align: justify;">
                   
 
 <h1 id="introduction">Introduction</h1>
 
 <p>As a reminder, if you ended up on this page by looking up on bing <code>pg_stat_statements</code>, first I&rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis 2018</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a></p>
 
+
+<div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/IwahVdNboc8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0" title="YouTube Video"></iframe>
+</div>
+
+
 <h2 id="what-is-pg-stat-statements">What is pg_stat_statements ?</h2>
 
-<p>pg_stat_statement is a <strong>postgreSQL extension</strong>, once you enable it, it <strong>tracks statistics on the queries</strong> executed by a server. It will help you find slow queries.
+<p>pg_stat_statement is a <strong>postgreSQL extension</strong>, once you enable it, it <strong>tracks statistics on the queries</strong> executed by a server. It will help you find slow queries.<br />
 <img src="http://www.louisemeta.com/images/Owls_attack.png" alt="Alt text" /></p>
 
 <p>You can use it in your local environment but also on production, if you are afraid of the performances loss, here is an <a href="http://pgsnaga.blogspot.fr/2011/10/performance-impact-of-pgstatstatements.html">article</a> on the subject.</p>
@@ -196,10 +205,12 @@ query      | SELECT COUNT(*) FROM letters;
 <p>So from that you understand:</p>
 
 <ul>
-<li>The query has been executed 3 times (<code>calls</code>)</li>
-<li>The execution time was between 54 and 531 ms (<code>min_time</code>, <code>max_time</code>)</li>
-<li>The <code>total_time</code> is the sum of the time of each execution</li>
-<li>The <code>mean_time</code> is total_time/calls</li>
+<li>The query has been executed 3 times (<code>calls</code>)<br /></li>
+<li>The execution time was between 54 and 531 ms (<code>min_time</code>, <code>max_time</code>)<br /></li>
+<li>The <code>total_time</code> is the sum of the time of each execution<br /></li>
+<li>The <code>mean_time</code> is total_time/calls<br />
+<br />
+<br /></li>
 </ul>
 
 <h1 id="conclusion">Conclusion</h1>

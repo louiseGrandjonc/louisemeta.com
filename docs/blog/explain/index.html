@@ -67,13 +67,16 @@
   
     
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-116410295-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-116410295-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
   
@@ -137,35 +140,37 @@ ga('send', 'pageview');
                   
               </div>
 
-              <article class="entry-content">
+              <article class="entry-content" style="text-align: justify;">
                   
 
 <h1 id="introduction">Introduction</h1>
 
-<p>If you didn&rsquo;t read the articles on <a href="http://www.louisemeta.com/blog/developers-and-logs/">logs</a> and <a href="http://www.louisemeta.com/blog/pg-stat-statements/">pg_stat_statements</a> this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a>. The video should be online soon, you can watch the <a href="https://www.youtube.com/watch?v=Ph2hXpTW-Zg">short version</a> from the djangoConEurope 2017.</p>
+<p>If you didn&rsquo;t read the articles on <a href="http://www.louisemeta.com/blog/developers-and-logs/">logs</a> and <a href="http://www.louisemeta.com/blog/pg-stat-statements/">pg_stat_statements</a> this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a>. You can watch the <a href="https://www.youtube.com/watch?v=Ph2hXpTW-Zg">Djangocon Europe 2017 version</a>, it&rsquo;s more django developer oriented, which can be interesting if you&rsquo;re using django&rsquo;s ORM. And here is <a href="https://www.youtube.com/watch?v=IwahVdNboc8">the video from the PGdayParis</a>.</p>
 
 <p>If you want to test the queries, <strong>here is the <a href="https://github.com/louiseGrandjonc/owl-conference">github project</a></strong> for the talk. You can find a <strong>dump of the database</strong>, and the <a href="https://github.com/louiseGrandjonc/owl-conference/blob/master/sql/01_generate_data.sql">SQL</a> using <code>generate_series</code> to fill the DB.</p>
 
 <p>Let&rsquo;s say you have a slow query, if you&rsquo;ve never had this problem, a few advices:</p>
 
 <ul>
-<li>close this page, it&rsquo;s useless</li>
-<li>start working a bit, if you&rsquo;ve never written any stupid code, what are you doing ?</li>
+<li>close this page, it&rsquo;s useless<br /></li>
+<li>start working a bit, if you&rsquo;ve never written any stupid code, what are you doing ?<br />
+<br /></li>
 </ul>
 
 <p>So, back to our slow query, what you would want is understand why it&rsquo;s slow, so basicaly &ldquo;what the hell is postgres doing?&rdquo;. To do that, we are going to look into the query plan.</p>
 
 <h2 id="what-is-a-query-plan">What is a query plan?</h2>
 
-<p>You&rsquo;re wondering what I&rsquo;m talking about? Well let&rsquo;s start at the begining of the story, you are sending a query to your DB server and you get a result. Like this
+<p>You&rsquo;re wondering what I&rsquo;m talking about? Well let&rsquo;s start at the begining of the story, you are sending a query to your DB server and you get a result. Like this<br />
 <img src="http://www.louisemeta.com/images/explain/query.png" alt="Alt text" /></p>
 
 <p>What is happening there ?</p>
 
 <ul>
-<li>First the query is <strong>parsed into a query tree</strong> (an internal data structure). The syntax errors are detected.</li>
-<li>Then the planner and optimizer generates <strong>query plans</strong> (ways to execute the query) and <strong>calculate the cost</strong> of this plans.</li>
-<li>The best <strong>query plan is executed</strong> and then the results are returned to you.</li>
+<li>First the query is <strong>parsed into a query tree</strong> (an internal data structure). The syntax errors are detected.<br /></li>
+<li>Then the planner and optimizer generates <strong>query plans</strong> (ways to execute the query) and <strong>calculate the cost</strong> of this plans.<br /></li>
+<li>The best <strong>query plan is executed</strong> and then the results are returned to you.<br />
+<br /></li>
 </ul>
 
 <p><img src="http://www.louisemeta.com/images/explain/query_path.png" alt="Alt text" /></p>
@@ -178,7 +183,7 @@ ga('send', 'pageview');
 
 <p><code>EXPLAIN (ANALYZE) your_query;</code></p>
 
-<p>If you use <code>ANALYZE</code>, your query will be executed, without it you get only the query plan with the estimated costs.
+<p>If you use <code>ANALYZE</code>, your query will be executed, without it you get only the query plan with the estimated costs.<br />
 If you want to add the <code>ANALYZE</code> option on an <code>UPDATE</code> or <code>DELETE</code>, you can rollback</p>
 
 <pre><code class="language-code">BEGIN;
@@ -199,10 +204,11 @@ ROLLBACK
 <p><code>(cost=0.00..205.01 rows=1 width=35)</code></p>
 
 <ul>
-<li>The part <code>cost=0.00..205.01</code> has two numbers, the first one indicates the <strong>cost of retrieving the first row</strong>, and the second one, the estimated <strong>cost of retrieving all the rows</strong>.
-You might wonder why the first cost is 0.00 and the second one 205.01. If there is only one row, why are the numbers not the same ? It&rsquo;s because it is using a sequential scan (explained in <a href="http://www.louisemeta.com/blog/explain-2/">this article</a>, the cost of reading the first row of the table is 0, but the cost of retrieving the one matching the <code>WHERE</code> clause is higher. It&rsquo;s like with a book, reading the first line of it costs you nothing, but reading the block that interests you is a bit more &ldquo;expensive&rdquo;.</li>
-<li><code>rows=1</code> is the estimated number of rows returned in your result</li>
-<li><code>width=35</code> is the average size of a row in kB.</li>
+<li>The part <code>cost=0.00..205.01</code> has two numbers, the first one indicates the <strong>cost of retrieving the first row</strong>, and the second one, the estimated <strong>cost of retrieving all the rows</strong>.<br />
+You might wonder why the first cost is 0.00 and the second one 205.01. If there is only one row, why are the numbers not the same ? It&rsquo;s because it is using a sequential scan (explained in <a href="http://www.louisemeta.com/blog/explain-2/">this article</a>, the cost of reading the first row of the table is 0, but the cost of retrieving the one matching the <code>WHERE</code> clause is higher. It&rsquo;s like with a book, reading the first line of it costs you nothing, but reading the block that interests you is a bit more &ldquo;expensive&rdquo;.<br /></li>
+<li><code>rows=1</code> is the estimated number of rows returned in your result<br /></li>
+<li><code>width=35</code> is the average size of a row in kB.<br />
+<br /></li>
 </ul>
 
 <p>If you&rsquo;re using <code>EXPLAIN</code> without <code>ANALYZE</code> and the <code>rows</code> seem really of from the reality, you can force postgres to collect statistics on a table by running.</p>

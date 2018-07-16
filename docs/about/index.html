@@ -67,13 +67,16 @@
   
     
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-116410295-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-116410295-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
   
@@ -137,7 +140,7 @@ ga('send', 'pageview');
                   
               </div>
 
-              <article class="entry-content">
+              <article class="entry-content" style="text-align: justify;">
                   <p><img src="http://www.louisemeta.com/images/Owls_dance_03.png" alt="Alt text" />My name is Louise, I am a web developer. I&rsquo;ve been working as a lead python developer at <a href="https://ulule.com">Ulule</a> for three years. Previously I worked at <a href="https://www.people-doc.fr/">peopledoc</a> as a python developer. Before that I was a student at the <a href="https://www.utc.fr/">UTC (not the timezone)</a>.</p>
 
 <p>I am also working on a few sides projects, like a website for a <a href="http://www.louisemeta.com/projects/zim/">musician, drawer, architect</a>, the <a href="http://www.louisemeta.com/projects/pgday/">pgday paris website</a> and a lot of unfinished experimentations (mostly for fun).</p>

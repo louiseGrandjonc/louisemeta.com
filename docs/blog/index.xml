@@ -6,7 +6,6 @@
     <description>Recent content in Blogs on Louise Grandjonc, Python/SQL developer but also a human</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <copyright>false</copyright>
     <lastBuildDate>Tue, 27 Mar 2018 14:39:21 -0700</lastBuildDate>
     
 	<atom:link href="http://www.louisemeta.com/blog/index.xml" rel="self" type="application/rss+xml" />
@@ -18,7 +17,9 @@
       <pubDate>Tue, 27 Mar 2018 14:39:21 -0700</pubDate>
       
       <guid>http://www.louisemeta.com/blog/explain-4/</guid>
-      <description>Introduction Here we are, the last article of this serie. This one will cover the algorithms used to sort rows, and why OFFSET should be banned from your applications. Previously on the EXPLAIN show  You learned that it all starts with logs You met the amazing pg_stat_statements You got to know a bit more about the life of a query, how EXPLAIN can be used and what are costs and actual time in this episode You understood (I hope!</description>
+      <description>Introduction Here we are, the last article of this serie. This one will cover the algorithms used to sort rows, and why OFFSET should be banned from your applications. Previously on the EXPLAIN show  You learned that it all starts with logs
+ You met the amazing pg_stat_statements
+ You got to know a bit more about the life of a query, how EXPLAIN can be used and what are costs and actual time in this episode</description>
     </item>
     
     <item>
@@ -48,8 +49,8 @@ I&amp;rsquo;m here taking the example of a letter delivery system.</description>
       <pubDate>Sat, 24 Mar 2018 16:39:21 -0700</pubDate>
       
       <guid>http://www.louisemeta.com/blog/explain/</guid>
-      <description>Introduction If you didn&amp;rsquo;t read the articles on logs and pg_stat_statements this article is based on a talk that I did at the pgdayParis and here are the slides. The video should be online soon, you can watch the short version from the djangoConEurope 2017.
-If you want to test the queries, here is the github project for the talk. You can find a dump of the database, and the SQL using generate_series to fill the DB.</description>
+      <description>Introduction If you didn&amp;rsquo;t read the articles on logs and pg_stat_statements this article is based on a talk that I did at the pgdayParis and here are the slides. You can watch the Djangocon Europe 2017 version, it&amp;rsquo;s more django developer oriented, which can be interesting if you&amp;rsquo;re using django&amp;rsquo;s ORM. And here is the video from the PGdayParis.
+If you want to test the queries, here is the github project for the talk.</description>
     </item>
     
     <item>
@@ -59,7 +60,7 @@ If you want to test the queries, here is the github project for the talk. You ca
       
       <guid>http://www.louisemeta.com/blog/pg-stat-statements/</guid>
       <description>Introduction As a reminder, if you ended up on this page by looking up on bing pg_stat_statements, first I&amp;rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the pgdayParis 2018 and here are the slides
-What is pg_stat_statements ? pg_stat_statement is a postgreSQL extension, once you enable it, it tracks statistics on the queries executed by a server.</description>
+  What is pg_stat_statements ? pg_stat_statement is a postgreSQL extension, once you enable it, it tracks statistics on the queries executed by a server.</description>
     </item>
     
     <item>
@@ -68,8 +69,10 @@ What is pg_stat_statements ? pg_stat_statement is a postgreSQL extension, once y
       <pubDate>Wed, 21 Mar 2018 18:39:21 -0700</pubDate>
       
       <guid>http://www.louisemeta.com/blog/developers-and-logs/</guid>
-      <description>Introduction A few years back, when I was an intern, the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip; I realized that I was missing some basics :
- Like a lot of web developers I didn&amp;rsquo;t think of looking into my logs to know what my ORM was doing Once I knew, I didn&amp;rsquo;t understand why some queries were slow  After that I became a bit obsessed with performances and that&amp;rsquo;s the story of why I submitted a talk at the django con 2017, and then at the pgdayParis 2018.</description>
+      <description>Introduction A few years back, when I was an intern, the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip;
+I realized that I was missing some basics :
+ Like a lot of web developers I didn&amp;rsquo;t think of looking into my logs to know what my ORM was doing
+ Once I knew, I didn&amp;rsquo;t understand why some queries were slow</description>
     </item>
     
   </channel>

@@ -67,13 +67,16 @@
   
     
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-116410295-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-116410295-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
   
@@ -137,7 +140,7 @@ ga('send', 'pageview');
                   
               </div>
 
-              <article class="entry-content">
+              <article class="entry-content" style="text-align: justify;">
                   
 
 <h1 id="introduction">Introduction</h1>
@@ -219,8 +222,9 @@ for owl in owls:
 <p>To perform a hash join:</p>
 
 <ul>
-<li>A hash table is created in memory with the join values and a pointer to the rows.</li>
-<li>This hash is used to join</li>
+<li>A hash table is created in memory with the join values and a pointer to the rows.<br /></li>
+<li>This hash is used to join<br />
+<br /></li>
 </ul>
 
 <p><img src="http://www.louisemeta.com/images/explain/hash.png" alt="Alt text" /></p>
@@ -241,8 +245,9 @@ for owl in owls:
 <p>This is much more efficient than the nested loop isn&rsquo;t it? So why isn&rsquo;t it used <strong>all the time</strong> ?</p>
 
 <ul>
-<li>For small tables, the complexity of building the hash table makes it less efficient than a nested loop.</li>
-<li>The hash table has to fit in memory (you can see it with <code>Memory Usage: 9kB</code> in the <code>EXPLAIN</code>), so for a big set of data, it can&rsquo;t be used. The same way you wouldn&rsquo;t create a dictionnary containing 1M values.</li>
+<li>For small tables, the complexity of building the hash table makes it less efficient than a nested loop.<br /></li>
+<li>The hash table has to fit in memory (you can see it with <code>Memory Usage: 9kB</code> in the <code>EXPLAIN</code>), so for a big set of data, it can&rsquo;t be used. The same way you wouldn&rsquo;t create a dictionnary containing 1M values.<br />
+<br /></li>
 </ul>
 
 <h1 id="merge-join">Merge join</h1>
@@ -280,13 +285,14 @@ for owl in owls:
 <p>What you can see here is that it&rsquo;s using a <code>Merge Join</code>. To do that:</p>
 
 <ul>
-<li>The two tables are sorted on the join value</li>
-<li>The join is performed on the sorted tables</li>
+<li>The two tables are sorted on the join value<br /></li>
+<li>The join is performed on the sorted tables<br />
+<br /></li>
 </ul>
 
 <p><img src="http://www.louisemeta.com/images/explain/merge.png" alt="Alt text" /></p>
 
-<p>This query takes almost a second and you can see that the quicksort (explained in the next article, that will be online in a couple days) uses <code>Memory: 1167kB</code> to sort the human table.
+<p>This query takes almost a second and you can see that the quicksort (explained in the next article, that will be online in a couple days) uses <code>Memory: 1167kB</code> to sort the human table.<br />
 As for the letters table, it uses <code>external merge  Disk: 15304kB</code>. That&rsquo;s because I have a <code>work_mem</code> setting of 4MB that makes it impossible to sort directly in Memory.</p>
 
 <p>If I added an index:</p>
