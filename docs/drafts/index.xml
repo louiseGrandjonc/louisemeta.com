@@ -28,8 +28,8 @@ You pass your index to a command line and it generates a HTML allowing you to ex
       <pubDate>Thu, 21 Jun 2018 10:20:21 -0700</pubDate>
       
       <guid>http://www.louisemeta.com/drafts/intro-to-indexes/</guid>
-      <description>Introduction When I understand what&amp;rsquo;s happening precisely in my database, it helps me make smarter choices. It&amp;rsquo;s why I focused on EXPLAIN and the algorithms used as you can read here. Because to me it was the best way to understand why things were not working like expected.
-And I believe that when it comes to indexes, it&amp;rsquo;s the same. Of course you could use your ORM to add an index on a column you kind of randomly picked, but there&amp;rsquo;s a smarter way&amp;hellip;</description>
+      <description>Introduction When I understand what&amp;rsquo;s happening precisely in my database, it helps me make smarter choices. It&amp;rsquo;s why previous articles focused on EXPLAIN and the algorithms used. Because to me, it was the best way to understand why things were not working as expected.
+And I believe that when it comes to indexes, it&amp;rsquo;s the same. Of course you could use your ORM to add an index on a column you picked kind of randomly, but there&amp;rsquo;s a smarter way&amp;hellip;</description>
     </item>
     
   </channel>
