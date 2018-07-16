@@ -22,8 +22,7 @@ Here is a little video to show you how it works (where you *might* notice that I
 
 # What is a BTree ?
 
-BTree stands for balanced tree. The root and each parent node can have more than one child which minimize the depth of the tree and all the leaves at equal distance from the root. BTrees have O(log(n)) complexity for inserts, deletes and searches. But we will go into details of this algorithm in just a bit.
-
+BTree stands for balanced tree. The root and each parent node can have more than one child which minimize the depth of the tree and all the leaves at equal distance from the root.
 
 ADD DRAWING OF BTREE
 

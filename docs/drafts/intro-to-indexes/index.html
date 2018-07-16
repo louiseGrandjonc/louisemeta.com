@@ -136,7 +136,7 @@ if (!doNotTrack) {
 
               <div class="sub-header">
                   
-                  June 2018 · 6 minute read
+                  June 2018 · 7 minute read
                   
               </div>
 
@@ -154,7 +154,7 @@ I also hope that studying what&rsquo;s going on internally might raise, us devel
 <p>So in this series of article, I will cover the magical world of the following indexes types:</p>
 
 <ul>
-<li><a href="http://www.louisemeta.com/drafts/indexes-btree">BTrees</a><br /></li>
+<li><a href="http://www.louisemeta.com/blog/indexes-btree">BTrees</a><br /></li>
 <li>Gin Indexes<br /></li>
 <li>GiST<br /></li>
 <li>SPGiST<br /></li>
@@ -280,11 +280,30 @@ Maybe you are already using <a href="http://www.louisemeta.com/blog/pg-stat-stat
 <p>As for the other questions, it&rsquo;s important to remember that maintaining an index has a cost depending of its type.  Indeed indexes are redundant, they repeat data from your table and have to be consistent with the data in the rows. Which mean that on commit of a data change (on inserts, delete or update), it will need to be updated.<br />
 For each index type, I will explain the algorithm used to maintain the data in the index, and I hope that it will help understand why there&rsquo;s for some indexes more risk to slower your data manipulation queries.</p>
 
+<h2 id="but-why-do-indexes-make-my-queries-faster">But why do indexes make my queries faster</h2>
+
+<p>In a previous talk I compared indexes in a database to the index of an encyclopaedia.</p>
+
+<p>If you want to know everything about crocodiles, without an index you would need to read the entire encyclopaedia and read a lot of things you didn&rsquo;t need. But instead, you go to the index and it gives you a list of pages to read.</p>
+
+<p>A database index works the same. In the index, we store tuples with the value of the column(s) you want to index and a pointer to the row.</p>
+
+<p>If we created an index for the crocodile emails, it would look like that:</p>
+
+<p><img src="http://www.louisemeta.com/images/indexes/index_croco.png" alt="Alt text" /></p>
+
+<p>Here you can see tuples with emails and the pointers.</p>
+
+<p>This tuples, that we&rsquo;re going to call items, are stored in pages. An index has several pages containing this items.</p>
+
+<p>As having a simple list of items like on the previous picture would mean reading the entire index to get a value, we instead use trees to optimize searching and updating.<br />
+It&rsquo;s the subject of the next article, understanding the BTree structure and how it&rsquo;s implemented in postgres.</p>
+
 <h1 id="conclusion">Conclusion</h1>
 
 <p>I didn&rsquo;t want in this article to get into too much detail on indexes types and strategies like multi-column or partial indexes. We will let that for an other day. The main thing to remember is that indexes have two purposes, contraints and optimization.</p>
 
-<p>And now it&rsquo;s time to take a little jump into the <a href="http://www.louisemeta.com/drafts/indexes-btree">internal data structure of BTrees</a> ! I know this is very exciting.</p>
+<p>And now it&rsquo;s time to take a little jump into the <a href="http://www.louisemeta.com/blog/indexes-btree">internal data structure of BTrees</a> ! I know this is very exciting&hellip;</p>
 
               </article>
 

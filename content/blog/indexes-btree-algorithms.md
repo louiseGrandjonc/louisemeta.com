@@ -69,7 +69,8 @@ This way we have the path leading to the leaf page.
 
 *Step 2.2: move right or not move right ?*
 
-This step decides **if it's necessary to follow the right pointer** of the current `bufP` page. This happens if, while descending on the tree, **there was an insert**.
+At this point the function `_bt_moveright` is called.
+It decides **if it's necessary to follow the right pointer** of the current `bufP` page. This happens if, while descending on the tree, **there was an insert**.
 It could then be possible that the current `bufP` page was split.
 
 For example, the `_bt_search` for my previous query is looking for the first leaf page that could contain crocodiles with more than 20 teeth. The root doesn't have a right page, so `bufP` wouldn't change.
@@ -112,15 +113,18 @@ Once we have the offset of the item
 - the block number of the page pointed by this item is retrieved
 - the stack that will be returned at the end of the search is built
 - the `bufP` pointer is updated to point to the item child page
-- a read lock is put on the new `bufP` page
+- a read lock is put on the new `bufP` page and the read lock on the parent is released
 
 
-**TALK ABOUT LOCKS**
+**About read locks**
+
+I mentionned the fact that we put read locks on the currently examined page. This read locks ensure that the records on that page are not motified while reading it.
+Of course, it doesn't mean that there is not a concurrent insert on a child page, which is why we still need to possibly move to the right page.
 
 ## To sum up
 
 I hope that this made searching in a BTree clearer to you. I haven't talked about a few elements mostly because I don't have enough time.
-First I didn't put in the algorithm the case where we look for a key stricly above to the scankey.
+First I didn't explain the case where we look for a key stricly above to the scankey, but it doesn't change the algorithm much.
 And I didn't get into multicolumn indexes and the scankeys in this case that can be only on the first columns.
 
 All of this is very interesting and I hope you'll want to explore this :)
@@ -129,9 +133,55 @@ But now let's talk about inserts !
 
 # Inserting in a BTREE
 
-Inserting into a BTree reuses the `_bt_search` (and `bt_binsrch`), and the `bt_moveright` to find in which page a new tuple value-pointer should be inserted.
+Inserting into a BTree reuses a lot from the seach algorithm, so I will mainly focus on page splits.
 
-So I will mainly focus on page splits.
+In order to insert, scankeys are built.
+
+## Finding the right insert location
+
+Then what we want is to find on which page our new tuple (key, pointer) should be inserted. Here there are two cases.
+
+### Index on an auto-incremented value
+
+Very often an index is on an auto-incremented value, for example the primary key I used for the `crocodile` table is a serial, and of course postgreSQL created the `crocodile_pkey` on its own.
+
+In this case a new key will always be *inserted in the right-most leaf page.*
+To avoid using the search algorithm to find the right page, postgres uses a fast path.
+
+**Step 1: retrieving the cached page**
+
+The right-most leaf of the index is cached into a buffer. So we retrieve the page using this buffer.
+
+** Step 2: checking the page**
+
+There are three condictions that need to be verified in order to be able to use a fast path:
+
+- The cached page must still be the right-most leaf page
+- The first key on the page must be strictly lower than the scan key
+- There must be enough free space on the page for the new tuple
+
+If this conditions are met, the `fastpath` variable is set to `true`.
+
+### Index on a "normal" value
+
+If the value of `fastpath` is `false`, it means that the indexes BTree has to be searched in order to find the right page for our tuple.
+
+**Step 1: searching for the right page**
+
+The insert uses `_bt_search` to find the first page containing the key.
+
+**Step 2: locking**
+
+In the `_bt_search` we locked the page being red. Here we trade the read lock for a write lock.
+
+The write lock is necessary for blahblah
+
+**Step 3: move right ?**
+
+It's possible that, during the lock trade, the page was split. So as in the search algorithm, we re-use the `_bt_moveright` function to decide if it's necessary to change the page to its right sibling.
+
+## Inserting the tuple and page splits
+
 
 Page splits
 Two levels order, the rows need to be ordered at the leaf level and at the parent level
