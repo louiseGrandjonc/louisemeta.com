@@ -4,7 +4,6 @@ date: 2018-06-23T10:20:21-07:00
 linktitle: PostgreSQL's indexes - BTrees algorithms
 title: PostgreSQL's indexes - BTrees algorithms
 weight: 1
-draft: true
 ---
 
 # Introduction
@@ -170,13 +169,101 @@ The insert uses **`_bt_search`** to find the first page containing the key.
 **Step 2: locking**
 In the `_bt_search` we locked the page being red. Here we **trade the read lock for a write lock**.
 
-The write lock is necessary for blahblah
-
 **Step 3: move right ?**
 It's possible that, during the lock trade, the page was split. So as in the search algorithm, we re-use the **`_bt_moveright`** function to decide if it's necessary to **change the page to its right sibling**.
 
+## Checking constraints
+
+If we're not allowing duplicates, make sure the key isn't already in the index.
+Postgres can only detect that the value is not already in the index. So the write lock protects against concurrent writing on the page.
+
+For example, I have a unique constraint on crocodiles email. Let's say I run the query
+
+```code
+INSERT INTO crocodile (first_name, last_name, birthday, number_of_teeth, email)
+VALUES ('Louise', 'Grandjonc', '1991-12-21', 15, 'louise@croco.com');
+```
+
+The index has to be updated as the data in the index has to be consistent with the rows in the table. A write lock is aquired on the index page where the tuple (`louise@croco.com` and the pointer to the new heap) will be inserted.
+If there's a concurrent writing, the second insert has to wait until the write lock is dropped. At this point the value `louise@croco.com` is already in the index.
+So there is a conflict and the new tuple can't be inserted and as the operations of insert and updating the index are atomic, the query fails.
+
+
 ## Inserting the tuple and page splits
 
+The function `_bt_insertonpg()` inserts a tuple on the page previously found.
+
+### 1. Checking the tuple
+
+The first thing that the function `_bt_insertonpg()` does is to check if the tuple can be inserted. It checks for example if the number of attributes in the tuple is appropriate.  
+
+### 2. Splitting the page if necessary
+
+First, you might wonder what it means to **split a page**. It's when there **isn't enought space** to add the item **in the target page**, so **a new page is created on the right of the page**.
+
+These screenshots are before and after inserts of crocodiles. (I re-created a new one which is why the root block number changed ;))
+
+![Alt text](/images/indexes/split_no_item_1.png)
+
+On the following screenshot, you can see that a **new page appeared** on the right and **the high key changed**. That's because of the page split.
+
+![Alt text](/images/indexes/split_no_item_2.png)
+
+**Step 1: is a split necessary?**
+
+In order to decide if the page should be split, `_bt_insertonpg()` compares the size of the item that we want to insert to the free space on the page.
+
+If the **free space is lower than the item's size**, then a split is necessary.
+
+**Step 2: finding the split point**
+
+You could think that it would be logical to simply create a new empty page and start filling it with the new tuples.
+
+But let's look more closely at the page split after the insert of crocodiles. Focus on the first item of the new page.
+
+![Alt text](/images/indexes/split_item_2.png)
+
+You can see here that it used to be in the target page.
+
+![Alt text](/images/indexes/split_item_1.png)
+
+Which means that, when postgres performs a page split, it does not simply create an empty page !
+
+Postgres wants to **equalize the free space on each page** to limit page splits in future inserts. The goal being to limit as much as possible the number of pages in an index.
+
+If it's the **right-most page on a level** (so the last page of the level), instead of cutting in half, and having two pages with 50% of the data, the **left page is filled as much as possible**.
+It's useful **for serial indexes**, like the index on the id of my crocodile table `crocodile_pkey`. There is no reason to insert data on any other page than the right-most page as it's a serial integer. So when a page split is necessary, if the left page only had 50% of the items, it would be forever half empty. Which makes no sense !
+
+**Step 3: splitting**
+
+So now that we have the split point.
+
+A right page is created. In the right page, **the data after the split point is copied**. The data of the target page is updated to only keep the data before split point.
+
+Then the pointers of the pages are updated. The right pointer of the target page becomes the new page. The right pointer of the new page is the old target page right pointer.
+
+At last the high key of the pages are updated. The **high key of the new page** becomes **the high key of the splitted target page**.
+The **high key of the target page** becomes the **first value of the right page**.
+
+
+### 3. Inserting on the parent level
+
+### 4. Updating the metadata of the tree
+
+
+
+This recursive procedure does the following things:
+ *
+ *			+  if necessary, splits the target page (making sure that the
+ *			   split is equitable as far as post-insert free space goes).
+ *			+  inserts the tuple.
+ *			+  if the page was split, pops the parent stack, and finds the
+ *			   right place to insert the new child pointer (by walking
+ *			   right using information stored in the parent stack).
+ *			+  invokes itself with the appropriate tuple for the right
+ *			   child page on the parent.
+ *			+  updates the metapage if a true root or fast root is split.
+ 
 
 Page splits
 Two levels order, the rows need to be ordered at the leaf level and at the parent level
