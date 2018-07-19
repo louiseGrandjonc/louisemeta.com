@@ -6,11 +6,11 @@
   <title>
     
     
-        PostgreSQL&#39;s indexes - BTrees internal data structure | Louise Grandjonc, Python/SQL developer but also a human
+        PostgreSQL&#39;s indexes – BTrees internal data structure | Louise Grandjonc, Python/SQL developer but also a human
     
   </title>
 
-  <meta name="title" content="PostgreSQL&#39;s indexes - BTrees internal data structure | Louise Grandjonc, Python/SQL developer but also a human">
+  <meta name="title" content="PostgreSQL&#39;s indexes – BTrees internal data structure | Louise Grandjonc, Python/SQL developer but also a human">
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -35,7 +35,7 @@
     <meta name="twitter:creator" content="@louisemeta">
   
 
-  <meta property="og:title" content="PostgreSQL&#39;s indexes - BTrees internal data structure | Louise Grandjonc, Python/SQL developer but also a human">
+  <meta property="og:title" content="PostgreSQL&#39;s indexes – BTrees internal data structure | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
   <meta property="og:url" content="http://www.louisemeta.com/">
 
@@ -132,7 +132,7 @@ if (!doNotTrack) {
       <main>
       <section class="container">
           <section class="content">
-              <h1> PostgreSQL&#39;s indexes - BTrees internal data structure </h1>
+              <h1> PostgreSQL&#39;s indexes – BTrees internal data structure </h1>
 
               <div class="sub-header">
                   
@@ -145,10 +145,10 @@ if (!doNotTrack) {
 
 <h1 id="introduction">Introduction</h1>
 
-<p>BTree is the index type used by default on <code>CREATE INDEX</code>. As I said in the <a href="http://www.louisemeta.com/draft/intro-to-indexes">introduction to indexes article</a>, BTrees are also created automatically for primary key and unique constraints.</p>
+<p>BTree is the index type used by default on <code>CREATE INDEX</code>. As I said in the <a href="http://www.louisemeta.com/blog/intro-to-indexes">introduction to indexes article</a>, BTrees are also created automatically for primary key and unique constraints.</p>
 
-<p>Before I start going into the internal structure of BTree, I&rsquo;d like to talk to you about a <a href="https://github.com/louiseGrandjonc/pageinspect_inspector">tiny python library</a> to have a graphical representation of what&rsquo;s going on inside PostgreSQL&rsquo;s BTrees.<br />
-You pass your index to a command line and it generates a HTML allowing you to explore pages and items of your index.<br />
+<p>Before I start going into the internal structure of BTree, I&rsquo;d like to talk to you about <a href="https://github.com/louiseGrandjonc/pageinspect_inspector">pageinspect_inspector, a python library</a> to generate a graphical representation of what&rsquo;s going on inside PostgreSQL&rsquo;s BTrees.<br />
+You pass your index to it on a command line and it generates an HTML allowing you to explore pages and items of your index.<br />
 I wrote it using the extension <a href="https://www.postgresql.org/docs/10/static/pageinspect.html">pageinspect</a>. All the images in this article come from it.</p>
 
 <p>Here is a little video to show you how it works (where you <em>might</em> notice that I&rsquo;m not a great frontend developer).</p>
@@ -161,7 +161,7 @@ I wrote it using the extension <a href="https://www.postgresql.org/docs/10/stati
 
 <h1 id="what-is-a-btree">What is a BTree ?</h1>
 
-<p>BTree stands for balanced tree. The root and each parent node can have more than one child which minimize the depth of the tree and all the leaves at equal distance from the root. BTrees have O(log(n)) complexity for inserts, deletes and searches. But we will go into details of this algorithm in just a bit.</p>
+<p>BTree stands for balanced tree. The root and each parent node can have more than one child which minimize the depth of the tree and all the leaves at equal distance from the root.</p>
 
 <p>ADD DRAWING OF BTREE</p>
 
@@ -169,7 +169,7 @@ I wrote it using the extension <a href="https://www.postgresql.org/docs/10/stati
 
 <p>Postgres implements the Lehman &amp; Yao Btree which has a few specificities that you will discover in this article, or if you&rsquo;re <em>really</em> into it, go read their <a href="https://www.csd.uoc.gr/~hy460/pdf/p650-lehman.pdf">research paper</a>. I did and it was a lot of fun (I guess).</p>
 
-<p>Let&rsquo;s talk again about crocos. So as we said in the <a href="http://www.louisemeta.com/drafts/intro-to-indexes">previous article</a>, crocodiles eat candies like 10yo left alone with money for dinner, and their number of teeth changes over life. It grows and then when they get old, they fall. Like humans. (Honestly, this is probably not 100% accurate, if you&rsquo;re a vet, sorry about that, also, what are you doing here?).<br />
+<p>Let&rsquo;s talk again about crocos. So as we said in the <a href="http://www.louisemeta.com/blog/intro-to-indexes">previous article</a>, crocodiles eat candies like a 10yo left alone with money for dinner, and their number of teeth changes over life. It grows and then when they get old, they fall. Like humans. (Honestly, this is probably not 100% accurate, if you&rsquo;re a vet, sorry about that, also, what are you doing here?).<br />
 So, we want to be able to filter on the number of teeth and run queries like:</p>
 
 <pre><code class="language-code">SELECT email FROM crocodile WHERE number_of_teeth &lt; 18;
@@ -196,7 +196,7 @@ So, we want to be able to filter on the number of teeth and run queries like:</p
 <br /></li>
 </ul>
 
-<p>The pointer to the root can change. It&rsquo;s a bit early to go into the details, but after an insert, it can be necessary to split the current root into two pages, in which case a new root is created with pointers on the splitted pages. Pages splits will be detailed in <a href="http://www.louisemeta.com/drafts/indexes-btree-algorithms#inserting-in-a-btree">the insert algorithm part of the next article</a>.</p>
+<p>The pointer to the root can change. It&rsquo;s a bit early to go into the details, but after an insert, it can be necessary to split the current root into two pages, in which case a new root is created with pointers on the split pages. Page splits will be detailed in <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms#inserting-in-a-btree">the insert algorithm part of the next article</a>.</p>
 
 <p>If you prefer using <code>pageinspect</code> here is the query returning information on the metapage.</p>
 
@@ -207,13 +207,13 @@ So, we want to be able to filter on the number of teeth and run queries like:</p
 (1 row)
 </code></pre>
 
-<p>You may be confused by this fast root thing that here is redundant with the root, but let&rsquo;s keep some of the suspense for <a href="http://www.louisemeta.com/drafts/indexes-btree-algorithms#deleting-from-a-btree">the deletion algorithm part&hellip;</a></p>
+<p>You may be confused by this fast root thing that here is redundant with the root, but let&rsquo;s keep some of the suspense for <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms#deleting-from-a-btree">the deletion algorithm part&hellip;</a></p>
 
 <h2 id="pages-and-items">Pages and items</h2>
 
 <h3 id="pages">Pages</h3>
 
-<p>The root, the parents and the leaves are all pages with the same structure. Pages have:</p>
+<p>The root, the parents, and the leaves are all pages with the same structure. Pages have:</p>
 
 <ul>
 <li>A block number, here the root block number is 290<br /></li>
@@ -225,7 +225,7 @@ So, we want to be able to filter on the number of teeth and run queries like:</p
 
 <p><img src="http://www.louisemeta.com/images/indexes/root_pointers.png" alt="Alt text" /></p>
 
-<p><strong>Purpose of the next and previous pages pointers</strong></p>
+<h3 id="next-and-previous-pages-pointers">Next and previous pages pointers</h3>
 
 <p>Thanks to the pointers to next and previous pages, pages in the same level are a linked list. This is a specificity of the Yao and Lehmann BTree. For example it&rsquo;s very usefull in the leaves for <code>ORDER BY</code> queries.<br />
 Here would be the pages on the level 0 (leaves)</p>
@@ -238,9 +238,9 @@ Here would be the pages on the level 0 (leaves)</p>
 
 <p>Postgres would start at the first leaf page and thanks to the next page pointer, has directly all rows in the right order.</p>
 
-<p><strong>About the high key</strong></p>
+<h3 id="about-the-high-key">About the high key</h3>
 
-<p>The high key is also specific to Lehman &amp; Yao BTrees. Any item in the page will have a value inferior or equal to the high key.</p>
+<p>The high key is also specific to Lehman &amp; Yao BTrees. Any item in the page will have a value lower or equal to the high key.</p>
 
 <p>The root doesn&rsquo;t have a high key, but for example in a parent level of my crocodile&rsquo;s teeth index, like this one</p>
 
@@ -267,7 +267,7 @@ btpo_flags    | 0
 
 <h3 id="items">Items</h3>
 
-<p>The items of a page (that are in green in my drawings) have a value and a ctid.</p>
+<p>The items of a page (that are in green in my drawings) have a value and a ctid. The ctid indicated the physical location of a heap tuple.</p>
 
 <p><img src="http://www.louisemeta.com/images/indexes/parent_items.png" alt="Alt text" /></p>
 
@@ -312,7 +312,7 @@ The value of an item in a parent page is the value of the first item in the chil
 <ul>
 <li>A Btree is a balanced tree. PostgreSQL implements the Lehmann &amp; Yao algorithm.<br /></li>
 <li>A BTree starts with a metapage containing information on the root and fast root block numbers and levels.<br /></li>
-<li>Root, parent and leaves are pages. Each level is a linked list making it easier to move from one page to an other within the same level.<br /></li>
+<li>Root, parent, and leaves are pages. Each level is a linked list making it easier to move from one page to an other within the same level.<br /></li>
 <li>Pages have a high key defining the biggest value that can be found and inserted in the page.<br /></li>
 <li>A page has items. In the root or the parent levels, the items point to a page on the child level. In the leaves, it points to the heap of the row in the table.<br />
 <br /></li>
@@ -320,7 +320,7 @@ The value of an item in a parent page is the value of the first item in the chil
 
 <p>Sometimes an image is worth a thousand words, so don&rsquo;t hesitate to try <a href="https://github.com/louiseGrandjonc/pageinspect_inspector">pageinspect_inspector</a> to visualize one of your own BTree indexes.</p>
 
-<p>In the <a href="http://www.louisemeta.com/drafts/indexes-btree-algorithms">next article</a> we will go over the algorithms used to search and maintain a BTree index.</p>
+<p>In the <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms">next article</a> we will go over the algorithms used to search and maintain a BTree index.</p>
 
               </article>
 
@@ -328,6 +328,8 @@ The value of an item in a parent page is the value of the first item in the chil
                   
                       <a href="http://www.louisemeta.com/drafts/intro-to-indexes/">&laquo; Introduction to PostgreSQL&#39;s …</a>
                   
+                  
+                      <a href="http://www.louisemeta.com/drafts/indexes-btree-algorithms/">PostgreSQL&#39;s indexes - BTrees … &raquo;</a>
                   
 
               </div>

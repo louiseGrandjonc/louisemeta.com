@@ -145,13 +145,13 @@ if (!doNotTrack) {
 
 <h1 id="introduction">Introduction</h1>
 
-<p>When I understand what&rsquo;s happening precisely in my database, it helps me make smarter choices. It&rsquo;s why <a href="http://www.louisemeta.com/blog/explain/">previous articles</a> focused on <code>EXPLAIN</code> and the algorithms used. Because to me, it was the best way to understand why things were not working as expected.</p>
+<p>When I understand precisely what&rsquo;s happening in my database, it helps me make smarter choices. It&rsquo;s why <a href="http://www.louisemeta.com/blog/explain/">previous articles</a> focused on <code>EXPLAIN</code> and the algorithms used. Because to me, it was the best way to understand why things were not working as expected.</p>
 
 <p>And I believe that when it comes to indexes, it&rsquo;s the same. Of course you could use your ORM to add an index on a column you picked kind of randomly, but there&rsquo;s a smarter way&hellip;<br />
 First because ORMs create BTrees and if you&rsquo;re using PostgreSQL there are other types that can be very handy. Understanding their structure, how they are searched and updated, might help you pick the one that best fits your usecase.<br />
-I also hope that studying what&rsquo;s going on internally might raise, us developers, an awareness on the cost of having multiple (and some unused ;) ) indexes.</p>
+I also hope that studying what&rsquo;s going on internally might raise an awareness on the cost of having multiple (and some unused ;) ) indexes.</p>
 
-<p>So in this series of article, I will cover the magical world of the following indexes types:</p>
+<p>So in this series of articles, I will cover the magical world of the following index types:</p>
 
 <ul>
 <li><a href="http://www.louisemeta.com/blog/indexes-btree">BTrees</a><br /></li>
@@ -169,7 +169,7 @@ I also hope that studying what&rsquo;s going on internally might raise, us devel
 
 <p>First of all, I&rsquo;d like to introduce you to the data model I&rsquo;m going to use for the examples.</p>
 
-<p>Did you know that crocodiles love candies ? <a href="https://youtu.be/RujAuz28TzQ">Especially marshmallows</a> ! So it&rsquo;s very important for them to get their teeth cleaned, and the best at it are <a href="http://smallscience.hbcse.tifr.res.in/crocodile-and-the-plover-bird/">plover birds</a>. If crocodiles don&rsquo;t do it, they&rsquo;re much slower at chewing things, and that&rsquo;s a big problem !</p>
+<p>Did you know that crocodiles love candies? <a href="https://youtu.be/RujAuz28TzQ">Especially marshmallows</a> ! So it&rsquo;s very important for them to get their teeth cleaned, and the best at it are <a href="http://smallscience.hbcse.tifr.res.in/crocodile-and-the-plover-bird/">plover birds</a>. If crocodiles don&rsquo;t do it, they&rsquo;re much slower at chewing things, and that&rsquo;s a big problem!</p>
 
 <p>So they have a website to get an appointment and give their current location (obviously it&rsquo;s much easier for birds to fly to the crocodile than it is for crocodiles to walk to a bird). The goal is to find the closest free bird to intervene. Also birds have birds teachers. How would they learn how to clean teeth otherwise?</p>
 
@@ -190,14 +190,14 @@ CREATE TABLE IF NOT EXISTS crocodile (
        last_check_up timestamp with time zone,
 
        CONSTRAINT crocodile_pkey PRIMARY KEY (id),
-       CONSTRAINT crocodile_email_uq UNIQUE (email)
 );
 
 CREATE TABLE IF NOT EXISTS plover_bird (
        id serial,
        first_name varchar(250) NOT NULL,
        last_name varchar(250) NOT NULL,
-       teacher_id INTEGER REFERENCES plover_bird (id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
+       teacher_id INTEGER REFERENCES plover_bird (id)
+       ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
 
        CONSTRAINT plover_bird_pkey PRIMARY KEY (id)
 );
@@ -206,9 +206,15 @@ CREATE EXTENSION btree_gist;
 
 CREATE TABLE IF NOT EXISTS appointment (
        id serial,
-       crocodile_id INTEGER NOT NULL REFERENCES crocodile (id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
-       plover_bird_id INTEGER REFERENCES plover_bird (id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
-       emergency_level integer NOT NULL CHECK (emergency_level &gt; 0 AND emergency_level &lt; 11),
+       crocodile_id INTEGER NOT NULL REFERENCES crocodile (id)
+       ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
+
+       plover_bird_id INTEGER REFERENCES plover_bird (id)
+       ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
+
+       emergency_level integer NOT NULL CHECK
+       (emergency_level &gt; 0 AND emergency_level &lt; 11),
+
        schedule tstzrange NOT NULL,
        done BOOLEAN DEFAULT FALSE,
        area GEOMETRY(Point, 4326),
@@ -218,7 +224,7 @@ CREATE TABLE IF NOT EXISTS appointment (
 );
 </code></pre>
 
-<h1 id="what-s-are-indexes-for">What&rsquo;s are indexes for</h1>
+<h1 id="what-are-indexes-for">What are indexes for</h1>
 
 <p>Indexes have two purposes: constraints and query optimization.</p>
 
@@ -250,7 +256,7 @@ CREATE TABLE IF NOT EXISTS appointment (
 In my example I used a GiST index for the <code>EXCLUDE</code>. I&rsquo;ll get back to it in the article on GiST. But what you can see is that the default index for constraint is a BTree.<br />
 And more generally, BTree is the default index when you use <code>CREATE INDEX</code>.</p>
 
-<p>To sum up, indexes can be used as a datamodeling strategy. If you have write latencies and trace it back to having too many indexes on a table, maybe these constraints indexes should not be the first to get rid of&hellip;</p>
+<p>To sum up, indexes can be used as a data modeling strategy. If you have write latencies and trace it back to having too many indexes on a table, maybe these constraints indexes should not be the first to get rid of&hellip;</p>
 
 <p>If you want to know more about constraints, I really recommend watching <a href="https://www.youtube.com/watch?v=hWh8QoV8z8k&amp;feature=youtu.be">Will Leinweber&rsquo;s talk</a> on the subject. It also goes more into details of unique partial indexes.</p>
 
@@ -269,11 +275,11 @@ Maybe you are already using <a href="http://www.louisemeta.com/blog/pg-stat-stat
 <br /></li>
 </ul>
 
-<p>All this questions are important.</p>
+<p>All these questions are important.</p>
 
-<p>The first three will help you choose an index type. By default PostgreSQL uses BTrees, maybe this is the one you need in your case, or maybe an other type of index could fit better. If you&rsquo;re a developer handling your indexes with an ORM chances that you won&rsquo;t use them. Which is a shame.</p>
+<p>The first three will help you choose an index type. By default PostgreSQL uses BTrees, maybe this is the one you need in your case, or maybe another type of index could fit better. If you&rsquo;re a developer handling your indexes with an ORM, chances are that you won&rsquo;t use them. Which is a shame.</p>
 
-<p>As for the other questions, let&rsquo;s remember that maintaining an index has a cost that varies depending of its type. Indeed indexes are redundant, they repeat data from your table and have to be consistent with the data in the rows. Which mean that when you change the actual data (on inserts, delete or update), it will need to be updated.</p>
+<p>As for the other questions, let&rsquo;s remember that maintaining an index has a cost that varies depending on its type. Indeed, indexes are redundant, they repeat data from your table and have to be consistent with the data in the rows. Which means that when you change the actual data (on inserts, delete or update), the index will need to be updated.</p>
 
 <p>For each index type, I will explain the algorithm used to maintain the data in the index, and I hope that it will help you understand why, for some indexes, there’s more risk to slow down your write queries.</p>
 
@@ -298,7 +304,7 @@ It’s the subject of the next article, understanding the BTree structure and ho
 
 <h1 id="conclusion">Conclusion</h1>
 
-<p>In this article, I didn’t want to go into too much detail about indexes types and strategies like multi-column or partial indexes. We will keep that for an other day. The main thing to remember is that indexes have two purposes, contraints and optimization.</p>
+<p>In this article, I didn’t want to go into too much detail about indexes types and strategies like multi-column or partial indexes. We will keep that for another day. The main thing to remember is that indexes have two purposes: contraints and optimization.</p>
 
 <p>And now it’s time to take a little jump into the internal data structure of BTrees ! I know, this is very exciting…</p>
 
@@ -307,7 +313,7 @@ It’s the subject of the next article, understanding the BTree structure and ho
               <div class="pagination">
                   
                   
-                      <a href="http://www.louisemeta.com/drafts/indexes-btree/">PostgreSQL&#39;s indexes - BTrees … &raquo;</a>
+                      <a href="http://www.louisemeta.com/drafts/indexes-btree/">PostgreSQL&#39;s indexes – BTrees … &raquo;</a>
                   
 
               </div>

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
+      <loc>http://www.louisemeta.com/drafts/indexes-btree-algorithms/</loc>
+      <lastmod>2018-06-23T10:20:21-07:00</lastmod>
+    </url>
+  
+    <url>
       <loc>http://www.louisemeta.com/drafts/indexes-btree/</loc>
       <lastmod>2018-06-22T10:20:21-07:00</lastmod>
     </url>
@@ -75,13 +80,13 @@
   
     <url>
       <loc>http://www.louisemeta.com/drafts/</loc>
-      <lastmod>2018-06-22T10:20:21-07:00</lastmod>
+      <lastmod>2018-06-23T10:20:21-07:00</lastmod>
       <priority>0</priority>
     </url>
   
     <url>
       <loc>http://www.louisemeta.com/</loc>
-      <lastmod>2018-06-22T10:20:21-07:00</lastmod>
+      <lastmod>2018-06-23T10:20:21-07:00</lastmod>
       <priority>0</priority>
     </url>
   

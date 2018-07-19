@@ -6,20 +6,31 @@
     <description>Recent content on Louise Grandjonc, Python/SQL developer but also a human</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Fri, 22 Jun 2018 10:20:21 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 23 Jun 2018 10:20:21 -0700</lastBuildDate>
     
 	<atom:link href="http://www.louisemeta.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>PostgreSQL&#39;s indexes - BTrees internal data structure</title>
+      <title>PostgreSQL&#39;s indexes - BTrees algorithms</title>
+      <link>http://www.louisemeta.com/drafts/indexes-btree-algorithms/</link>
+      <pubDate>Sat, 23 Jun 2018 10:20:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/drafts/indexes-btree-algorithms/</guid>
+      <description>Introduction In the previous article, I introduced the internal data structure of a postgres BTree index. Now it&amp;rsquo;s time to talk about searching and maintaining them.
+I think that understanding this can help us developers, DBAs know when using a BTree makes sense and when it wouldn&amp;rsquo;t be very efficient.
+Searching in a BTree Initializing scankeys In order to search in a BTree, postgres first uses the query scan to define scankeys.</description>
+    </item>
+    
+    <item>
+      <title>PostgreSQL&#39;s indexes – BTrees internal data structure</title>
       <link>http://www.louisemeta.com/drafts/indexes-btree/</link>
       <pubDate>Fri, 22 Jun 2018 10:20:21 -0700</pubDate>
       
       <guid>http://www.louisemeta.com/drafts/indexes-btree/</guid>
       <description>Introduction BTree is the index type used by default on CREATE INDEX. As I said in the introduction to indexes article, BTrees are also created automatically for primary key and unique constraints.
-Before I start going into the internal structure of BTree, I&amp;rsquo;d like to talk to you about a tiny python library to have a graphical representation of what&amp;rsquo;s going on inside PostgreSQL&amp;rsquo;s BTrees.
-You pass your index to a command line and it generates a HTML allowing you to explore pages and items of your index.</description>
+Before I start going into the internal structure of BTree, I&amp;rsquo;d like to talk to you about pageinspect_inspector, a python library to generate a graphical representation of what&amp;rsquo;s going on inside PostgreSQL&amp;rsquo;s BTrees.
+You pass your index to it on a command line and it generates an HTML allowing you to explore pages and items of your index.</description>
     </item>
     
     <item>
@@ -28,7 +39,7 @@ You pass your index to a command line and it generates a HTML allowing you to ex
       <pubDate>Thu, 21 Jun 2018 10:20:21 -0700</pubDate>
       
       <guid>http://www.louisemeta.com/drafts/intro-to-indexes/</guid>
-      <description>Introduction When I understand what&amp;rsquo;s happening precisely in my database, it helps me make smarter choices. It&amp;rsquo;s why previous articles focused on EXPLAIN and the algorithms used. Because to me, it was the best way to understand why things were not working as expected.
+      <description>Introduction When I understand precisely what&amp;rsquo;s happening in my database, it helps me make smarter choices. It&amp;rsquo;s why previous articles focused on EXPLAIN and the algorithms used. Because to me, it was the best way to understand why things were not working as expected.
 And I believe that when it comes to indexes, it&amp;rsquo;s the same. Of course you could use your ORM to add an index on a column you picked kind of randomly, but there&amp;rsquo;s a smarter way&amp;hellip;</description>
     </item>
     

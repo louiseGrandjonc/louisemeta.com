@@ -4,7 +4,6 @@ date: 2018-06-23T10:20:21-07:00
 linktitle: PostgreSQL's indexes - BTrees algorithms
 title: PostgreSQL's indexes - BTrees algorithms
 weight: 1
-draft: true
 ---
 
 # Introduction
