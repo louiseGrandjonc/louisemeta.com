@@ -11,7 +11,7 @@ draft: true
 
 In the [previous article](/blog/indexes-btree), I introduced the internal data structure of a postgres BTree index. Now it's time to talk about searching and maintaining them.
 
-I think that understanding this can help us developers, DBAs know when using a BTree makes sense and when it wouldn't be very efficient.
+I think that understanding this can help know when using a BTree makes sense and when it wouldn't be very efficient.
 
 # Searching in a BTree
 
