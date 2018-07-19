@@ -17,7 +17,7 @@ I also hope that studying what's going on internally might raise an awareness on
 
 So in this series of articles, I will cover the magical world of the following index types:
 
-- [BTrees](/blog/indexes-btree)
+- [BTrees](/draft/indexes-btree)
 - Gin Indexes
 - GiST
 - SPGiST
