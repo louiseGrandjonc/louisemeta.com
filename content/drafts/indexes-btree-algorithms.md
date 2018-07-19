@@ -8,9 +8,9 @@ weight: 1
 
 # Introduction
 
-In the [previous article](/draft/indexes-btree), I introduced the internal data structure of a postgres BTree index. Now it's time to talk about searching and maintaining them.
+In the [previous article](/drafts/indexes-btree), I introduced the internal data structure of a postgres BTree index. Now it's time to talk about searching and maintaining them.
 
-I think that understanding this can help us know when using a BTree makes sense and when it wouldn't be very efficient.
+I think that understanding this can help know when using a BTree makes sense and when it wouldn't be very efficient.
 
 # Searching in a BTree
 
@@ -153,7 +153,7 @@ To avoid using the search algorithm to find the right page, postgres uses a fast
 **Step 1: retrieving the cached page**
 The **right-most leaf** of the index is **cached into a buffer**. So we retrieve the page using this buffer.
 
-** Step 2: checking the page**
+**Step 2: checking the page**
 
 There are three condictions that need to be verified in order to be able to use a fast path:
 
@@ -168,7 +168,7 @@ If this conditions are met, the `fastpath` variable is set to `true`.
 If the value of `fastpath` is `false`, it means that the indexes BTree has to be searched in order to **find the right page for our tuple**.
 
 **Step 1: searching for the right page**
-The insert uses **`_bt_search`** to find the first page containing the key.
+The insert uses **`_bt_search`** to find the first page containing the key. It's the function called to search in a BTree, see above.
 
 **Step 2: locking**
 In the `_bt_search` we locked the page being red. Here we **trade the read lock for a write lock**.
@@ -178,8 +178,8 @@ It's possible that, during the lock trade, the page was split. So as in the sear
 
 ## Checking constraints
 
-If we're not allowing duplicates, make sure the key isn't already in the index.
-Postgres can only detect that the value is not already in the index. So the write lock protects against concurrent writing on the page.
+If we're not allowing duplicates, postgres makes sure the key isn't already in the index.
+Postgres can **only detect** that the **value is not already in the index**. So the **write lock protects against concurrent writing** on the page.
 
 For example, I have a unique constraint on crocodiles email. Let's say I run the query
 
@@ -188,9 +188,9 @@ INSERT INTO crocodile (first_name, last_name, birthday, number_of_teeth, email)
 VALUES ('Louise', 'Grandjonc', '1991-12-21', 15, 'louise@croco.com');
 ```
 
-The index has to be updated as the data in the index has to be consistent with the rows in the table. A write lock is aquired on the index page where the tuple (`louise@croco.com` and the pointer to the new heap) will be inserted.
-If there's a concurrent writing, the second insert has to wait until the write lock is dropped. At this point the value `louise@croco.com` is already in the index.
-So there is a conflict and the new tuple can't be inserted and as the operations of insert and updating the index are atomic, the query fails.
+The index has to be updated. A **write lock is aquired** on the index page where the tuple (`louise@croco.com` and the pointer to the new heap) will be inserted.
+If there's a **concurrent writing**, the second insert has to **wait until the write lock is dropped**. At this point the value `louise@croco.com` is **already in the index**.
+So **there is a conflict** and the new tuple can't be inserted and as the operations of insert and updating the index are atomic, the query fails.
 
 
 ## Inserting the tuple and page splits
@@ -203,7 +203,7 @@ The first thing that the function `_bt_insertonpg()` does is to check if the tup
 
 ### 2. Splitting the page if necessary
 
-First, you might wonder what it means to **split a page**. It's when there **isn't enought space** to add the item **in the target page**, so **a new page is created on the right of the page**.
+A page split occurs when there **isn't enough space** to add the item **in the target page**, so **a new page is created on the right of the page**.
 
 These screenshots are before and after inserts of crocodiles. (I re-created a new one which is why the root block number changed ;))
 
@@ -244,7 +244,7 @@ So now that we have the split point.
 
 A right page is created. In the right page, **the data after the split point is copied**. The data of the target page is updated to only keep the data before split point.
 
-Then the pointers of the pages are updated. The right pointer of the target page becomes the new page. The right pointer of the new page is the old target page right pointer.
+Then the **pointers of the pages are updated**. The **right pointer of the target page** becomes the **new page**. The **right pointer of the new page** is the old **target page right pointer**.
 
 At last the high key of the pages are updated. The **high key of the new page** becomes **the high key of the splitted target page**.
 The **high key of the target page** becomes the **first value of the right page**.
@@ -255,7 +255,7 @@ The **high key of the target page** becomes the **first value of the right page*
 If there was a page split, we need to insert the new page on the parent level.
 
 If the **split page was the root**, there is no parent, in which case **a new root has to be created** with items linking to the target page and its new right page.
-The metapage is updated with the new root pointer.
+The **metapage is updated** with the **new root**.
 
 If it's not a root, we need to **insert in the parent page** the tuple (value, pointer to new page). The value is the one from the first item of the new page.
 Thanks to the stack leading to the target page, we know in which parent page the tuple has to inserted.

@@ -145,9 +145,9 @@ if (!doNotTrack) {
 
 <h1 id="introduction">Introduction</h1>
 
-<p>In the <a href="http://www.louisemeta.com/draft/indexes-btree">previous article</a>, I introduced the internal data structure of a postgres BTree index. Now it&rsquo;s time to talk about searching and maintaining them.</p>
+<p>In the <a href="http://www.louisemeta.com/drafts/indexes-btree">previous article</a>, I introduced the internal data structure of a postgres BTree index. Now it&rsquo;s time to talk about searching and maintaining them.</p>
 
-<p>I think that understanding this can help us know when using a BTree makes sense and when it wouldn&rsquo;t be very efficient.</p>
+<p>I think that understanding this can help know when using a BTree makes sense and when it wouldn&rsquo;t be very efficient.</p>
 
 <h1 id="searching-in-a-btree">Searching in a BTree</h1>
 
@@ -294,7 +294,7 @@ To avoid using the search algorithm to find the right page, postgres uses a fast
 <p><strong>Step 1: retrieving the cached page</strong><br />
 The <strong>right-most leaf</strong> of the index is <strong>cached into a buffer</strong>. So we retrieve the page using this buffer.</p>
 
-<p>** Step 2: checking the page**</p>
+<p><strong>Step 2: checking the page</strong></p>
 
 <p>There are three condictions that need to be verified in order to be able to use a fast path:</p>
 
@@ -312,7 +312,7 @@ The <strong>right-most leaf</strong> of the index is <strong>cached into a buffe
 <p>If the value of <code>fastpath</code> is <code>false</code>, it means that the indexes BTree has to be searched in order to <strong>find the right page for our tuple</strong>.</p>
 
 <p><strong>Step 1: searching for the right page</strong><br />
-The insert uses <strong><code>_bt_search</code></strong> to find the first page containing the key.</p>
+The insert uses <strong><code>_bt_search</code></strong> to find the first page containing the key. It&rsquo;s the function called to search in a BTree, see above.</p>
 
 <p><strong>Step 2: locking</strong><br />
 In the <code>_bt_search</code> we locked the page being red. Here we <strong>trade the read lock for a write lock</strong>.</p>
@@ -322,8 +322,8 @@ It&rsquo;s possible that, during the lock trade, the page was split. So as in th
 
 <h2 id="checking-constraints">Checking constraints</h2>
 
-<p>If we&rsquo;re not allowing duplicates, make sure the key isn&rsquo;t already in the index.<br />
-Postgres can only detect that the value is not already in the index. So the write lock protects against concurrent writing on the page.</p>
+<p>If we&rsquo;re not allowing duplicates, postgres makes sure the key isn&rsquo;t already in the index.<br />
+Postgres can <strong>only detect</strong> that the <strong>value is not already in the index</strong>. So the <strong>write lock protects against concurrent writing</strong> on the page.</p>
 
 <p>For example, I have a unique constraint on crocodiles email. Let&rsquo;s say I run the query</p>
 
@@ -331,9 +331,9 @@ Postgres can only detect that the value is not already in the index. So the writ
 VALUES ('Louise', 'Grandjonc', '1991-12-21', 15, 'louise@croco.com');
 </code></pre>
 
-<p>The index has to be updated as the data in the index has to be consistent with the rows in the table. A write lock is aquired on the index page where the tuple (<code>louise@croco.com</code> and the pointer to the new heap) will be inserted.<br />
-If there&rsquo;s a concurrent writing, the second insert has to wait until the write lock is dropped. At this point the value <code>louise@croco.com</code> is already in the index.<br />
-So there is a conflict and the new tuple can&rsquo;t be inserted and as the operations of insert and updating the index are atomic, the query fails.</p>
+<p>The index has to be updated. A <strong>write lock is aquired</strong> on the index page where the tuple (<code>louise@croco.com</code> and the pointer to the new heap) will be inserted.<br />
+If there&rsquo;s a <strong>concurrent writing</strong>, the second insert has to <strong>wait until the write lock is dropped</strong>. At this point the value <code>louise@croco.com</code> is <strong>already in the index</strong>.<br />
+So <strong>there is a conflict</strong> and the new tuple can&rsquo;t be inserted and as the operations of insert and updating the index are atomic, the query fails.</p>
 
 <h2 id="inserting-the-tuple-and-page-splits">Inserting the tuple and page splits</h2>
 
@@ -345,7 +345,7 @@ So there is a conflict and the new tuple can&rsquo;t be inserted and as the oper
 
 <h3 id="2-splitting-the-page-if-necessary">2. Splitting the page if necessary</h3>
 
-<p>First, you might wonder what it means to <strong>split a page</strong>. It&rsquo;s when there <strong>isn&rsquo;t enought space</strong> to add the item <strong>in the target page</strong>, so <strong>a new page is created on the right of the page</strong>.</p>
+<p>A page split occurs when there <strong>isn&rsquo;t enough space</strong> to add the item <strong>in the target page</strong>, so <strong>a new page is created on the right of the page</strong>.</p>
 
 <p>These screenshots are before and after inserts of crocodiles. (I re-created a new one which is why the root block number changed ;))</p>
 
@@ -386,7 +386,7 @@ It&rsquo;s useful <strong>for serial indexes</strong>, like the index on the id 
 
 <p>A right page is created. In the right page, <strong>the data after the split point is copied</strong>. The data of the target page is updated to only keep the data before split point.</p>
 
-<p>Then the pointers of the pages are updated. The right pointer of the target page becomes the new page. The right pointer of the new page is the old target page right pointer.</p>
+<p>Then the <strong>pointers of the pages are updated</strong>. The <strong>right pointer of the target page</strong> becomes the <strong>new page</strong>. The <strong>right pointer of the new page</strong> is the old <strong>target page right pointer</strong>.</p>
 
 <p>At last the high key of the pages are updated. The <strong>high key of the new page</strong> becomes <strong>the high key of the splitted target page</strong>.<br />
 The <strong>high key of the target page</strong> becomes the <strong>first value of the right page</strong>.</p>
@@ -396,7 +396,7 @@ The <strong>high key of the target page</strong> becomes the <strong>first value
 <p>If there was a page split, we need to insert the new page on the parent level.</p>
 
 <p>If the <strong>split page was the root</strong>, there is no parent, in which case <strong>a new root has to be created</strong> with items linking to the target page and its new right page.<br />
-The metapage is updated with the new root pointer.</p>
+The <strong>metapage is updated</strong> with the <strong>new root</strong>.</p>
 
 <p>If it&rsquo;s not a root, we need to <strong>insert in the parent page</strong> the tuple (value, pointer to new page). The value is the one from the first item of the new page.<br />
 Thanks to the stack leading to the target page, we know in which parent page the tuple has to inserted.<br />
