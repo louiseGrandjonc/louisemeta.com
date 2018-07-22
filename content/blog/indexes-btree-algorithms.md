@@ -17,7 +17,7 @@ I think that understanding this can help know when using a BTree makes sense and
 
 ## Initializing scankeys
 
-In order to search in a BTree, postgres first uses the query scan to define scankeys. If possible, redundants keys in your query are eliminated to keep only the tightest bounds. If you did something real smart like
+In order to search in a BTree, postgres first uses the query scan to **define scankeys**. If possible, **redundants keys** in your query **are eliminated** to keep only the **tightest bounds**. If you did something real smart like
 
 ```code
 SELECT email, number_of teeth FROM crocodile
@@ -52,18 +52,19 @@ SELECT email FROM crocodile WHERE number_of_teeth >= 20;
 `_bt_search` **initialize a page pointer** `bufP` to the **root or fast root**.
 At this step, if we take my BTree, `bufP` would be on the root with block number 290.
 
+![Alt text](/images/indexes/root_pointers.png)
 
 **Step 2: Let's climb down that tree**
 The second step is a loop iterating until the `bufP` pointer is a leaf page.
 
 *Step 2.1: should I stop looking ?*
 
-If the `bufP` page is a leaf page, we break the loop and return a stack containing:
+If the `bufP` page is a leaf page, we break the loop and **return a stack** containing:
 
-- the block number of the parent page of the leaf
-- the block number of the leaf page
-- the offset of the first item in the leaf page matching our scankey
-- the stack of the parent
+- the **block number** of the **parent page of the leaf**
+- the **block number of the leaf page**
+- the **offset of the first item** in the leaf page **matching our scankey**
+- the **stack of the parent**
 
 This way we have the path leading to the leaf page.
 
@@ -276,17 +277,63 @@ If I had to sum up the insert process, I'd say:
 
 # Deleting from a BTree
 
-## Deleting tuples
+## Deleting items from a leaf page
+
+When we delete a row from a table, the index has to be updated. Which means that any tuple in the leaf pages leading to this row has to be deleted.
+
+The item is not immediatly removed from the index. It is first **marked as deleted** and will be **ignored in index scans**.
+
+So if I deleted the row pointed by this item:
+
+![Alt text](/images/indexes/deleted_row.png)
+
+The **item still appears until the next VACUUM**.
+
+![Alt text](/images/indexes/before_vaccuum.png)
+
+The parents don't need to be updated when deleting an item in a leaf page. The rest of the tree **only changes in case of page deletion**.
 
 ## Deleting a page
 
-- Fast root
-- Pages deleted only when no node and after VACCUUM
-- What happens after delete from large set of data
+A page is deleted **only if all its items have been deleted**.
+
+When a leaf page is empty, it is **marked** with a `btpo_flag` **as half-dead**. So any **concurrent search** will ignore it and **move right**.
+
+Then the page's left page has to point to the page's right page.
+If we deleted the page with block number 30.
+
+![Alt text](/images/indexes/before_delete_page.png)
+
+Then the tree would look like this. The new right sibling from page no 29, is the page no 31.
+
+![Alt text](/images/indexes/after_delete_page.png)
+
+The tuple that would have been inserted in page 30, will now be inserted in the right page.
+
+Once the links have been updated, the page's `btpo_flags` changes to deleted. The page is **marked as deleted**, but **cannot be reused immediately** because their could be other processes using it. For example a search can be in the parent page and has to aknowledge the fact that the page is marked dead.
+A **VACUUM will then reclaim the page** under the condition that no processes is referencing it.. Once a page is free, it can be **reused for a future page split** and its **content is overwritten**.
+
+The **parent need to be updated** to **remove the downlink** to the deleted page. If the **leaf page was the last child** of a parent page, then the **parent page can be deleted**. This process is recursive until the first grand-parent with more than one child.
+
+### About rightmost pages
+
+The **rightmost page of a level can never be deleted**. This means that **the height of a BTree can only grow**.
+
+But if we delete a big amount of data, then it's possible to end up with a tree with several levels with only one page.
+
+On the following picture you can see that my root only has one child.
+
+![Alt text](/images/indexes/fast_root.png)
+
+In this case, PostgreSQL updates the `fast root` of the metapage. The **`fast root` becomes the first level with more than one child**.
+
+In this case, the fast root is the page with block number `575`.
+
+The fast root is used to **optimize the search**. Instead of starting from the root, it starts from the fast root, avoiding to climb down levels with only one child.
 
 # Conclusion
 
-Now that you are a bit familiar with searching/inserting/deleting in a BTree, maybe you'll understand why this is the index that is used for `>, <, >=, <=, =` operators.
-Because of the structure of the BTree and the way the index is traversed to look for scankey, this makes this index efficient for this operations.
+The entire structure of a BTree and the algorithms used to search and update are based on the idea that we are comparing a scankey with `>, <, >=, <=, =` operators.
+This index is therefor efficient for this operations.
 
-The next article will cover `GIN` indexes.
+The next article will cover `GIN` indexes, as `GIN` indexes are based on BTrees, I hope that the article will be a little shorter... 

@@ -136,7 +136,7 @@ if (!doNotTrack) {
 
               <div class="sub-header">
                   
-                  June 2018 · 11 minute read
+                  June 2018 · 13 minute read
                   
               </div>
 
@@ -153,7 +153,7 @@ if (!doNotTrack) {
 
 <h2 id="initializing-scankeys">Initializing scankeys</h2>
 
-<p>In order to search in a BTree, postgres first uses the query scan to define scankeys. If possible, redundants keys in your query are eliminated to keep only the tightest bounds. If you did something real smart like</p>
+<p>In order to search in a BTree, postgres first uses the query scan to <strong>define scankeys</strong>. If possible, <strong>redundants keys</strong> in your query <strong>are eliminated</strong> to keep only the <strong>tightest bounds</strong>. If you did something real smart like</p>
 
 <pre><code class="language-code">SELECT email, number_of teeth FROM crocodile
 WHERE number_of_teeth &gt; 4
@@ -185,18 +185,20 @@ Its purpose is to <strong>find the first leaf page</strong> where the <strong>sc
 <code>_bt_search</code> <strong>initialize a page pointer</strong> <code>bufP</code> to the <strong>root or fast root</strong>.<br />
 At this step, if we take my BTree, <code>bufP</code> would be on the root with block number 290.</p>
 
+<p><img src="http://www.louisemeta.com/images/indexes/root_pointers.png" alt="Alt text" /></p>
+
 <p><strong>Step 2: Let&rsquo;s climb down that tree</strong><br />
 The second step is a loop iterating until the <code>bufP</code> pointer is a leaf page.</p>
 
 <p><em>Step 2.1: should I stop looking ?</em></p>
 
-<p>If the <code>bufP</code> page is a leaf page, we break the loop and return a stack containing:</p>
+<p>If the <code>bufP</code> page is a leaf page, we break the loop and <strong>return a stack</strong> containing:</p>
 
 <ul>
-<li>the block number of the parent page of the leaf<br /></li>
-<li>the block number of the leaf page<br /></li>
-<li>the offset of the first item in the leaf page matching our scankey<br /></li>
-<li>the stack of the parent<br />
+<li>the <strong>block number</strong> of the <strong>parent page of the leaf</strong><br /></li>
+<li>the <strong>block number of the leaf page</strong><br /></li>
+<li>the <strong>offset of the first item</strong> in the leaf page <strong>matching our scankey</strong><br /></li>
+<li>the <strong>stack of the parent</strong><br />
 <br /></li>
 </ul>
 
@@ -418,23 +420,66 @@ The function <strong><code>_bt_insertonpg()</code> is called recursively</strong
 
 <h1 id="deleting-from-a-btree">Deleting from a BTree</h1>
 
-<h2 id="deleting-tuples">Deleting tuples</h2>
+<h2 id="deleting-items-from-a-leaf-page">Deleting items from a leaf page</h2>
+
+<p>When we delete a row from a table, the index has to be updated. Which means that any tuple in the leaf pages leading to this row has to be deleted.</p>
+
+<p>The item is not immediatly removed from the index. It is first <strong>marked as deleted</strong> and will be <strong>ignored in index scans</strong>.</p>
+
+<p>So if I deleted the row pointed by this item:</p>
+
+<p><img src="http://www.louisemeta.com/images/indexes/deleted_row.png" alt="Alt text" /></p>
+
+<p>The <strong>item still appears until the next VACUUM</strong>.</p>
+
+<p><img src="http://www.louisemeta.com/images/indexes/before_vaccuum.png" alt="Alt text" /></p>
+
+<p>The parents don&rsquo;t need to be updated when deleting an item in a leaf page. The rest of the tree <strong>only changes in case of page deletion</strong>.</p>
 
 <h2 id="deleting-a-page">Deleting a page</h2>
 
-<ul>
-<li>Fast root<br /></li>
-<li>Pages deleted only when no node and after VACCUUM<br /></li>
-<li>What happens after delete from large set of data<br />
-<br /></li>
-</ul>
+<p>A page is deleted <strong>only if all its items have been deleted</strong>.</p>
+
+<p>When a leaf page is empty, it is <strong>marked</strong> with a <code>btpo_flag</code> <strong>as half-dead</strong>. So any <strong>concurrent search</strong> will ignore it and <strong>move right</strong>.</p>
+
+<p>Then the page&rsquo;s left page has to point to the page&rsquo;s right page.<br />
+If we deleted the page with block number 30.</p>
+
+<p><img src="http://www.louisemeta.com/images/indexes/before_delete_page.png" alt="Alt text" /></p>
+
+<p>Then the tree would look like this. The new right sibling from page no 29, is the page no 31.</p>
+
+<p><img src="http://www.louisemeta.com/images/indexes/after_delete_page.png" alt="Alt text" /></p>
+
+<p>The tuple that would have been inserted in page 30, will now be inserted in the right page.</p>
+
+<p>Once the links have been updated, the page&rsquo;s <code>btpo_flags</code> changes to deleted. The page is <strong>marked as deleted</strong>, but <strong>cannot be reused immediately</strong> because their could be other processes using it. For example a search can be in the parent page and has to aknowledge the fact that the page is marked dead.<br />
+A <strong>VACUUM will then reclaim the page</strong> under the condition that no processes is referencing it.. Once a page is free, it can be <strong>reused for a future page split</strong> and its <strong>content is overwritten</strong>.</p>
+
+<p>The <strong>parent need to be updated</strong> to <strong>remove the downlink</strong> to the deleted page. If the <strong>leaf page was the last child</strong> of a parent page, then the <strong>parent page can be deleted</strong>. This process is recursive until the first grand-parent with more than one child.</p>
+
+<h3 id="about-rightmost-pages">About rightmost pages</h3>
+
+<p>The <strong>rightmost page of a level can never be deleted</strong>. This means that <strong>the height of a BTree can only grow</strong>.</p>
+
+<p>But if we delete a big amount of data, then it&rsquo;s possible to end up with a tree with several levels with only one page.</p>
+
+<p>On the following picture you can see that my root only has one child.</p>
+
+<p><img src="http://www.louisemeta.com/images/indexes/fast_root.png" alt="Alt text" /></p>
+
+<p>In this case, PostgreSQL updates the <code>fast root</code> of the metapage. The <strong><code>fast root</code> becomes the first level with more than one child</strong>.</p>
+
+<p>In this case, the fast root is the page with block number <code>575</code>.</p>
+
+<p>The fast root is used to <strong>optimize the search</strong>. Instead of starting from the root, it starts from the fast root, avoiding to climb down levels with only one child.</p>
 
 <h1 id="conclusion">Conclusion</h1>
 
-<p>Now that you are a bit familiar with searching/inserting/deleting in a BTree, maybe you&rsquo;ll understand why this is the index that is used for <code>&gt;, &lt;, &gt;=, &lt;=, =</code> operators.<br />
-Because of the structure of the BTree and the way the index is traversed to look for scankey, this makes this index efficient for this operations.</p>
+<p>The entire structure of a BTree and the algorithms used to search and update are based on the idea that we are comparing a scankey with <code>&gt;, &lt;, &gt;=, &lt;=, =</code> operators.<br />
+This index is therefor efficient for this operations.</p>
 
-<p>The next article will cover <code>GIN</code> indexes.</p>
+<p>The next article will cover <code>GIN</code> indexes, as <code>GIN</code> indexes are based on BTrees, I hope that the article will be a little shorter&hellip;</p>
 
               </article>
 

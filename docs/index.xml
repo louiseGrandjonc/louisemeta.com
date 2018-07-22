@@ -18,8 +18,8 @@
       
       <guid>http://www.louisemeta.com/drafts/indexes-btree-algorithms/</guid>
       <description>Introduction In the previous article, I introduced the internal data structure of a postgres BTree index. Now it&amp;rsquo;s time to talk about searching and maintaining them.
-I think that understanding this can help us developers, DBAs know when using a BTree makes sense and when it wouldn&amp;rsquo;t be very efficient.
-Searching in a BTree Initializing scankeys In order to search in a BTree, postgres first uses the query scan to define scankeys.</description>
+I think that understanding this can help know when using a BTree makes sense and when it wouldn&amp;rsquo;t be very efficient.
+Searching in a BTree Initializing scankeys In order to search in a BTree, postgres first uses the query scan to define scankeys. If possible, redundants keys in your query are eliminated to keep only the tightest bounds.</description>
     </item>
     
     <item>

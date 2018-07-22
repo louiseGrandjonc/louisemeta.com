@@ -22,10 +22,12 @@ Here is a little video to show you how it works (where you *might* notice that I
 
 # What is a BTree ?
 
-BTree stands for balanced tree. The root and each parent node can have more than one child which minimize the depth of the tree and all the leaves at equal distance from the root.
+BTree stands for balanced tree.
+In a balanced tree, all the leaves are at equal distance from the root. Moreover the root and parents can have more than two children which minimize the depth of the tree.
 
-ADD DRAWING OF BTREE
+Here is a comparison of the same data in the form of a binary tree and a balanced tree.
 
+![Alt text](/images/indexes/btree.png)
 
 # BTrees in postgres
 
@@ -131,7 +133,7 @@ btpo_flags    | 0
 
 ### Items
 
-The items of a page (that are in green in my drawings) have a value and a ctid. The ctid indicated the physical location of a heap tuple.
+The items of a page (that are in green in my drawings) have a value and a ctid. The ctid indicated the physical location of a heap tuple, you can read about it in the [previous article](/blog/intro-to-indexes/).
 
 ![Alt text](/images/indexes/parent_items.png)
 
