@@ -367,3 +367,15 @@ file ginvacuum
 
 
 # Conclusion
+
+The GIN index has a really interesting structure. I think that the most important part is to understand that the values indexed are split to get the keys. It's the reason why it's very efficient for fulltext search, arrays and jsonb.
+
+But there are also some extensions for integers for example. It could be interesting if you want to index a column that doesn't have a lot of different values, because the BTree would be optimised. But when it comes to the search, I've found that it's not necessarly better than a BTree, probably because of the posting lists and posting trees that need to be fetched.
+
+Here is the result of the same request for an integer with a BTree and with a GIN index. You can see that the times are almost the same.
+
+
+```code
+```
+
+I hope that this article helped you understand in which cases a GIN index can apply but why you should be careful about this index as updating it can be slow. 
