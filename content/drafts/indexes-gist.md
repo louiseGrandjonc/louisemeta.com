@@ -144,7 +144,7 @@ Else, if the page is not a leaf page, the item is pushed in a seach queue. The p
 
 Let's go back to our query. So if we are looking for the rows overlapping the period '[2018-05-17 08:00:00, 2018-05-17 13:00:00]', as you can see in the following figure, there are two items in the root (at least, I didn't look into ALL the root items) that could lead to leaves with matching rows. So this branches are going to be explored recursively until the leaves.
 
-![Alt text](/images/indexes/gist_search.png)
+![Alt text](/images/indexes/gist_search.jpg)
 
 It's also important to note that the key class defines a `Distance` function. This function is used if in the query there was an ORDER BY like here.
 
@@ -226,9 +226,9 @@ In case of page split, it becomes necessary to recurse in the parent level to in
 On the following pictures you can see that after a page split, the new page becomes the rightmost page and the range of the old page changed.
 
 
-![Alt text](/images/indexes/gist_before_split.png)
+![Alt text](/images/indexes/gist_before_split.jpg)
 
-![Alt text](/images/indexes/gist_after_split.png)
+![Alt text](/images/indexes/gist_after_split.jpg)
 
 
 ## To sum up
