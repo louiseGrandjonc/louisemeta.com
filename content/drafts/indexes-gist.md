@@ -144,7 +144,7 @@ Else, if the page is not a leaf page, the item is pushed in a seach queue. The p
 
 Let's go back to our query. So if we are looking for the rows overlapping the period '[2018-05-17 08:00:00, 2018-05-17 13:00:00]', as you can see in the following figure, there are two items in the root (at least, I didn't look into ALL the root items) that could lead to leaves with matching rows. So this branches are going to be explored recursively until the leaves.
 
-![Alt text](/images/indexes/gist_search.jpg)
+![Alt text](/images/indexes/git_search.png)
 
 It's also important to note that the key class defines a `Distance` function. This function is used if in the query there was an ORDER BY like here.
 
@@ -206,9 +206,9 @@ It's [`gistplacetopage`](https://github.com/postgres/postgres/blob/master/src/ba
 
 Indeed, it can be necessary to update the key in a parent level if the range changed. For example, let's say I insert an appointment with the schedule value [2013-11-20 05:30:00, 2013-11-20 06:30:00]. As you can see in the following images, the range of the page where it was inserted changed which led to an update of the value in the root page.
 
-![Alt text](/images/indexes/gist_before_insert_no_split.png)
+![Alt text](/images/indexes/gist_before_insert_no_split.jpg)
 
-![Alt text](/images/indexes/gist_after_insert_no_split.png)
+![Alt text](/images/indexes/gist_after_insert_no_split.jpg)
 
 The key class function `Union` is used to find the new range.
 
