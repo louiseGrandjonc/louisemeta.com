@@ -6,10 +6,21 @@
     <description>Recent content in Drafts on Louise Grandjonc, Python/SQL developer but also a human</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Fri, 29 Jun 2018 10:20:21 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 20 Aug 2018 10:20:21 -0700</lastBuildDate>
     
 	<atom:link href="http://www.louisemeta.com/drafts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>PostgreSQL&#39;s indexes - GIST</title>
+      <link>http://www.louisemeta.com/drafts/indexes-gist/</link>
+      <pubDate>Mon, 20 Aug 2018 10:20:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/drafts/indexes-gist/</guid>
+      <description>Introduction The GIST index is a balanced tree, but that&amp;rsquo;s basically the only thing that it has in common with a BTree.
+One of its particularity is that it can be extended to any type of data as long as a few functions implemented. I will mention these function in this article, and if you want to go further, you can go read the GiST indexing Project website
+But for now we are going to focus on a few usecases, and not list all the extensions that great people have made for GiST :)</description>
+    </item>
     
     <item>
       <title>PostgreSQL&#39;s indexes - GIN</title>
@@ -21,17 +32,6 @@
 When it comes to array, they are, for example, used to verify if an array contains an other array or elements (the &amp;lt;@ operator).
 In the documentation you can see the full list of operators.
 But the question that I want to answer in this article is: &amp;ldquo;why should we use GIN indexes for this data types and operators ?</description>
-    </item>
-    
-    <item>
-      <title>PostgreSQL&#39;s indexes - GIST</title>
-      <link>http://www.louisemeta.com/drafts/indexes-gist/</link>
-      <pubDate>Fri, 29 Jun 2018 10:20:21 -0700</pubDate>
-      
-      <guid>http://www.louisemeta.com/drafts/indexes-gist/</guid>
-      <description>Introduction The GIST index is a balanced tree, but that&amp;rsquo;s basically the only thing that it has in common with a BTree.
-One of its particularity is that it can be extended to any type of data as long as a few functions implemented. I will mention these function in this article, and if you want to go further, you can go read the GiST indexing Project website
-Union: This method consolidates information in the tree.</description>
     </item>
     
     <item>

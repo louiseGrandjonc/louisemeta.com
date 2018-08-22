@@ -1,6 +1,6 @@
 ---
 author: "Louise Grandjonc"
-date: 2018-06-29T10:20:21-07:00
+date: 2018-08-20T10:20:21-07:00
 linktitle: PostgreSQL's indexes - GIST
 title: PostgreSQL's indexes - GIST
 weight: 1
@@ -12,29 +12,15 @@ The GIST index is a balanced tree, but that's basically the only thing that it h
 
 One of its particularity is that it can be extended to any type of data as long as a few functions implemented. I will mention these function in this article, and if you want to go further, you can go read the [GiST indexing Project website](http://gist.cs.berkeley.edu/)
 
-
-Union: This method consolidates information in the tree. Given a set S of entries, this method returns a new key p which is true for all the data items below S. A simple way to implement Union is to return a predicate equivalent to the disjunction of the keys in S, i.e. "p1 or p2 or p3 or...".
-
-PickSplit: As in a B-tree, pages in a GiST occasionally need to be split upon insertion of a new data item. This routine is responsible for deciding which items go to the new page, and which ones stay on the old page.
-
-
 But for now we are going to focus on a few usecases, and not list all the extensions that great people have made for GiST :)
 
-So after the last article, our birds dentists were able to look for certain syndroms and also find the most urgent appointments. All of this helping them organise their day. But what they need, is to do a schedule of course ! So in order to do that, they want to find the appointments that don't have a dentist yet, and of course, they can't be healing two crocos at the time right?
+So after the last article, our birds dentists were able to look for certain syndroms and also find the most urgent appointments. All of this helping them organise their day. But what they need, is to do a schedule of course ! So in order to do that, they want to find which crocodile took an appointment when they are free.
 
 So here we are, we have a problem of data overlapping. And so we create the following index
 
 ```code
 CREATE INDEX ON appointment USING GIST(schedule)
 ```
-
-And, oh also, you know what would be perfect? If the dentists could find the appointments near their previous one. So that they can optimise their route and not be exhausted by the all flying.
-
-So now we add some "nearest point" problem to that...
-
-But the great coincidence that GiST works for these operators right ?
-
-
 And of course, let's first talk about the internal data structure
 
 
@@ -156,45 +142,110 @@ If the scan is ordered. The distance from the scankey if evaluated thanks to the
 
 Else, if the page is not a leaf page, the item is pushed in a seach queue. The page pointed by the item will then be recursively explored.
 
-
 Let's go back to our query. So if we are looking for the rows overlapping the period '[2018-05-17 08:00:00, 2018-05-17 13:00:00]', as you can see in the following figure, there are two items in the root (at least, I didn't look into ALL the root items) that could lead to leaves with matching rows. So this branches are going to be explored recursively until the leaves.
 
 ![Alt text](/images/indexes/gist_search.png)
 
+It's also important to note that the key class defines a `Distance` function. This function is used if in the query there was an ORDER BY like here.
+
+```code
+croco_new=# SELECT c.email, schedule, done, emergency_level
+            FROM appointment
+            INNER JOIN crocodile c ON (c.id=crocodile_id)
+            WHERE schedule && '[2018-05-17 08:00:00, 2018-05-17 13:00:00]'::tstzrange
+            AND done IS FALSE ORDER BY schedule DESC LIMIT 3;
+-[ RECORD 1 ]---+----------------------------------------------------
+email           | harry.yoon348422@croco.com
+schedule        | ["2018-05-17 12:55:00-07","2018-05-17 13:55:00-07")
+done            | f
+emergency_level | 5
+-[ RECORD 2 ]---+----------------------------------------------------
+email           | alfred.ferrara349165@croco.com
+schedule        | ["2018-05-17 12:55:00-07","2018-05-17 13:55:00-07")
+done            | f
+emergency_level | 3
+-[ RECORD 3 ]---+----------------------------------------------------
+email           | harry.das285454@croco.com
+schedule        | ["2018-05-17 12:44:00-07","2018-05-17 13:44:00-07")
+done            | f
+emergency_level | 1
+```
+
 
 ## To sum up
+
+The search has to explore all the tree branches that overlap the scan key we are looking for. To do that it's using a bitmap and comparing the scan key with the `Consistent` key class function.
 
 
 # Inserting a new tuple
 
 As I said earlier, a tuple can be inserted in several different leaf pages, it could actually be inserted anywhere in the tree but that would be very bad for the search performance.
 
-## Step 1: finding the best page
-The function `gistdoinsert` calls the function `gistchoose` which finds the best page to insert the new tuple in.
+ `gistdoinsert` handles inserts. In order to insert a new tuple, it will start from the root and descend the tree following the smallest "Penalty".
 
-To do so, the algorithm starts from the root and recurses until a leaf page.
+So, recursively, until the page is a leaf, it's going to:
 
-- First it check if there was a split. If there was one, it can't be sure it's the best page anymore and goes back to the parent page.
-- For each item of the current page, it will calculate the penalty. This is a key class function. It gives a number representing how bad the value to insert would fit in the child page.
+## Step 1: Check for page split
 
+First, if there was a concurrent page split, the current page might not be the best path anymore. So in case of page split, the algorithm recurses back to the current page parent.
 
-## Step 2: inserting the tuple in the page
+## Step 2: find the best path
+The function `gistdoinsert` calls the function `gistchoose` which finds the best tree branch to follow, meaning the best page child page of the current one.
 
-Once the right page in found, the function [`gistinserttuples`](https://github.com/postgres/postgres/blob/master/src/backend/access/gist/gist.c#L1213) calls the function `gistplacetopage` that does the work of inserting the tuple(s) to the page and if necessary split it.
+To do that, `gistchoose` goes over the items of the current page, it will calculate the penalty. `Penalty` is a key class function. It gives a number representing how bad the value to insert would fit in the child page.
 
-[`gistplacetopage`](https://github.com/postgres/postgres/blob/master/src/backend/access/gist/gist.c#L215) handles two cases, when it's the update of an item key, and when it's a new tuple to be inserted.
+If it's a multicolumn index, it will calculate the penalty of each column.
 
-Updating the key can be necessary in two cases. The first is when there was a page split (see the [article on btree](/blog/indexes-btree) if you are not familiar with what a page split is), an item has to be inserted in the parent page, and the range of the old page probably changed, to the value of the item pointing to it has to be updated.
+## Step 3: updating or inserting
 
-ADD IMAGE
+Once the right page is found, the function [`gistinserttuples`](https://github.com/postgres/postgres/blob/master/src/backend/access/gist/gist.c#L1213) is called. It will either insert the tuple if it's a leaf or update the value if it's a parent.
 
-The second is when the value I'm inserting changes the range of the child page, the item has to be updated. For example, let's say I insert an appointment with the schedule value [2013-11-20 05:30:00, 2013-11-20 06:30:00]. As you can see in the following images, the range of the page where it was inserted changed which led to an update of the value in the root page.
+It's [`gistplacetopage`](https://github.com/postgres/postgres/blob/master/src/backend/access/gist/gist.c#L215) that handles the two cases (update or insert).
+
+### Update
+
+Indeed, it can be necessary to update the key in a parent level if the range changed. For example, let's say I insert an appointment with the schedule value [2013-11-20 05:30:00, 2013-11-20 06:30:00]. As you can see in the following images, the range of the page where it was inserted changed which led to an update of the value in the root page.
 
 ![Alt text](/images/indexes/gist_before_insert_no_split.png)
 
 ![Alt text](/images/indexes/gist_after_insert_no_split.png)
 
+The key class function `Union` is used to find the new range.
+
+
+### Insert
+
+If we reached the leaf page, it's time to insert. `gistplacetopage` checks if there is enough space in the page to insert the tuple. If there is, it simply inserts it and we're done as the parent levels were already updated with the union key.
+
+But if there is not enough space, a page split is necessary. Page splits in a GiST index are different from splits in a BTree. In a BTree, basically, 50% of the old page is moved to the new one. As the data is ordered, there is not much to do to decide what should go on the right and the left page. In a GiST, we want to make groups of items with little distance to then optimise search.
+
+To do that, each key class defines a `PickSplit` method. PickSplit decides which items stay on the old page and which ones will be on the new one. 
+
+In case of page split, it becomes necessary to recurse in the parent level to insert a new item with a pointer to the new page. Of course this can also generate a page split.
+
+On the following pictures you can see that after a page split, the new page becomes the rightmost page and the range of the old page changed.
+
+
+![Alt text](/images/indexes/gist_before_split.png)
+
+![Alt text](/images/indexes/gist_after_split.png)
+
+
+## To sum up
+
+In order to insert GiST follows the path with the least penalty updating on its way the parents keys.
+
+I'd say that it's important to remember that the functions `Union`, `Penalty` and `PickSplit` are key class function. 
 
 # GiST or GIN for a fulltext search
 
 TODO
+
+
+# To sum up
+
+Union
+Distance
+Consistent
+Penalty
+PickSplit
