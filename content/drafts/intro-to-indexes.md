@@ -6,7 +6,6 @@ title: Introduction to PostgreSQL's indexes
 weight: 1
 ---
 
-
 # Introduction
 
 When I understand precisely what's happening in my database, it helps me make smarter choices. It's why [previous articles](/blog/explain/) focused on `EXPLAIN` and the algorithms used. Because to me, it was the best way to understand why things were not working as expected.
@@ -17,7 +16,7 @@ I also hope that studying what's going on internally might raise an awareness on
 
 So in this series of articles, I will cover the magical world of the following index types:
 
-- [BTrees](/draft/indexes-btree)
+- [BTrees](/blog/indexes-btree)
 - Gin Indexes
 - GiST
 - SPGiST
@@ -143,7 +142,7 @@ As for the other questions, let's remember that maintaining an index has a cost 
 
 For each index type, I will explain the algorithm used to maintain the data in the index, and I hope that it will help you understand why, for some indexes, there’s more risk to slow down your write queries.
 
-## Why do indexes make my queries faster
+## Why do indexes make queries faster
 
 In a previous talk I compared indexes in a database to the index of an encyclopaedia.
 
@@ -157,9 +156,23 @@ If we created an index for the crocodiles emails, it would look like that:
 
 Here you can see tuples with emails and their respective pointers.
 
-These tuples, that we will call items, are stored in pages. An index has several pages containing multiple items.
+These tuples, are stored in pages.
 
-Having a simple list of items like on the previous picture would mean reading the entire index to get a value, so we instead use trees to optimize searching and updating.
+PostgreSQL uses pages to store data from indexes or tables. A page has a fixed size of 8kB.
+A page has a header and items. The items contain the actual data. So in an index, each item is a tuple (value, pointer).
+
+Each item in a page is referenced to with a pointer called `ctid`.
+The pointer consist of two numbers, the first being the number of the page (the block number), the second being the offset of the item.
+
+If we took a page of an index:
+
+![Alt text](/images/indexes/example_ctid.png)
+
+The `ctid` of the item with value `4` would be (3, 2).
+
+So, indexes and tables are arrays of pages.
+
+For an index, having a simple list of pages would mean reading the entire index to get a value, so we instead use trees to optimize searching and updating.
 It’s the subject of the next article, understanding the BTree structure and how it’s implemented in postgres.
 
 
@@ -167,4 +180,4 @@ It’s the subject of the next article, understanding the BTree structure and ho
 
 In this article, I didn’t want to go into too much detail about indexes types and strategies like multi-column or partial indexes. We will keep that for another day. The main thing to remember is that indexes have two purposes: contraints and optimization.
 
-And now it’s time to take a little jump into the internal data structure of BTrees ! I know, this is very exciting…
+And now it’s time to take a little jump into the internal data structure of BTrees ! I know, this is very exciting… 
