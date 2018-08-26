@@ -8,7 +8,7 @@ weight: 1
 
 # Introduction
 
-BTree is the index type used by default on `CREATE INDEX`. As I said in the [introduction to indexes article](/drafts/intro-to-indexes), BTrees are also created automatically for primary key and unique constraints.
+BTree is the index type used by default on `CREATE INDEX`. As I said in the [introduction to indexes article](/blog/intro-to-indexes), BTrees are also created automatically for primary key and unique constraints.
 
 Before I start going into the internal structure of BTree, I'd like to talk to you about [pageinspect_inspector, a python library](https://github.com/louiseGrandjonc/pageinspect_inspector) to generate a graphical representation of what's going on inside PostgreSQL's BTrees.
 You pass your index to it on a command line and it generates an HTML allowing you to explore pages and items of your index.
@@ -21,16 +21,18 @@ Here is a little video to show you how it works (where you *might* notice that I
 
 # What is a BTree ?
 
-BTree stands for balanced tree. The root and each parent node can have more than one child which minimize the depth of the tree and all the leaves at equal distance from the root.
+BTree stands for balanced tree.
+In a balanced tree, all the leaves are at equal distance from the root. Moreover the root and parents can have more than two children which minimize the depth of the tree.
 
-ADD DRAWING OF BTREE
+Here is a comparison of the same data in the form of a binary tree and a balanced tree.
 
+![Alt text](/images/indexes/btree.png)
 
 # BTrees in postgres
 
 Postgres implements the Lehman & Yao Btree which has a few specificities that you will discover in this article, or if you're *really* into it, go read their [research paper](https://www.csd.uoc.gr/~hy460/pdf/p650-lehman.pdf). I did and it was a lot of fun (I guess).
 
-Let's talk again about crocos. So as we said in the [previous article](/drafts/intro-to-indexes), crocodiles eat candies like a 10yo left alone with money for dinner, and their number of teeth changes over life. It grows and then when they get old, they fall. Like humans. (Honestly, this is probably not 100% accurate, if you're a vet, sorry about that, also, what are you doing here?).
+Let's talk again about crocos. So as we said in the [previous article](/blog/intro-to-indexes), crocodiles eat candies like a 10yo left alone with money for dinner, and their number of teeth changes over life. It grows and then when they get old, they fall. Like humans. (Honestly, this is probably not 100% accurate, if you're a vet, sorry about that, also, what are you doing here?).
 So, we want to be able to filter on the number of teeth and run queries like:
 
 ```code
@@ -56,7 +58,7 @@ Here we see the metapage of the index and the root. The metapage is always the f
 - A block number for the fast root
 - The level of the fast root
 
-The pointer to the root can change. It's a bit early to go into the details, but after an insert, it can be necessary to split the current root into two pages, in which case a new root is created with pointers on the split pages. Page splits will be detailed in [the insert algorithm part of the next article](/drafts/indexes-btree-algorithms#inserting-in-a-btree).
+The pointer to the root can change. It's a bit early to go into the details, but after an insert, it can be necessary to split the current root into two pages, in which case a new root is created with pointers on the split pages. Page splits will be detailed in [the insert algorithm part of the next article](/blog/indexes-btree-algorithms#inserting-in-a-btree).
 
 
 If you prefer using `pageinspect` here is the query returning information on the metapage.
@@ -69,7 +71,7 @@ croco=# SELECT * FROM bt_metap('crocodile_number_of_teeth_idx');
 (1 row)
 ```
 
-You may be confused by this fast root thing that here is redundant with the root, but let's keep some of the suspense for [the deletion algorithm part...](/drafts/indexes-btree-algorithms#deleting-from-a-btree)
+You may be confused by this fast root thing that here is redundant with the root, but let's keep some of the suspense for [the deletion algorithm part...](/blog/indexes-btree-algorithms#deleting-from-a-btree)
 
 ## Pages and items
 
@@ -130,7 +132,7 @@ btpo_flags    | 0
 
 ### Items
 
-The items of a page (that are in green in my drawings) have a value and a ctid. The ctid indicated the physical location of a heap tuple.
+The items of a page (that are in green in my drawings) have a value and a ctid. The ctid indicated the physical location of a heap tuple, you can read about it in the [previous article](/blog/intro-to-indexes/).
 
 ![Alt text](/images/indexes/parent_items.png)
 
@@ -183,4 +185,4 @@ Here is what leaf level items look like.
 
 Sometimes an image is worth a thousand words, so don't hesitate to try [pageinspect_inspector](https://github.com/louiseGrandjonc/pageinspect_inspector) to visualize one of your own BTree indexes.
 
-In the [next article](/drafts/indexes-btree-algorithms) we will go over the algorithms used to search and maintain a BTree index. 
+In the [next article](/blog/indexes-btree-algorithms) we will go over the algorithms used to search and maintain a BTree index. 

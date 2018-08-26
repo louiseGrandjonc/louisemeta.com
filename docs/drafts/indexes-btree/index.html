@@ -145,7 +145,7 @@ if (!doNotTrack) {
 
 <h1 id="introduction">Introduction</h1>
 
-<p>BTree is the index type used by default on <code>CREATE INDEX</code>. As I said in the <a href="http://www.louisemeta.com/drafts/intro-to-indexes">introduction to indexes article</a>, BTrees are also created automatically for primary key and unique constraints.</p>
+<p>BTree is the index type used by default on <code>CREATE INDEX</code>. As I said in the <a href="http://www.louisemeta.com/blog/intro-to-indexes">introduction to indexes article</a>, BTrees are also created automatically for primary key and unique constraints.</p>
 
 <p>Before I start going into the internal structure of BTree, I&rsquo;d like to talk to you about <a href="https://github.com/louiseGrandjonc/pageinspect_inspector">pageinspect_inspector, a python library</a> to generate a graphical representation of what&rsquo;s going on inside PostgreSQL&rsquo;s BTrees.<br />
 You pass your index to it on a command line and it generates an HTML allowing you to explore pages and items of your index.<br />
@@ -161,15 +161,18 @@ I wrote it using the extension <a href="https://www.postgresql.org/docs/10/stati
 
 <h1 id="what-is-a-btree">What is a BTree ?</h1>
 
-<p>BTree stands for balanced tree. The root and each parent node can have more than one child which minimize the depth of the tree and all the leaves at equal distance from the root.</p>
+<p>BTree stands for balanced tree.<br />
+In a balanced tree, all the leaves are at equal distance from the root. Moreover the root and parents can have more than two children which minimize the depth of the tree.</p>
 
-<p>ADD DRAWING OF BTREE</p>
+<p>Here is a comparison of the same data in the form of a binary tree and a balanced tree.</p>
+
+<p><img src="http://www.louisemeta.com/images/indexes/btree.png" alt="Alt text" /></p>
 
 <h1 id="btrees-in-postgres">BTrees in postgres</h1>
 
 <p>Postgres implements the Lehman &amp; Yao Btree which has a few specificities that you will discover in this article, or if you&rsquo;re <em>really</em> into it, go read their <a href="https://www.csd.uoc.gr/~hy460/pdf/p650-lehman.pdf">research paper</a>. I did and it was a lot of fun (I guess).</p>
 
-<p>Let&rsquo;s talk again about crocos. So as we said in the <a href="http://www.louisemeta.com/drafts/intro-to-indexes">previous article</a>, crocodiles eat candies like a 10yo left alone with money for dinner, and their number of teeth changes over life. It grows and then when they get old, they fall. Like humans. (Honestly, this is probably not 100% accurate, if you&rsquo;re a vet, sorry about that, also, what are you doing here?).<br />
+<p>Let&rsquo;s talk again about crocos. So as we said in the <a href="http://www.louisemeta.com/blog/intro-to-indexes">previous article</a>, crocodiles eat candies like a 10yo left alone with money for dinner, and their number of teeth changes over life. It grows and then when they get old, they fall. Like humans. (Honestly, this is probably not 100% accurate, if you&rsquo;re a vet, sorry about that, also, what are you doing here?).<br />
 So, we want to be able to filter on the number of teeth and run queries like:</p>
 
 <pre><code class="language-code">SELECT email FROM crocodile WHERE number_of_teeth &lt; 18;
@@ -196,7 +199,7 @@ So, we want to be able to filter on the number of teeth and run queries like:</p
 <br /></li>
 </ul>
 
-<p>The pointer to the root can change. It&rsquo;s a bit early to go into the details, but after an insert, it can be necessary to split the current root into two pages, in which case a new root is created with pointers on the split pages. Page splits will be detailed in <a href="http://www.louisemeta.com/drafts/indexes-btree-algorithms#inserting-in-a-btree">the insert algorithm part of the next article</a>.</p>
+<p>The pointer to the root can change. It&rsquo;s a bit early to go into the details, but after an insert, it can be necessary to split the current root into two pages, in which case a new root is created with pointers on the split pages. Page splits will be detailed in <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms#inserting-in-a-btree">the insert algorithm part of the next article</a>.</p>
 
 <p>If you prefer using <code>pageinspect</code> here is the query returning information on the metapage.</p>
 
@@ -207,7 +210,7 @@ So, we want to be able to filter on the number of teeth and run queries like:</p
 (1 row)
 </code></pre>
 
-<p>You may be confused by this fast root thing that here is redundant with the root, but let&rsquo;s keep some of the suspense for <a href="http://www.louisemeta.com/drafts/indexes-btree-algorithms#deleting-from-a-btree">the deletion algorithm part&hellip;</a></p>
+<p>You may be confused by this fast root thing that here is redundant with the root, but let&rsquo;s keep some of the suspense for <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms#deleting-from-a-btree">the deletion algorithm part&hellip;</a></p>
 
 <h2 id="pages-and-items">Pages and items</h2>
 
@@ -267,7 +270,7 @@ btpo_flags    | 0
 
 <h3 id="items">Items</h3>
 
-<p>The items of a page (that are in green in my drawings) have a value and a ctid. The ctid indicated the physical location of a heap tuple.</p>
+<p>The items of a page (that are in green in my drawings) have a value and a ctid. The ctid indicated the physical location of a heap tuple, you can read about it in the <a href="http://www.louisemeta.com/blog/intro-to-indexes/">previous article</a>.</p>
 
 <p><img src="http://www.louisemeta.com/images/indexes/parent_items.png" alt="Alt text" /></p>
 
@@ -320,7 +323,7 @@ The value of an item in a parent page is the value of the first item in the chil
 
 <p>Sometimes an image is worth a thousand words, so don&rsquo;t hesitate to try <a href="https://github.com/louiseGrandjonc/pageinspect_inspector">pageinspect_inspector</a> to visualize one of your own BTree indexes.</p>
 
-<p>In the <a href="http://www.louisemeta.com/drafts/indexes-btree-algorithms">next article</a> we will go over the algorithms used to search and maintain a BTree index.</p>
+<p>In the <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms">next article</a> we will go over the algorithms used to search and maintain a BTree index.</p>
 
               </article>
 
