@@ -4,7 +4,6 @@ date: 2018-06-22T10:20:21-07:00
 linktitle: PostgreSQL's indexes – BTrees internal data structure
 title: PostgreSQL's indexes – BTrees internal data structure 
 weight: 1
-draft: true
 ---
 
 # Introduction

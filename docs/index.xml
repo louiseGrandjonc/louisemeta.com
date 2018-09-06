@@ -6,10 +6,44 @@
     <description>Recent content on Louise Grandjonc, Python/SQL developer but also a human</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sat, 23 Jun 2018 10:20:21 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 20 Aug 2018 10:20:21 -0700</lastBuildDate>
     
 	<atom:link href="http://www.louisemeta.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>PostgreSQL&#39;s indexes - GIST</title>
+      <link>http://www.louisemeta.com/drafts/indexes-gist/</link>
+      <pubDate>Mon, 20 Aug 2018 10:20:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/drafts/indexes-gist/</guid>
+      <description>Introduction The GIST index is a balanced tree, but that&amp;rsquo;s basically the only thing that it has in common with a BTree.
+One of its particularity is that it can be extended to any type of data as long as a few functions implemented. I will mention these function in this article, and if you want to go further, you can go read the GiST indexing Project website
+But for now we are going to focus on a few usecases, and not list all the extensions that great people have made for GiST :)</description>
+    </item>
+    
+    <item>
+      <title>PostgreSQL&#39;s indexes - GIN</title>
+      <link>http://www.louisemeta.com/drafts/indexes-gin/</link>
+      <pubDate>Fri, 29 Jun 2018 10:20:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/drafts/indexes-gin/</guid>
+      <description>Introduction GIN (Generalized Invertes Index) indexes are often used to index arrays, jsonb, and tsvector (for fulltext search) columns.
+When it comes to array, they are, for example, used to verify if an array contains an other array or elements (the &amp;lt;@ operator).
+In the documentation you can see the full list of operators.
+But the question that I want to answer in this article is: &amp;ldquo;why should we use GIN indexes for this data types and operators ?</description>
+    </item>
+    
+    <item>
+      <title>PostgreSQL&#39;s indexes - BTrees algorithms</title>
+      <link>http://www.louisemeta.com/blog/indexes-btree-algorithms/</link>
+      <pubDate>Sat, 23 Jun 2018 10:20:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/blog/indexes-btree-algorithms/</guid>
+      <description>Introduction In the previous article, I introduced the internal data structure of a postgres BTree index. Now it&amp;rsquo;s time to talk about searching and maintaining them.
+I think that understanding this can help know when using a BTree makes sense and when it wouldn&amp;rsquo;t be very efficient.
+Searching in a BTree Initializing scankeys In order to search in a BTree, postgres first uses the query scan to define scankeys. If possible, redundants keys in your query are eliminated to keep only the tightest bounds.</description>
+    </item>
     
     <item>
       <title>PostgreSQL&#39;s indexes - BTrees algorithms</title>
@@ -24,6 +58,17 @@ Searching in a BTree Initializing scankeys In order to search in a BTree, postgr
     
     <item>
       <title>PostgreSQL&#39;s indexes – BTrees internal data structure</title>
+      <link>http://www.louisemeta.com/blog/indexes-btree/</link>
+      <pubDate>Fri, 22 Jun 2018 10:20:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/blog/indexes-btree/</guid>
+      <description>Introduction BTree is the index type used by default on CREATE INDEX. As I said in the introduction to indexes article, BTrees are also created automatically for primary key and unique constraints.
+Before I start going into the internal structure of BTree, I&amp;rsquo;d like to talk to you about pageinspect_inspector, a python library to generate a graphical representation of what&amp;rsquo;s going on inside PostgreSQL&amp;rsquo;s BTrees.
+You pass your index to it on a command line and it generates an HTML allowing you to explore pages and items of your index.</description>
+    </item>
+    
+    <item>
+      <title>PostgreSQL&#39;s indexes – BTrees internal data structure</title>
       <link>http://www.louisemeta.com/drafts/indexes-btree/</link>
       <pubDate>Fri, 22 Jun 2018 10:20:21 -0700</pubDate>
       
@@ -31,6 +76,16 @@ Searching in a BTree Initializing scankeys In order to search in a BTree, postgr
       <description>Introduction BTree is the index type used by default on CREATE INDEX. As I said in the introduction to indexes article, BTrees are also created automatically for primary key and unique constraints.
 Before I start going into the internal structure of BTree, I&amp;rsquo;d like to talk to you about pageinspect_inspector, a python library to generate a graphical representation of what&amp;rsquo;s going on inside PostgreSQL&amp;rsquo;s BTrees.
 You pass your index to it on a command line and it generates an HTML allowing you to explore pages and items of your index.</description>
+    </item>
+    
+    <item>
+      <title>Introduction to PostgreSQL&#39;s indexes</title>
+      <link>http://www.louisemeta.com/blog/intro-to-indexes/</link>
+      <pubDate>Thu, 21 Jun 2018 10:20:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/blog/intro-to-indexes/</guid>
+      <description>Introduction When I understand precisely what&amp;rsquo;s happening in my database, it helps me make smarter choices. It&amp;rsquo;s why previous articles focused on EXPLAIN and the algorithms used. Because to me, it was the best way to understand why things were not working as expected.
+And I believe that when it comes to indexes, it&amp;rsquo;s the same. Of course you could use your ORM to add an index on a column you picked kind of randomly, but there&amp;rsquo;s a smarter way&amp;hellip;</description>
     </item>
     
     <item>
