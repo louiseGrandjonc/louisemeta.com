@@ -1,6 +1,6 @@
 ---
 author: "Louise Grandjonc"
-date: 2018-06-21T10:20:21-07:00
+date: 2018-09-04T10:20:21-07:00
 linktitle: Introduction to PostgreSQL's indexes
 title: Introduction to PostgreSQL's indexes
 weight: 1

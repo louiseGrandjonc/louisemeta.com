@@ -1,6 +1,6 @@
 ---
 author: "Louise Grandjonc"
-date: 2018-06-22T10:20:21-07:00
+date: 2018-09-05T10:20:21-07:00
 linktitle: PostgreSQL's indexes – BTrees internal data structure
 title: PostgreSQL's indexes – BTrees internal data structure 
 weight: 1

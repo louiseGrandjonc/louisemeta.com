@@ -1,6 +1,6 @@
 ---
 author: "Louise Grandjonc"
-date: 2018-06-23T10:20:21-07:00
+date: 2018-09-06T10:20:21-07:00
 linktitle: PostgreSQL's indexes - BTrees algorithms
 title: PostgreSQL's indexes - BTrees algorithms
 weight: 1
