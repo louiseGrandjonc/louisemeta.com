@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  
+
+  <title>
+    
+    
+        PostgreSQL&#39;s indexes - GIN algorithms | Louise Grandjonc, Python/SQL developer but also a human
+    
+  </title>
+
+  <meta name="title" content="PostgreSQL&#39;s indexes - GIN algorithms | Louise Grandjonc, Python/SQL developer but also a human">
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta name="generator" content="">
+  <base href="http://www.louisemeta.com/">
+
+  
+    <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
+  
+
+  
+    <meta name="author" content="Louise Grandjonc">
+  
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@louisemeta">
+    <meta name="twitter:creator" content="@louisemeta">
+  
+
+  <meta property="og:title" content="PostgreSQL&#39;s indexes - GIN algorithms | Louise Grandjonc, Python/SQL developer but also a human">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://www.louisemeta.com/">
+
+  
+    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
+  
+
+  
+    <meta property="og:description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
+  
+
+  
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
+    <meta name="theme-color" content="#FFF">
+  
+
+  <link rel="canonical" href="http://www.louisemeta.com/blog/indexes-gin-algorithms/">
+
+  
+
+  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+
+  
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-116410295-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+  
+</head>
+
+  <body>
+    
+
+
+
+<nav class="row middle-xs center-xs">
+  <div class="col-xs-6 col-sm-1 logo">
+    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+  </div>
+    
+      <div class="col-xs-3 col-sm-2">
+        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
+      </div>
+    
+      <div class="col-xs-3 col-sm-2">
+        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
+      </div>
+    
+      <div class="col-xs-3 col-sm-2">
+        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
+      </div>
+    
+      <div class="col-xs-3 col-sm-2">
+        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
+      </div>
+    
+  <div class="col-xs-6 col-sm-1 nav-toggle">
+      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+  </div>
+</nav>
+
+<section class="nav-full row middle-xs center-xs">
+  <div class="col-xs-12">
+    <div class="row middle-xs center-xs">
+      
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
+      
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
+      
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
+      
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
+      
+    </div>
+  </div>
+</section>
+
+      <main>
+      <section class="container">
+          <section class="content">
+              <h1> PostgreSQL&#39;s indexes - GIN algorithms </h1>
+
+              <div class="sub-header">
+                  
+                  July 2019 · 8 minute read
+                  
+              </div>
+
+              <article class="entry-content" style="text-align: justify;">
+                  
+
+<h1 id="introduction">Introduction</h1>
+
+<p>In the <a href="http://www.louisemeta.com/blog/indexes-gin">previous article</a>, I introduced the internal data structure of a postgres GIN index. Now it&rsquo;s time to talk about searching and maintaining them.</p>
+
+<h1 id="searching-in-a-gin-index">Searching in a GIN index</h1>
+
+<p>When postgres uses the GIN index, you&rsquo;ll notice in the EXPLAIN that it&rsquo;s always doing a bitmap heap scan. It means that the search algorithm returns a map of tids (pointers to rows) in physical memory order.</p>
+
+<p>Considering the way the data is stored inside the posting lists and trees, it makes a lot of sense to use this method.</p>
+
+<p>The function that performs the search and builds the bitmap is <a href="https://github.com/postgres/postgres/blob/master/src/backend/access/gin/ginget.c#L1849"><code>gingetbitmap</code></a>.</p>
+
+<h2 id="step-1-scan-keys">Step 1: scan keys</h2>
+
+<p>As for the search in a BTree, <strong>scan keys are used</strong>.</p>
+
+<p>So the first thing that this function does is to <strong>initialise the scan keys</strong>.<br />
+- free previous scan keys,<br />
+- init scan keys</p>
+
+<h2 id="step-2-scanning-the-pending-list">Step 2: Scanning the pending list</h2>
+
+<p>As I said earlier, when looking into a GIN index, the pending list and the main BTree have to be scan. This step concerns the pending list.</p>
+
+<p><a href="https://github.com/postgres/postgres/blob/master/src/backend/access/gin/ginget.c#L1753"><code>scanPendingInsert</code></a> does that.</p>
+
+<ul>
+<li>First, the <strong>metapage is locked</strong>. This lock prevents from changes in the pending list (in case of fast insert where rows would be added or VACUUM that could empty the list)<br /></li>
+<li>We get the block number of the head of the pending list. If the block number is not a valid one, it means that there is no pending list. The locks can be dropped.<br /></li>
+<li>Then the list is fetched into a <code>pendingBuffer</code>. Once the buffer is set, we can now drop the previous locks.<br /></li>
+<li>For each row, if the row matches all scan keys, it is added to the bitmap using the funciton <code>tbm_add_tuples</code><br />
+<br /></li>
+</ul>
+
+<h2 id="step-3-scanning-the-main-index">Step 3: scanning the main index</h2>
+
+<p>The function <code>startScan</code> is called to scan the main tree of a GIN index.</p>
+
+<p>The first thing that does is to search for the entries that appear in the scan. For that it&rsquo;s using the function <code>GinFindLeafPage</code> for each entry. This is (again) close to the behaviour in a BTree, the main BTree is traversed, until the leaf where the entry could be found. If necessary, the posting tree has to be explored as well to retrieve the TIDs.</p>
+
+<p>The next step is to actually match the scan keys. If the scan key only has one entry, no other work is necessary, we already found the TIDs matching the scankey.</p>
+
+<p>This is the case for example if I search for the appointments that were for crocodile with caries.</p>
+
+<pre><code class="language-code">croco_new=# SELECT COUNT(*) FROM appointment WHERE symptoms_vector @@ to_tsquery('caries');
+ count 
+-------
+ 35859
+(1 ligne)
+</code></pre>
+
+<p>But let&rsquo;s say one of the plover birds is doing a research to find the appointments for crocodiles with caries and that had osteoplasty.</p>
+
+<p>In the database I have 35859 appointments with the syndrom description containing the word carie, and only 501 with the word osteoplasty.</p>
+
+<p>So the query to find the appointments is:</p>
+
+<pre><code class="language-code">SELECT * FROM appointment
+WHERE symptoms_vector @@ to_tsquery('osteoplasty &amp; caries');
+</code></pre>
+
+<p>So first the search algorithm finds the leaves pages for the entries <code>osteoplasty</code> and <code>carie</code>.</p>
+
+<p>But the scan key in this case is a <code>AND</code>. So finding the entries is not enough to match the scan key.</p>
+
+<p>The function <a href="https://github.com/postgres/postgres/blob/master/src/backend/access/gin/ginget.c#L500"><code>startScanKey</code></a> optimises the match by deviding the entries into two categories, the required ones and the additionnal ones.</p>
+
+<p>To do that, first the entries are ordered by frequency. In my case, caries is more frequent than osteoplasty. Postgres then tries to put as many frequent entries as possible in the additional entries.</p>
+
+<p>So here my required set would contain the entry <code>osteoplasty</code>, and the additional one the entry <code>carie</code>. Thanks to that, we can take the items matching osteoplasty, and when going over the items matching carie, we can just skip any TIDs that wasn&rsquo;t already in the osteoplasty entry. As there are 501 appointments with osteoplasty and 35859 for caries, this optimisation is very interesting.</p>
+
+<h2 id="step-4-updating-the-bitmap">Step 4: updating the bitmap</h2>
+
+<p>Once we retrieved from the main tree the items matching the scan keys, we want to update the bitmap. Indeed, there are already elements in it coming from the pending list.</p>
+
+<h2 id="to-sum-up">To sum up</h2>
+
+<p>In order to search in a GIN index,</p>
+
+<ul>
+<li>First the pending list is explored and a bitmap created with the matching rows<br /></li>
+<li>Then the entries are searched in the main GIN structure<br /></li>
+<li>If the scankey had a single entry, we have the TIDs of the matching rows<br /></li>
+<li>Else, we need to find the right items matching the scan key. The use of required and additional entries helps with the optimisation of this step.<br /></li>
+<li>Finally the bitmap is updated<br />
+<br /></li>
+</ul>
+
+<h1 id="inserting-in-a-gin-index">Inserting in a GIN index</h1>
+
+<p>There are two ways data is inserted in a GIN index<br />
+Either <code>fastupdate</code> is set to <code>true</code> and the pending list is updated and the rows are moved from the list to regular GIN structure.<br />
+Or <code>fastupdate</code> is set to <code>false</code> and for each insert the tree is updated.</p>
+
+<p>First let&rsquo;s talk about fast update.</p>
+
+<h2 id="updating-the-pending-list">Updating the pending list</h2>
+
+<p><code>ginHeapTupleFastInsert</code>: write the tuples to be inserted in the pending list.</p>
+
+<ul>
+<li>Checks if the tuples should be in a new list. For that it checks if the tuples fit in one page, if there is already a pending list and if there is enough space in the last page of the pending list to put the new tuples. If any of these three condition fails, the function <code>makeSublist</code> is called<br /></li>
+
+<li><p>If needed the pointer to head and tail of the pending list (in case of a new page) in the metapage are updated</p></li>
+
+<li><p>If no new page, the tuples are simply inserted in the tail page</p></li>
+</ul>
+
+<h2 id="inserting-in-the-leaf">Inserting in the leaf</h2>
+
+<p><code>ginInsertCleanup</code> -&gt; move data to GIN structure. It calls <code>GinEntryInsert</code> with the list of tuple with the say key.<br />
+Once the data in moved to the main BTree, we reclean the one that might have been added during the clean up, and then mark the page as deleted. Deleting the data from the pending list after inserting makes it crash safe.</p>
+
+<p>The function <code>GinEntryInsert</code> can be called with a list of tids or with a single onefor a key. This function is used for fastupdate and for &ldquo;normal&rdquo; insert.</p>
+
+<p>The function finds the right leaf page using <code>GinFindLeafPage</code> where the entry should be inserted.</p>
+
+<p>If <strong>the value is already</strong> in the <strong>main BTree</strong>, it means that the <strong>posting tree</strong> or <strong>posting list</strong> has to <strong>be updated</strong>.<br />
+Updating a posting list can be tricky (<code>addItemPointersToLeafTuple</code>). First, the list is updated and compressed. If the size of the list reaches the <code>GinMaxItemSize</code>, a posting tree has to be created.<br />
+In this case, the function <code>GinEntryInsert</code> calls <code>createPostingTree</code> with the pointers that were in the posting list. As they are already in order, it makes it faster to create the posting tree.</p>
+
+<p>If the <strong>value wasn&rsquo;t in the main BTree</strong>, the function <code>buildFreshLeafTuple</code> is called to add a leaf tuple in the current leaf page with a posting list (or tree) containing the new items. This might lead to a page split. To know more about page split, you can refer to the <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms#inserting-the-tuple-and-page-splits">previous article</a> as the page splits here are very similar.</p>
+
+<h2 id="recursing-to-the-parents">Recursing to the parents</h2>
+
+<p>If a new tuple had to be inserted in a leaf page and it led to a page split, the parent needs to be updated to contain the downlink to the new page. I&rsquo;m not going to go into much details here as this is quite similar to the behaviour in a BTree.</p>
+
+<p>If you want to have fun you can look into the source code of the function <a href="https://github.com/postgres/postgres/blob/master/src/backend/access/gin/ginbtree.c#L333"><code>ginPlaceToPage</code></a> that recursively inserts in the parents and handles the page splits.</p>
+
+<h2 id="to-sum-up-1">To sum up</h2>
+
+<p>Inserting in a GIN index can be in 2 or 3 steps.</p>
+
+<ul>
+<li>If <code>fastupdate</code> is set to true: the new tuples are inserted in the pending list<br /></li>
+<li>Once the pending list is full, or there is a VACUUM, or <code>fastupdate</code> was set to false, the tuples are inserted in the main GIN tree. To do that:<br />
+
+<ul>
+<li>We look for the right leaf page to update<br /></li>
+<li>If the value is already in it, the posting list or tree is updated<br /></li>
+<li>Else a new item is inserted in the leaf, and if a page split occured, it recurses back to the parent.<br />
+<br /></li>
+</ul></li>
+</ul>
+
+<p>So basically, the only big difference with a BTree in this algorithm is the pending list and the insert in the leaves as the values are unique in a GIN index. This is also what slows inserts. I would probably advise you to use <code>fastupdate</code> (with a proper use of vacuum) as it will help have better write performances. But it really depends of your use case.</p>
+
+<p>In my story, crocodiles are going to have tooth ache and come to ask for an appointment, describe their syndrom etc. thousands of times a day (not each croco though), so it would make crocodiles very angry to have to wait for the GIN index to be updated. And I mean, crocodiles are not the animal you want to mess up with&hellip;</p>
+
+<h1 id="deleting-from-a-gin-index">Deleting from a GIN index</h1>
+
+<p>file ginvacuum<br />
+- A page from a posting tree has to be deleted<br />
+- Update the posting list, delete single pointer<br />
+- An item has to be deleted from leaf (no more pointer to this value)</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>The GIN index is powerful because of many reasons, it can be very efficient for fulltext search, or array values, but it&rsquo;s also an heavy index. Updating it can be up to 10 times slower than a GiST index if <code>fast_update</code> is set to <code>False</code>.</p>
+
+<p>I will soon post an article of GiST that has some similar use cases, and we will compare the two to help you choose widely.</p>
+
+              </article>
+
+              <div class="pagination">
+                  
+                      <a href="http://www.louisemeta.com/blog/indexes-gin/">&laquo; PostgreSQL&#39;s indexes - GIN</a>
+                  
+                  
+
+              </div>
+          </section>
+          <br>
+          <section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view comments powered by <a href="http://disqus.com/?ref_noscript">Disqus</a>.</noscript>
+</section>
+
+      </section>
+
+    </main>
+    <footer class="row middle-xs center-xs">
+
+  
+  
+  
+    <div class="col-xs-3 col-md-2"><a target="_blank" href="https://github.com/louiseGrandjonc">GitHub</a></div>
+  
+
+  
+    <div class="col-xs-3 col-md-2"><a target="_blank" href="https://linkedin.com/in/louise-grandjonc-81502b80">LinkedIn</a></div>
+  
+
+  
+    <div class="col-xs-3 col-md-2"><a target="_blank" href="https://twitter.com/louisemeta">Twitter</a></div>
+  
+
+  
+
+</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+
+
+  </body>
+</html>

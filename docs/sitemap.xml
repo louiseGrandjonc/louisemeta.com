@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
+      <loc>http://www.louisemeta.com/blog/indexes-gin-algorithms/</loc>
+      <lastmod>2019-07-01T10:20:22-07:00</lastmod>
+    </url>
+  
+    <url>
+      <loc>http://www.louisemeta.com/blog/indexes-gin/</loc>
+      <lastmod>2019-07-01T10:20:21-07:00</lastmod>
+    </url>
+  
+    <url>
+      <loc>http://www.louisemeta.com/blog/intermission-to-talk-about-me/</loc>
+      <lastmod>2018-11-03T18:39:21-07:00</lastmod>
+    </url>
+  
+    <url>
       <loc>http://www.louisemeta.com/blog/indexes-btree-algorithms/</loc>
       <lastmod>2018-09-06T10:20:21-07:00</lastmod>
     </url>
@@ -94,7 +109,7 @@
   
     <url>
       <loc>http://www.louisemeta.com/blog/</loc>
-      <lastmod>2018-09-06T10:20:21-07:00</lastmod>
+      <lastmod>2019-07-01T10:20:22-07:00</lastmod>
       <priority>0</priority>
     </url>
   
@@ -111,7 +126,7 @@
   
     <url>
       <loc>http://www.louisemeta.com/</loc>
-      <lastmod>2018-09-06T10:20:21-07:00</lastmod>
+      <lastmod>2019-07-01T10:20:22-07:00</lastmod>
       <priority>0</priority>
     </url>
   

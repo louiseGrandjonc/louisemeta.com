@@ -6,10 +6,44 @@
     <description>Recent content in Blogs on Louise Grandjonc, Python/SQL developer but also a human</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Thu, 06 Sep 2018 10:20:21 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jul 2019 10:20:22 -0700</lastBuildDate>
     
 	<atom:link href="http://www.louisemeta.com/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>PostgreSQL&#39;s indexes - GIN algorithms</title>
+      <link>http://www.louisemeta.com/blog/indexes-gin-algorithms/</link>
+      <pubDate>Mon, 01 Jul 2019 10:20:22 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/blog/indexes-gin-algorithms/</guid>
+      <description>Introduction In the previous article, I introduced the internal data structure of a postgres GIN index. Now it&amp;rsquo;s time to talk about searching and maintaining them.
+Searching in a GIN index When postgres uses the GIN index, you&amp;rsquo;ll notice in the EXPLAIN that it&amp;rsquo;s always doing a bitmap heap scan. It means that the search algorithm returns a map of tids (pointers to rows) in physical memory order.
+Considering the way the data is stored inside the posting lists and trees, it makes a lot of sense to use this method.</description>
+    </item>
+    
+    <item>
+      <title>PostgreSQL&#39;s indexes - GIN</title>
+      <link>http://www.louisemeta.com/blog/indexes-gin/</link>
+      <pubDate>Mon, 01 Jul 2019 10:20:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/blog/indexes-gin/</guid>
+      <description>Introduction GIN (Generalized Invertes Index) indexes are often used to index arrays, jsonb, and tsvector (for fulltext search) columns.
+When it comes to array, they are, for example, used to verify if an array contains an other array or elements (the &amp;lt;@ operator).
+In the documentation you can see the full list of operators.
+But the question that I want to answer in this article is: &amp;ldquo;why should we use GIN indexes for this data types and operators ?</description>
+    </item>
+    
+    <item>
+      <title>Becoming a developer - An unexpected journey</title>
+      <link>http://www.louisemeta.com/blog/intermission-to-talk-about-me/</link>
+      <pubDate>Sat, 03 Nov 2018 18:39:21 -0700</pubDate>
+      
+      <guid>http://www.louisemeta.com/blog/intermission-to-talk-about-me/</guid>
+      <description>Introduction Recently one of my close friend decided to change carreer and learn software development. I was so happy to hear that because I think that she&amp;rsquo;s going to be an amazing developer. After a couple days in her developer bootcamp she sent me a message telling me:
+&amp;ldquo;Your job is hard. I admire you even more now.&amp;rdquo;
+And I thought, with all my love for her: &amp;ldquo;Well that&amp;rsquo;s dumb&amp;rdquo;.</description>
+    </item>
     
     <item>
       <title>PostgreSQL&#39;s indexes - BTrees algorithms</title>
