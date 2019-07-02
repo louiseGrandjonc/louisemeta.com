@@ -4,7 +4,7 @@ date = "2018-03-20T17:39:21-07:00"
 draft = false
 +++
 
-![Alt text](/images/Owls_dance_03.png)My name is Louise, I am a web developer. I've been working as a lead python developer at [Ulule](https://ulule.com) for three years. Previously I worked at [peopledoc](https://www.people-doc.fr/) as a python developer. Before that I was a student at the [UTC (not the timezone)](https://www.utc.fr/). 
+![Alt text](/images/Owls_dance_03.png)My name is Louise, I am a software developer currently working at Microsoft in the Citus Data team. Before that I worked as a lead python developer at [Ulule](https://ulule.com) for three years, and before that at [peopledoc](https://www.people-doc.fr/) as a python developer. Before that I was a student at the [UTC (not the timezone)](https://www.utc.fr/). 
 
 I am also working on a few sides projects, like a website for a [musician, drawer, architect](/projects/zim/), the [pgday paris website](/projects/pgday/) and a lot of unfinished experimentations (mostly for fun).
 
