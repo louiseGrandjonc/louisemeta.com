@@ -145,7 +145,7 @@ if (!doNotTrack) {
 
 <h1 id="introduction">Introduction</h1>
 
-<p><strong>GIN (Generalized Invertes Index)</strong> indexes are often used to index <strong>arrays, jsonb, and tsvector</strong> (for <strong>fulltext search</strong>) columns.<br />
+<p><strong>GIN (Generalized Inverted Index)</strong> indexes are often used to index <strong>arrays, jsonb, and tsvector</strong> (for <strong>fulltext search</strong>) columns.<br />
 When it comes to array, they are, for example, used to verify if an array contains an other array or elements (the &lt;@ operator).</p>
 
 <p><a href="https://www.postgresql.org/docs/current/static/gin-builtin-opclasses.html">In <strong>the documentation</strong></a> you can see the <strong>full list of operators</strong>.</p>
@@ -246,7 +246,7 @@ version          | 2
 <p>In a GIN index there are two types of pages. The <strong>entry pages</strong> and the <strong>data pages</strong>.</p>
 
 <ul>
-<li>The <strong>data pages</strong> are the pages <strong>inside a posting tree</strong> (see the <a href="http://www.louisemeta.com/blog/indexes-gin#leaf-pages">leaves paragraph</a>.<br /></li>
+<li>The <strong>data pages</strong> are the pages <strong>inside a posting tree</strong> (see the <a href="http://www.louisemeta.com/blog/indexes-gin#leaf-pages">leaves paragraph</a>).<br /></li>
 <li>The <strong>entry pages</strong> are the pages containing the values in the index.<br />
 <br /></li>
 </ul>

@@ -28,7 +28,7 @@ Considering the way the data is stored inside the posting lists and trees, it ma
       <pubDate>Mon, 01 Jul 2019 10:20:21 -0700</pubDate>
       
       <guid>http://www.louisemeta.com/blog/indexes-gin/</guid>
-      <description>Introduction GIN (Generalized Invertes Index) indexes are often used to index arrays, jsonb, and tsvector (for fulltext search) columns.
+      <description>Introduction GIN (Generalized Inverted Index) indexes are often used to index arrays, jsonb, and tsvector (for fulltext search) columns.
 When it comes to array, they are, for example, used to verify if an array contains an other array or elements (the &amp;lt;@ operator).
 In the documentation you can see the full list of operators.
 But the question that I want to answer in this article is: &amp;ldquo;why should we use GIN indexes for this data types and operators ?</description>
