@@ -8,7 +8,7 @@ weight: 1
 
 # Introduction
 
-**GIN (Generalized Invertes Index)** indexes are often used to index **arrays, jsonb, and tsvector** (for **fulltext search**) columns.
+**GIN (Generalized Inverted Index)** indexes are often used to index **arrays, jsonb, and tsvector** (for **fulltext search**) columns.
 When it comes to array, they are, for example, used to verify if an array contains an other array or elements (the <@ operator).
 
 [In **the documentation**](https://www.postgresql.org/docs/current/static/gin-builtin-opclasses.html) you can see the **full list of operators**.
@@ -111,7 +111,7 @@ version          | 2
 
 In a GIN index there are two types of pages. The **entry pages** and the **data pages**.
 
-- The **data pages** are the pages **inside a posting tree** (see the [leaves paragraph](/blog/indexes-gin#leaf-pages).
+- The **data pages** are the pages **inside a posting tree** (see the [leaves paragraph](/blog/indexes-gin#leaf-pages)).
 - The **entry pages** are the pages containing the values in the index.
 
 Both types of pages have **opaque data** containing:
