@@ -221,15 +221,11 @@ I am also working on a few sides projects, like a website for a musician, drawer
       <pubDate>Tue, 20 Mar 2018 17:39:21 -0700</pubDate>
       
       <guid>http://www.louisemeta.com/talks/</guid>
-      <description>Upcoming talks None for now, though I have ideas :)
-You want me to do one? Contact me on twitter or linkedin !
-Past talks  pgdayParis : Becoming a better developer with EXPLAIN
+      <description>Upcoming talks  Pybay: Amazing things your ORM(s) can and can&amp;rsquo;t do - August 17th 2019 in San Francisco (CA)
+ DjangoCon: Postgres Index types and where to find them - September 24th 2019 in San Diego (CA)
+  Past talks  Postgres London: A story on postgres index types
  Slides
- Video (upcoming !)
- You can read a serie of articles I wrote from that talk
-  PostgreSQL User Group Paris: A word on pgexercises.com
- Slides
-  djangoCon 2017: The amazing world behing your ORM</description>
+  pgConfEurope 2018: Cleaning out crocodiles teeth with PostgreSQL indexes - a story on all the index types in PG</description>
     </item>
     
   </channel>
