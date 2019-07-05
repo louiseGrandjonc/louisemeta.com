@@ -9,7 +9,7 @@ color = "#60d2d3"
 
 ![Alt text](/images/pgday.png)
 
-About three years ago, I met [Dimitri Fontaine](https://tapoueh.org/) at the fosdem. He asked me to work on the [pgdayParis](2015.pgday.paris) website. He knew I was a django developer and hoped that I would be good at CSS...
+About three years ago, I met [Dimitri Fontaine](https://tapoueh.org/) at the fosdem. He asked me to work on the [pgdayParis](https://2015.pgday.paris/) website. He knew I was a django developer and hoped that I would be good at CSS...
 
 But working on this, helped me get into this amazing community (mostly by drinking beers the day of the deployment), use heroku for the first time and made me want to do talks. So, hurray !
 
