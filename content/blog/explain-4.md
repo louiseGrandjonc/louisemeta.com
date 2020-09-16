@@ -110,7 +110,7 @@ This example is of course for a `ASC` order.
 
 To avoid doing `top-N heapsort`, we can add an index on the order by column.
 
-`CREATE INDEX ON letters (delivered_by);`
+`CREATE INDEX ON human (last_name);`
 
 ```code
 owl_conference=#  EXPLAIN ANALYZE SELECT * FROM human
@@ -134,6 +134,10 @@ So now it's using the order of the index. Quick and nice !
 
 
 Ordering is often used in order to paginate results. So it's a good time to talk about `OFFSET`.
+
+Let's first create an index like previously:
+
+`CREATE INDEX ON letters (delivered_by);`
 
 Let's look at the `EXPLAIN` of retrieving the first 10 rows out of my letters table.
 
