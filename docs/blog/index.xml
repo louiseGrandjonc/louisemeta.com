@@ -1,22 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on Louise Grandjonc, Python/SQL developer but also a human</title>
-    <link>http://www.louisemeta.com/blog/</link>
+    <link>https://louisegrandjonc.github.io/louisemeta.com/blog/</link>
     <description>Recent content in Blogs on Louise Grandjonc, Python/SQL developer but also a human</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Mon, 01 Jul 2019 10:20:22 -0700</lastBuildDate>
-    
-	<atom:link href="http://www.louisemeta.com/blog/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 01 Jul 2019 10:20:22 -0700</lastBuildDate><atom:link href="https://louisegrandjonc.github.io/louisemeta.com/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PostgreSQL&#39;s indexes - GIN algorithms</title>
-      <link>http://www.louisemeta.com/blog/indexes-gin-algorithms/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin-algorithms/</link>
       <pubDate>Mon, 01 Jul 2019 10:20:22 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/indexes-gin-algorithms/</guid>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin-algorithms/</guid>
       <description>Introduction In the previous article, I introduced the internal data structure of a postgres GIN index. Now it&amp;rsquo;s time to talk about searching and maintaining them.
 Searching in a GIN index When postgres uses the GIN index, you&amp;rsquo;ll notice in the EXPLAIN that it&amp;rsquo;s always doing a bitmap heap scan. It means that the search algorithm returns a map of tids (pointers to rows) in physical memory order.
 Considering the way the data is stored inside the posting lists and trees, it makes a lot of sense to use this method.</description>
@@ -24,22 +20,21 @@ Considering the way the data is stored inside the posting lists and trees, it ma
     
     <item>
       <title>PostgreSQL&#39;s indexes - GIN</title>
-      <link>http://www.louisemeta.com/blog/indexes-gin/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin/</link>
       <pubDate>Mon, 01 Jul 2019 10:20:21 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/indexes-gin/</guid>
-      <description>Introduction GIN (Generalized Inverted Index) indexes are often used to index arrays, jsonb, and tsvector (for fulltext search) columns.
-When it comes to array, they are, for example, used to verify if an array contains an other array or elements (the &amp;lt;@ operator).
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin/</guid>
+      <description>Introduction GIN (Generalized Inverted Index) indexes are often used to index arrays, jsonb, and tsvector (for fulltext search) columns. When it comes to array, they are, for example, used to verify if an array contains an other array or elements (the &amp;lt;@ operator).
 In the documentation you can see the full list of operators.
 But the question that I want to answer in this article is: &amp;ldquo;why should we use GIN indexes for this data types and operators ?</description>
     </item>
     
     <item>
       <title>PostgreSQL&#39;s indexes - BTrees algorithms</title>
-      <link>http://www.louisemeta.com/blog/indexes-btree-algorithms/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree-algorithms/</link>
       <pubDate>Thu, 06 Sep 2018 10:20:21 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/indexes-btree-algorithms/</guid>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree-algorithms/</guid>
       <description>Introduction In the previous article, I introduced the internal data structure of a postgres BTree index. Now it&amp;rsquo;s time to talk about searching and maintaining them.
 I think that understanding this can help know when using a BTree makes sense and when it wouldn&amp;rsquo;t be very efficient.
 Searching in a BTree Initializing scankeys In order to search in a BTree, postgres first uses the query scan to define scankeys. If possible, redundants keys in your query are eliminated to keep only the tightest bounds.</description>
@@ -47,52 +42,60 @@ Searching in a BTree Initializing scankeys In order to search in a BTree, postgr
     
     <item>
       <title>PostgreSQL&#39;s indexes – BTrees internal data structure</title>
-      <link>http://www.louisemeta.com/blog/indexes-btree/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree/</link>
       <pubDate>Wed, 05 Sep 2018 10:20:21 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/indexes-btree/</guid>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree/</guid>
       <description>Introduction BTree is the index type used by default on CREATE INDEX. As I said in the introduction to indexes article, BTrees are also created automatically for primary key and unique constraints.
-Before I start going into the internal structure of BTree, I&amp;rsquo;d like to talk to you about pageinspect_inspector, a python library to generate a graphical representation of what&amp;rsquo;s going on inside PostgreSQL&amp;rsquo;s BTrees.
-You pass your index to it on a command line and it generates an HTML allowing you to explore pages and items of your index.</description>
+Before I start going into the internal structure of BTree, I&amp;rsquo;d like to talk to you about pageinspect_inspector, a python library to generate a graphical representation of what&amp;rsquo;s going on inside PostgreSQL&amp;rsquo;s BTrees. You pass your index to it on a command line and it generates an HTML allowing you to explore pages and items of your index.</description>
     </item>
     
     <item>
       <title>Introduction to PostgreSQL&#39;s indexes</title>
-      <link>http://www.louisemeta.com/blog/intro-to-indexes/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/intro-to-indexes/</link>
       <pubDate>Tue, 04 Sep 2018 10:20:21 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/intro-to-indexes/</guid>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/intro-to-indexes/</guid>
       <description>Introduction When I understand precisely what&amp;rsquo;s happening in my database, it helps me make smarter choices. It&amp;rsquo;s why previous articles focused on EXPLAIN and the algorithms used. Because to me, it was the best way to understand why things were not working as expected.
-And I believe that when it comes to indexes, it&amp;rsquo;s the same. Of course you could use your ORM to add an index on a column you picked kind of randomly, but there&amp;rsquo;s a smarter way&amp;hellip;</description>
+And I believe that when it comes to indexes, it&amp;rsquo;s the same. Of course you could use your ORM to add an index on a column you picked kind of randomly, but there&amp;rsquo;s a smarter way&amp;hellip; First because ORMs create BTrees and if you&amp;rsquo;re using PostgreSQL there are other types that can be very handy.</description>
+    </item>
+    
+    <item>
+      <title>PostgreSQL&#39;s indexes - GIST</title>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gist/</link>
+      <pubDate>Fri, 29 Jun 2018 10:20:21 -0700</pubDate>
+      
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gist/</guid>
+      <description>Introduction The GIST index is a balanced tree, but that&amp;rsquo;s basically the only thing that it has in common with a BTree.
+One of its particularity is that it can be extended to any type of data as long as a few functions implemented. I will mention these function in this article, and if you want to go further, you can go read the GiST indexing Project website
+But for now we are going to focus on a few usecases, and not list all the extensions that great people have made for GiST :)</description>
     </item>
     
     <item>
       <title>Understanding EXPLAIN - part 4 - Ordering and a word on offset</title>
-      <link>http://www.louisemeta.com/blog/explain-4/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-4/</link>
       <pubDate>Tue, 27 Mar 2018 14:39:21 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/explain-4/</guid>
-      <description>Introduction Here we are, the last article of this serie. This one will cover the algorithms used to sort rows, and why OFFSET should be banned from your applications. Previously on the EXPLAIN show  You learned that it all starts with logs
- You met the amazing pg_stat_statements
- You got to know a bit more about the life of a query, how EXPLAIN can be used and what are costs and actual time in this episode</description>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-4/</guid>
+      <description>Introduction Here we are, the last article of this serie. This one will cover the algorithms used to sort rows, and why OFFSET should be banned from your applications. Previously on the EXPLAIN show  You learned that it all starts with logs You met the amazing pg_stat_statements You got to know a bit more about the life of a query, how EXPLAIN can be used and what are costs and actual time in this episode You understood (I hope!</description>
     </item>
     
     <item>
       <title>Understanding EXPLAIN - part 3 - Joins</title>
-      <link>http://www.louisemeta.com/blog/explain-3/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-3/</link>
       <pubDate>Mon, 26 Mar 2018 14:39:21 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/explain-3/</guid>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-3/</guid>
       <description>Introduction If you haven&amp;rsquo;t read the previous articles, I really encourage to start from the beginning, EXPLAIN can seem a bit complicated if you don&amp;rsquo;t have the basics. So don&amp;rsquo;t hesitate to take a look at the first and second article on the subject. Moreover reading them will give you the data model and a bit more information on the examples used here !
 But if you have read them, welcome back !</description>
     </item>
     
     <item>
       <title>Understanding EXPLAIN - part 2 - Scans</title>
-      <link>http://www.louisemeta.com/blog/explain-2/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/</link>
       <pubDate>Sun, 25 Mar 2018 19:39:21 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/explain-2/</guid>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/</guid>
       <description>Introduction If you don&amp;rsquo;t know EXPLAIN and are starting with this article, I really encourage you to start from the beginning, to understand better what a query plan is and how to use EXPLAIN. The previous article covers that.
 In this article, I&amp;rsquo;m going to try to clarify the different types of scans used to filter tables and retrieve the exptected rows.
 I&amp;rsquo;m here taking the example of a letter delivery system.</description>
@@ -100,34 +103,51 @@ I&amp;rsquo;m here taking the example of a letter delivery system.</description>
     
     <item>
       <title>Understanding EXPLAIN - part 1 - Costs and actual time</title>
-      <link>http://www.louisemeta.com/blog/explain/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</link>
       <pubDate>Sat, 24 Mar 2018 16:39:21 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/explain/</guid>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</guid>
       <description>Introduction If you didn&amp;rsquo;t read the articles on logs and pg_stat_statements this article is based on a talk that I did at the pgdayParis and here are the slides. You can watch the Djangocon Europe 2017 version, it&amp;rsquo;s more django developer oriented, which can be interesting if you&amp;rsquo;re using django&amp;rsquo;s ORM. And here is the video from the PGdayParis.
 If you want to test the queries, here is the github project for the talk.</description>
     </item>
     
     <item>
       <title>pg_stat_statements - finding ugly queries</title>
-      <link>http://www.louisemeta.com/blog/pg-stat-statements/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/</link>
       <pubDate>Fri, 23 Mar 2018 17:39:21 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/pg-stat-statements/</guid>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/</guid>
       <description>Introduction As a reminder, if you ended up on this page by looking up on bing pg_stat_statements, first I&amp;rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the pgdayParis 2018 and here are the slides
   What is pg_stat_statements ? pg_stat_statement is a postgreSQL extension, once you enable it, it tracks statistics on the queries executed by a server.</description>
     </item>
     
     <item>
       <title>PostgreSQL&#39;s logs - a developer&#39;s best friend</title>
-      <link>http://www.louisemeta.com/blog/developers-and-logs/</link>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/</link>
       <pubDate>Wed, 21 Mar 2018 18:39:21 -0700</pubDate>
       
-      <guid>http://www.louisemeta.com/blog/developers-and-logs/</guid>
-      <description>Introduction A few years back, when I was an intern, the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip;
-I realized that I was missing some basics :
- Like a lot of web developers I didn&amp;rsquo;t think of looking into my logs to know what my ORM was doing
- Once I knew, I didn&amp;rsquo;t understand why some queries were slow</description>
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/</guid>
+      <description>Introduction A few years back, when I was an intern, the CTO asked me if I checked how many queries were executed on the page, turns out there were over a hundred&amp;hellip; I realized that I was missing some basics :
+ Like a lot of web developers I didn&amp;rsquo;t think of looking into my logs to know what my ORM was doing Once I knew, I didn&amp;rsquo;t understand why some queries were slow  After that I became a bit obsessed with performances and that&amp;rsquo;s the story of why I submitted a talk at the django con 2017, and then at the pgdayParis 2018.</description>
+    </item>
+    
+    <item>
+      <title>Indexes and multi-column indexes</title>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes/</guid>
+      <description>What is an index ? An index is a B-Tree. Each leave of the tree contains a tuple (value, pointer to the row).
+Multi column indexes Different types of indexes and their use case </description>
+    </item>
+    
+    <item>
+      <title>The danger of ORMS and selecting all columns</title>
+      <link>https://louisegrandjonc.github.io/louisemeta.com/blog/select-all/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://louisegrandjonc.github.io/louisemeta.com/blog/select-all/</guid>
+      <description></description>
     </item>
     
   </channel>

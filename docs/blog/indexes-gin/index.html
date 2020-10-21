@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="generator" content="">
-  <base href="http://www.louisemeta.com/">
+  <base href="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
     <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
@@ -37,10 +37,10 @@
 
   <meta property="og:title" content="PostgreSQL&#39;s indexes - GIN | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://www.louisemeta.com/">
+  <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
-    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
+    <meta property="og:image" content="https://louisegrandjonc.github.io/louisemeta.com//images/Owls_dance_04.png">
   
 
   
@@ -52,11 +52,11 @@
     <meta name="theme-color" content="#FFF">
   
 
-  <link rel="canonical" href="http://www.louisemeta.com/blog/indexes-gin/">
+  <link rel="canonical" href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin/">
 
   
 
-  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
+  <link rel="stylesheet" href="https://louisegrandjonc.github.io/louisemeta.com//styles/main.css" type="text/css">
 
   
 
@@ -89,27 +89,27 @@ if (!doNotTrack) {
 
 <nav class="row middle-xs center-xs">
   <div class="col-xs-6 col-sm-1 logo">
-    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+    <a href="https://louisegrandjonc.github.io/louisemeta.com/#"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
   </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h3>
       </div>
     
   <div class="col-xs-6 col-sm-1 nav-toggle">
-      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+      <a href="" class="nav-icon" onclick="return false"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
   </div>
 </nav>
 
@@ -117,13 +117,13 @@ if (!doNotTrack) {
   <div class="col-xs-12">
     <div class="row middle-xs center-xs">
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h1></div>
       
     </div>
   </div>
@@ -141,50 +141,30 @@ if (!doNotTrack) {
               </div>
 
               <article class="entry-content" style="text-align: justify;">
-                  
-
-<h1 id="introduction">Introduction</h1>
-
-<p><strong>GIN (Generalized Inverted Index)</strong> indexes are often used to index <strong>arrays, jsonb, and tsvector</strong> (for <strong>fulltext search</strong>) columns.<br />
+                  <h1 id="introduction">Introduction</h1>
+<p><strong>GIN (Generalized Inverted Index)</strong> indexes are often used to index <strong>arrays, jsonb, and tsvector</strong> (for <strong>fulltext search</strong>) columns.
 When it comes to array, they are, for example, used to verify if an array contains an other array or elements (the &lt;@ operator).</p>
-
 <p><a href="https://www.postgresql.org/docs/current/static/gin-builtin-opclasses.html">In <strong>the documentation</strong></a> you can see the <strong>full list of operators</strong>.</p>
-
 <p>But the question that I want to answer in this article is: &ldquo;why should we use GIN indexes for this data types and operators ?&rdquo;</p>
-
 <p>I&rsquo;m going to go over two examples, one for arrays and one for fulltext search.</p>
-
-<p>Before going further, I&rsquo;ll probably talk a lot about BTrees, so you would probably benefit from reading <a href="http://www.louisemeta.com/blog/indexes-btree">my blog post</a> about their structure.</p>
-
+<p>Before going further, I&rsquo;ll probably talk a lot about BTrees, so you would probably benefit from reading <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree">my blog post</a> about their structure.</p>
 <p>So now, the plover birds want to have, for each crocodile, the <strong>list of teeth</strong> that they had to heal. Because it is much simpler when they see again the crocodile to just know which teeth could be more fragile, and I mean, they see a lot of crocodiles every day, plover birds don&rsquo;t have an elephant memory.</p>
-
 <p>So I added a new column <code>healed_teeth</code>, an integer array (<code>integer[]</code>). So if I take a totally random crocodile, I&rsquo;ll have:</p>
-
-<pre><code class="language-code">croco=# SELECT email, number_of_teeth, healed_teeth FROM crocodile WHERE id =1;
+<pre><code class="language-code" data-lang="code">croco=# SELECT email, number_of_teeth, healed_teeth FROM crocodile WHERE id =1;
 -[ RECORD 1 ]---+--------------------------------------------------------
 email           | louise.grandjonc1@croco.com
 number_of_teeth | 58
 healed_teeth    | {16,11,55,27,22,41,38,2,5,40,52,57,28,50,10,15,1,12,46}
-</code></pre>
-
-<p>And then I created the following index:</p>
-
-<pre><code class="language-code">CREATE INDEX ON crocodile USING GIN(healed_teeth);
-</code></pre>
-
-<p>As for fulltext search, in this new updated version, <strong>crocodiles can give their symptoms</strong> to help plover bird know what&rsquo;s wrong.</p>
-
+</code></pre><p>And then I created the following index:</p>
+<pre><code class="language-code" data-lang="code">CREATE INDEX ON crocodile USING GIN(healed_teeth);
+</code></pre><p>As for fulltext search, in this new updated version, <strong>crocodiles can give their symptoms</strong> to help plover bird know what&rsquo;s wrong.</p>
 <p>So I added a column <code>symptoms</code> to the <code>appointment</code> table. As we index <code>tsvector</code>, I also added a <code>symptoms_vector</code> column.</p>
-
-<pre><code class="language-code">croco=# ALTER TABLE appointment ADD COLUMN symptoms text;
+<pre><code class="language-code" data-lang="code">croco=# ALTER TABLE appointment ADD COLUMN symptoms text;
 ALTER TABLE
 croco=# ALTER TABLE appointment ADD COLUMN symptoms_vector tsvector;
 ALTER TABLE
-</code></pre>
-
-<p>I filled the symptoms with some random dentistry related words that I found on <a href="http://www.suvison.com/hp_fdi_fp.asp">this website</a>. So now I have records looking like this.</p>
-
-<pre><code class="language-code">croco=# SELECT * FROM appointment WHERE symptoms IS NOT NULL ORDER BY id LIMIT 10;
+</code></pre><p>I filled the symptoms with some random dentistry related words that I found on <a href="http://www.suvison.com/hp_fdi_fp.asp">this website</a>. So now I have records looking like this.</p>
+<pre><code class="language-code" data-lang="code">croco=# SELECT * FROM appointment WHERE symptoms IS NOT NULL ORDER BY id LIMIT 10;
 -[ RECORD 1 ]---+-------------------------------------------------------------
 id              | 12809
 crocodile_id    | 1
@@ -204,24 +184,14 @@ symptoms_vector | 'acut':4 'adj':10 'anug':7 'apposit':26 'canin':21 'cornif':8
                   'of':12,17 'primary':13,18 'radiat':28 'se':15 'shedding':16
                   'strictur':24 'sympathetic':31 'syring':2 'system':29
                   'teeth':14,19 'ulcer':6 'vitrodentin':25 'wear':22
-</code></pre>
-
-<p>(These crocodiles have much more dentist vocabulary than me&hellip;). And then I created a GIN index on the <code>symptoms_vector</code> column.</p>
-
-<pre><code class="language-code">CREATE INDEX ON appointment USING GIN(symptoms_vector);
-</code></pre>
-
-<h1 id="gin-structure">GIN structure</h1>
-
+</code></pre><p>(These crocodiles have much more dentist vocabulary than me&hellip;). And then I created a GIN index on the <code>symptoms_vector</code> column.</p>
+<pre><code class="language-code" data-lang="code">CREATE INDEX ON appointment USING GIN(symptoms_vector);
+</code></pre><h1 id="gin-structure">GIN structure</h1>
 <p>The structure of a GIN index is close to a BTree index. There are a few differences that we&rsquo;re going to be exploring right now.</p>
-
 <h2 id="metapage">Metapage</h2>
-
 <p>As for a BTree Index, <strong>the first page of a GIN index is the metapage</strong> containing information about the index. The difference being the information that is slightly different. For example in a GIN index you won&rsquo;t find any fast root.</p>
-
 <p>You can see the metapage information using the postgres extension <code>pageinspect</code></p>
-
-<pre><code class="language-code">croco_new=# SELECT * FROM gin_metapage_info(get_raw_page('crocodile_healed_teeth_idx', 0));
+<pre><code class="language-code" data-lang="code">croco_new=# SELECT * FROM gin_metapage_info(get_raw_page('crocodile_healed_teeth_idx', 0));
 -[ RECORD 1 ]----+-----------
 pending_head     | 4294967295
 pending_tail     | 4294967295
@@ -233,73 +203,46 @@ n_entry_pages    | 1
 n_data_pages     | 356
 n_entries        | 47
 version          | 2
-</code></pre>
-
-<ul>
-<li><code>n_total_pages</code>: indicates the <strong>total number of pages</strong> in the index (see <a href="http://www.louisemeta.com/blog/intro-to-indexes">the introduction article</a> if you&rsquo;re not familiar with pages)<br /></li>
-<li><code>n_entry_page</code>: the <strong>number of entry pages</strong><br /></li>
-<li><code>n_entries</code>: the <strong>number of entries</strong> in the index<br /></li>
-<li><code>n_data_pages</code>: the <strong>number of data pages</strong><br />
-<br /></li>
+</code></pre><ul>
+<li><code>n_total_pages</code>: indicates the <strong>total number of pages</strong> in the index (see <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/intro-to-indexes">the introduction article</a> if you&rsquo;re not familiar with pages)</li>
+<li><code>n_entry_page</code>: the <strong>number of entry pages</strong></li>
+<li><code>n_entries</code>: the <strong>number of entries</strong> in the index</li>
+<li><code>n_data_pages</code>: the <strong>number of data pages</strong></li>
 </ul>
-
 <p>In a GIN index there are two types of pages. The <strong>entry pages</strong> and the <strong>data pages</strong>.</p>
-
 <ul>
-<li>The <strong>data pages</strong> are the pages <strong>inside a posting tree</strong> (see the <a href="http://www.louisemeta.com/blog/indexes-gin#leaf-pages">leaves paragraph</a>).<br /></li>
-<li>The <strong>entry pages</strong> are the pages containing the values in the index.<br />
-<br /></li>
+<li>The <strong>data pages</strong> are the pages <strong>inside a posting tree</strong> (see the <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin#leaf-pages">leaves paragraph</a>).</li>
+<li>The <strong>entry pages</strong> are the pages containing the values in the index.</li>
 </ul>
-
 <p>Both types of pages have <strong>opaque data</strong> containing:</p>
-
 <ul>
-<li>a <strong>flag</strong> to define <strong>the type</strong> (leaf, data, compressed, meta)<br /></li>
-<li>the <strong>right sibling</strong><br /></li>
-<li><strong>maxoff</strong> ?<br />
-<br /></li>
+<li>a <strong>flag</strong> to define <strong>the type</strong> (leaf, data, compressed, meta)</li>
+<li>the <strong>right sibling</strong></li>
+<li><strong>maxoff</strong> ?</li>
 </ul>
-
 <h2 id="entries">Entries</h2>
-
-<p>The <strong>keys (entries)</strong> in a GIN index are stored in <strong>entry pages in the form of a binary tree</strong>.<br />
+<p>The <strong>keys (entries)</strong> in a GIN index are stored in <strong>entry pages in the form of a binary tree</strong>.
 Until now, this all is very <strong>close to a BTree</strong> index. Indeed the <strong>first page</strong> of the index is the <strong>metapage</strong>, and then the <strong>keys are stored into a binary tree</strong>.</p>
-
 <p>There are some major differences though&hellip;</p>
-
 <p>First, if you were indexing an array <strong>in a BTree index</strong>, the <strong>values would be directly the array</strong>. So your BTree would look something like that</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/btree_array.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/btree_array.png" alt="Alt text"></p>
 <p>Let&rsquo;s say we would like to have all the crocodiles who ever had their first and second teeth healed. Here would be the query giving us this result.</p>
-
-<pre><code class="language-code">SELECT email FROM crocodile WHERE ARRAY[1, 2] &lt;@ healed_teeth;
-</code></pre>
-
-<p>I dropped the GIN index and here is the result of the EXPLAIN.</p>
-
-<pre><code class="language-code"> Seq Scan on crocodile  (cost=0.00..9462.04 rows=54786 width=29)
+<pre><code class="language-code" data-lang="code">SELECT email FROM crocodile WHERE ARRAY[1, 2] &lt;@ healed_teeth;
+</code></pre><p>I dropped the GIN index and here is the result of the EXPLAIN.</p>
+<pre><code class="language-code" data-lang="code"> Seq Scan on crocodile  (cost=0.00..9462.04 rows=54786 width=29)
                         (actual time=0.021..158.544 rows=73275 loops=1)
    Filter: ('{1,2}'::integer[] &lt;@ healed_teeth)
    Rows Removed by Filter: 250728
  Planning time: 0.157 ms
  Execution time: 161.716 ms
 (5 lignes)
-</code></pre>
-
-<p>It&rsquo;s using a <strong>sequential scan and not the index</strong>, which means that it&rsquo;s scanning the entire table to find the rows matching the WHERE clause.</p>
-
+</code></pre><p>It&rsquo;s using a <strong>sequential scan and not the index</strong>, which means that it&rsquo;s scanning the entire table to find the rows matching the WHERE clause.</p>
 <p>In a GIN index, the array is split and <strong>each value</strong> is an entry. Which means that for the row with healed_teeth being <code>{1, 6}</code>, there will be an entry for 1 and for 6.</p>
-
 <p>So the BTree on the parent level (we&rsquo;ll talk about the leaves in a bit) of the GIN index for the healed_teeth would be like this.</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/gin_no_leaves.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/gin_no_leaves.png" alt="Alt text"></p>
 <p>We can here note that unlike in a BTree, the <strong>pages in a same level only have a right link</strong> instead or right and left.</p>
-
 <p>So, each value of a list being indexed, it becomes easy to find which crocodiles have the teeth 1 and 2 healed. And as you can see in the following explain, the index is used.</p>
-
-<pre><code class="language-code"> Bitmap Heap Scan on crocodile  (cost=516.59..6613.42 rows=54786 width=29)
+<pre><code class="language-code" data-lang="code"> Bitmap Heap Scan on crocodile  (cost=516.59..6613.42 rows=54786 width=29)
                                 (actual time=15.960..38.197 rows=73275 loops=1)
    Recheck Cond: ('{1,2}'::integer[] &lt;@ healed_teeth)
    Heap Blocks: exact=4218
@@ -308,77 +251,48 @@ Until now, this all is very <strong>close to a BTree</strong> index. Indeed the 
  Planning time: 0.124 ms
  Execution time: 41.018 ms
 (7 lignes)
-</code></pre>
-
-<p>The second difference is that the <code>values are unique in a GIN index</code>.<br />
+</code></pre><p>The second difference is that the <code>values are unique in a GIN index</code>.
 In a BTree you could have several items with the same value. It&rsquo;s the tuple (value, pointer) that in a BTree insures the uniqueness of the index entry.</p>
-
 <p>The uniqueness of the values make it so that a GIN index is optimized for cases where the same value appears in many different rows.</p>
-
 <h2 id="leaf-pages">Leaf pages</h2>
-
 <p>In a BTree index, on the leaf level, there is as many items as rows. So a same value can be repeated several times like you can see in the leaf level of the index on the number of teeth of the crocodile</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/leaves_items.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/leaves_items.png" alt="Alt text"></p>
 <p>As I said earlier, the <strong>entries are unique</strong> in a GIN index. So the leaf levels contain either <strong>a list or a tree of pointers</strong> to the rows.</p>
-
 <h3 id="posting-list-and-posting-tree">Posting list and posting tree</h3>
-
 <p>In a leaf page, the entries contain a list called <strong>posting list of item pointers</strong> in a <strong>compressed format</strong>.</p>
-
 <p>If the list becomes to big so the item <strong>can&rsquo;t fit</strong> anymore in the <strong>index page</strong>, the posting list is splited into <strong>different pages</strong> that are <strong>organised as a BTree</strong>. That&rsquo;s what is called a <strong>posting tree</strong>. <strong>In the leaf item</strong> is stored <strong>a pointer to this tree</strong> instead of the posting list.</p>
-
 <p>The pointers to the heap in a posting list are stored in physical order. In a posting tree the pointers are the keys.</p>
-
 <p>So now that we&rsquo;ve talked about the leave, here is what a GIN index looks like with its levels :)</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/gin_with_leaves.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/gin_with_leaves.png" alt="Alt text"></p>
 <h2 id="the-pending-list">The pending list</h2>
-
 <p>Inserting new rows in a GIN index is quite slow. I will talk about the insert algorithm a bit later, but to sum it up, because of the unicity of the values, an insert is slower than inserting in a normal BTree, indeed the posting list or tree have to be updated.</p>
-
 <p>In order to <strong>optimise inserts</strong>, we store the <strong>new entries</strong> in a <strong>pending list</strong> which is a simple linear list of pages. Once the pending list reaches its limit or there is a VACUUM, the entries are <strong>moved to the Btree using a bulk insert</strong> which is optimised especially if there are multiple rows for each value.</p>
-
 <p>The <strong>pending list limit</strong> can be set index by index (see <a href="https://www.postgresql.org/docs/current/static/sql-createindex.html">the documentation</a>) or globally with the configuration parametter <strong><a href="https://www.postgresql.org/docs/current/static/runtime-config-client.html#GUC-GIN-PENDING-LIST-LIMIT">gin_pending_list_limit</a></strong>.</p>
-
 <p>The downside of the pending list is that <strong>when searching</strong> in a GIN index, the <strong>BTree and the pending list have to be scanned</strong>.</p>
-
 <p>If you&rsquo;re in a case where <strong>your data rarely changes</strong> and you <strong>don&rsquo;t care about the update being slow</strong>, you can disable the pending list by <strong>setting <code>fastupdate</code> to false</strong> either when you create the index of by using <code>ALTER INDEX</code>.</p>
-
 <p>If you&rsquo;re using <code>ALTER INDEX</code> the pending list won&rsquo;t automatically be flushed, so you might need to call VACUUM on your table to ensure that all data are moved to the BTree.</p>
-
 <h2 id="to-sum-up">To sum up</h2>
-
 <p>To sum up, a GIN index has:</p>
-
 <ul>
-<li>A metapage<br /></li>
-<li>A BTree of key entries<br /></li>
-<li>The leaves either contain a pointer to a posting tree, or a posting list of heap pointers<br /></li>
-<li>The pointers are ordered in physical memory order, in the posting tree, it&rsquo;s the tid that is used as a key to build the tree<br /></li>
-<li>The rows that are not in the index yet are in a pending list<br />
-<br />
-<br /></li>
+<li>A metapage</li>
+<li>A BTree of key entries</li>
+<li>The leaves either contain a pointer to a posting tree, or a posting list of heap pointers</li>
+<li>The pointers are ordered in physical memory order, in the posting tree, it&rsquo;s the tid that is used as a key to build the tree</li>
+<li>The rows that are not in the index yet are in a pending list</li>
 </ul>
-
 <h1 id="conclusion">Conclusion</h1>
-
 <p>The GIN index has a really interesting structure. I think that the most important part is to understand that the values indexed are split to get the keys. It&rsquo;s the reason why it&rsquo;s very efficient for fulltext search, arrays and jsonb.</p>
-
 <p>But there are also some extensions for integers for example. It could be interesting if you want to index a column that doesn&rsquo;t have a lot of different values, because the BTree would be optimised. But when it comes to the search, I&rsquo;ve found that it&rsquo;s not necessarly better than a BTree, probably because of the posting lists and posting trees that need to be fetched.</p>
-
 <p>In the next article, I will go over the algorithms used to search, insert and delete from a GIN index.</p>
 
               </article>
 
               <div class="pagination">
                   
-                      <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms/">&laquo; PostgreSQL&#39;s indexes - BTrees …</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree-algorithms/">&laquo; PostgreSQL&#39;s indexes - BTrees …</a>
                   
                   
-                      <a href="http://www.louisemeta.com/blog/indexes-gin-algorithms/">PostgreSQL&#39;s indexes - GIN … &raquo;</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin-algorithms/">PostgreSQL&#39;s indexes - GIN … &raquo;</a>
                   
 
               </div>
@@ -426,7 +340,7 @@ In a BTree you could have several items with the same value. It&rsquo;s the tupl
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
-  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+  <script src="https://louisegrandjonc.github.io/louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
 
 
   </body>

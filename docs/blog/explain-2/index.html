@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="generator" content="">
-  <base href="http://www.louisemeta.com/">
+  <base href="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
     <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
@@ -37,10 +37,10 @@
 
   <meta property="og:title" content="Understanding EXPLAIN - part 2 - Scans | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://www.louisemeta.com/">
+  <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
-    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
+    <meta property="og:image" content="https://louisegrandjonc.github.io/louisemeta.com//images/Owls_dance_04.png">
   
 
   
@@ -52,11 +52,11 @@
     <meta name="theme-color" content="#FFF">
   
 
-  <link rel="canonical" href="http://www.louisemeta.com/blog/explain-2/">
+  <link rel="canonical" href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/">
 
   
 
-  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
+  <link rel="stylesheet" href="https://louisegrandjonc.github.io/louisemeta.com//styles/main.css" type="text/css">
 
   
 
@@ -89,27 +89,27 @@ if (!doNotTrack) {
 
 <nav class="row middle-xs center-xs">
   <div class="col-xs-6 col-sm-1 logo">
-    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+    <a href="https://louisegrandjonc.github.io/louisemeta.com/#"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
   </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h3>
       </div>
     
   <div class="col-xs-6 col-sm-1 nav-toggle">
-      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+      <a href="" class="nav-icon" onclick="return false"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
   </div>
 </nav>
 
@@ -117,13 +117,13 @@ if (!doNotTrack) {
   <div class="col-xs-12">
     <div class="row middle-xs center-xs">
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h1></div>
       
     </div>
   </div>
@@ -141,33 +141,21 @@ if (!doNotTrack) {
               </div>
 
               <article class="entry-content" style="text-align: justify;">
-                  
-
-<h1 id="introduction">Introduction</h1>
-
-<p>If you don&rsquo;t know <code>EXPLAIN</code> and are starting with this article, I really encourage you to start from the beginning, to understand better what a query plan is and how to use <code>EXPLAIN</code>. The <a href="http://www.louisemeta.com/blog/explain/">previous article</a> covers that.</p>
-
+                  <h1 id="introduction">Introduction</h1>
+<p>If you don&rsquo;t know <code>EXPLAIN</code> and are starting with this article, I really encourage you to start from the beginning, to understand better what a query plan is and how to use <code>EXPLAIN</code>. The <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">previous article</a> covers that.</p>
 <p>In this article, I&rsquo;m going to try to clarify the different types of scans used to filter tables and retrieve the exptected rows.</p>
-
-<p>I&rsquo;m here taking the example of a letter delivery system. Owls deliver letters between humans. Here is the data model<img src="http://www.louisemeta.com/images/explain/UML.png" alt="Alt text" /></p>
-
+<p>I&rsquo;m here taking the example of a letter delivery system. Owls deliver letters between humans. Here is the data model<img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/UML.png" alt="Alt text"></p>
 <p>In this tables I have:</p>
-
 <ul>
-<li>10 002 Owls<br /></li>
-<li>10 000 Humans<br /></li>
-<li>413861 Letters<br /></li>
-<li>7 Jobs<br />
-<br /></li>
+<li>10 002 Owls</li>
+<li>10 000 Humans</li>
+<li>413861 Letters</li>
+<li>7 Jobs</li>
 </ul>
-
 <p>You can find a dump of this DB <a href="https://github.com/louiseGrandjonc/owl-conference/tree/master/sql">here</a>.</p>
-
 <h1 id="sequential-scan">Sequential scan</h1>
-
 <p>In the previous article we where analyzing the result of this <code>EXPLAIN</code></p>
-
-<pre><code class="language-code">owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl
+<pre><code class="language-code" data-lang="code">owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl
                  WHERE owl.employer_name = 'Ulule';
                  QUERY PLAN
 ------------------------------------------------------------
@@ -178,23 +166,14 @@ if (!doNotTrack) {
  Planning time: 0.251 ms
  Execution time: 1.956 ms
 (5 rows)
-</code></pre>
-
-<p>You can see a <code>seq scan</code>. The sequential scan simply scans the entire table and retrieves the rows matching the <code>where</code> clause.</p>
-
+</code></pre><p>You can see a <code>seq scan</code>. The sequential scan simply scans the entire table and retrieves the rows matching the <code>where</code> clause.</p>
 <p>It&rsquo;s much like reading an entire encyclopaedia to get the information you need. You understand how it can be expensive for a big table.</p>
-
 <p>You might need an index.</p>
-
 <h1 id="index-scan">Index scan</h1>
-
 <p>Let&rsquo;s try on to add an index on the column <code>employer_name</code> used in our previous query.</p>
-
 <p><code>CREATE INDEX ON owl (employer_name);</code></p>
-
 <p>After creating the index, if we run the same query, it suddenly starts using the index</p>
-
-<pre><code class="language-code">EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name='Ulule';
+<pre><code class="language-code" data-lang="code">EXPLAIN ANALYZE SELECT * FROM owl WHERE employer_name='Ulule';
                                     QUERY PLAN
 -------------------------------------------------------------------------------------------
  Index Scan using owl_employer_name_idx on owl  (cost=0.29..8.30 rows=1 width=35)
@@ -202,15 +181,10 @@ if (!doNotTrack) {
    Index Cond: ((employer_name)::text = 'Ulule'::text)
  Planning time: 0.111 ms
  Execution time: 0.065 ms
-</code></pre>
-
-<p>An Index Scan explores the B-Tree and walks through the leaves to retrieve the matching rows.</p>
-
-<h2 id="index-scan-or-sequential-scan">Index Scan or Sequential scan ?</h2>
-
-<p><img src="http://www.louisemeta.com/images/Owls_shazam.png" alt="Alt Text" />If I try this query</p>
-
-<pre><code class="language-code">owl_conference=# EXPLAIN SELECT * FROM owl
+</code></pre><p>An Index Scan explores the B-Tree and walks through the leaves to retrieve the matching rows.</p>
+<h2 id="index-scan-or-sequential-scan-">Index Scan or Sequential scan ?</h2>
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_shazam.png" alt="Alt Text">If I try this query</p>
+<pre><code class="language-code" data-lang="code">owl_conference=# EXPLAIN SELECT * FROM owl
                  WHERE employer_name = 'post office';
                        QUERY PLAN
 ---------------------------------------------------------
@@ -218,24 +192,15 @@ if (!doNotTrack) {
    Filter: ((employer_name)::text = 'post office'::text)
 (2 rows)
 
-</code></pre>
-
-<p>The explain shows that it is using a sequential scan, and retrieving 7000 rows. As there is an index, it might seem weird to you.</p>
-
+</code></pre><p>The explain shows that it is using a sequential scan, and retrieving 7000 rows. As there is an index, it might seem weird to you.</p>
 <p>In a sequential scan, the reading head reads in memory order, so it only has to go to the next memory block to scan the tables. In the case of an index it has to &ldquo;jump&rdquo; between the pointers given by the tuples (value, pointer) in the index.</p>
-
-<p><strong>Moving the reading head is 1000 slower than reading the next physical block.</strong><br />
+<p><strong>Moving the reading head is 1000 slower than reading the next physical block.</strong>
 When you read a book, reading the next page is easier for you than jumping to the page 34, then 98, then 12&hellip; It&rsquo;s the same for the reading head :)</p>
-
 <p>So if a value is common in your table, it&rsquo;s quicker to simply read everything.</p>
-
 <h1 id="bitmap-heap-scan">Bitmap heap scan</h1>
-
 <p>I have 2000 owls working at Hogwarts (it&rsquo;s a pretty big employer, not as big as the post office, but still).</p>
-
 <p>Let&rsquo;s look at the result of the <code>EXPLAIN</code></p>
-
-<pre><code class="language-code">owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl
+<pre><code class="language-code" data-lang="code">owl_conference=# EXPLAIN ANALYZE SELECT * FROM owl
                  WHERE owl.employer_name = 'Hogwarts';
                                QUERY PLAN
 -------------------------------------------------------------------------------------------------
@@ -249,40 +214,29 @@ When you read a book, reading the next page is easier for you than jumping to th
  Planning time: 0.117 ms
  Execution time: 17.702 ms
 (7 rows)
-</code></pre>
-
-<p>It&rsquo;s using something called a Bitmap Heap Scan.</p>
-
-<p>In this algorithm, the tuple-pointer from index are <strong>ordered by physical memory into a map</strong>. The goal is to limit the &ldquo;jumps&rdquo; of the reading head between rows.<br />
+</code></pre><p>It&rsquo;s using something called a Bitmap Heap Scan.</p>
+<p>In this algorithm, the tuple-pointer from index are <strong>ordered by physical memory into a map</strong>. The goal is to limit the &ldquo;jumps&rdquo; of the reading head between rows.
 When you think about it, a encyclopaedia&rsquo;s index is close from the structure of this map. For the word that you are looking for, the pages are ordered.</p>
-
 <p>But here you can see <code>Recheck Cond: ((employer_name)::text = 'Hogwarts'::text)</code>.</p>
-
 <p>If there are too many rows, the bitmap then contains the pages where the rows are. Then this pages are scanned, physical block after another, and the condition is rechecked.</p>
-
 <p>It would be like having in your encyclopaedia the list of chapters where you can find what a pretty common word instead of a very long list of pages. You would then read the chapters and perform your own recheck condition by just ignoring the information you&rsquo;re not interested in.</p>
-
 <h1 id="conclusion">Conclusion</h1>
-
-<p><img src="http://www.louisemeta.com/images/Owls_yes!.png" alt="Alt Text" />So there are three types of scans:</p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_yes!.png" alt="Alt Text">So there are three types of scans:</p>
 <ul>
-<li>The sequential Scan<br /></li>
-<li>The Index Scan<br /></li>
-<li>The Bitmap Heap Scan<br />
-<br /></li>
+<li>The sequential Scan</li>
+<li>The Index Scan</li>
+<li>The Bitmap Heap Scan</li>
 </ul>
-
-<p>Now the <a href="http://www.louisemeta.com/blog/explain-3/">next article</a> will cover the joins.</p>
+<p>Now the <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-3/">next article</a> will cover the joins.</p>
 
               </article>
 
               <div class="pagination">
                   
-                      <a href="http://www.louisemeta.com/blog/explain/">&laquo; Understanding EXPLAIN - part 1 - …</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">&laquo; Understanding EXPLAIN - part 1 - …</a>
                   
                   
-                      <a href="http://www.louisemeta.com/blog/explain-3/">Understanding EXPLAIN - part 3 - … &raquo;</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-3/">Understanding EXPLAIN - part 3 - … &raquo;</a>
                   
 
               </div>
@@ -330,7 +284,7 @@ When you think about it, a encyclopaedia&rsquo;s index is close from the structu
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
-  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+  <script src="https://louisegrandjonc.github.io/louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
 
 
   </body>

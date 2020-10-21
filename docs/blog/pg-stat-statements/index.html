@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="generator" content="">
-  <base href="http://www.louisemeta.com/">
+  <base href="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
     <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
@@ -37,10 +37,10 @@
 
   <meta property="og:title" content="pg_stat_statements - finding ugly queries | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://www.louisemeta.com/">
+  <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
-    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
+    <meta property="og:image" content="https://louisegrandjonc.github.io/louisemeta.com//images/Owls_dance_04.png">
   
 
   
@@ -52,11 +52,11 @@
     <meta name="theme-color" content="#FFF">
   
 
-  <link rel="canonical" href="http://www.louisemeta.com/blog/pg-stat-statements/">
+  <link rel="canonical" href="https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/">
 
   
 
-  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
+  <link rel="stylesheet" href="https://louisegrandjonc.github.io/louisemeta.com//styles/main.css" type="text/css">
 
   
 
@@ -89,27 +89,27 @@ if (!doNotTrack) {
 
 <nav class="row middle-xs center-xs">
   <div class="col-xs-6 col-sm-1 logo">
-    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+    <a href="https://louisegrandjonc.github.io/louisemeta.com/#"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
   </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h3>
       </div>
     
   <div class="col-xs-6 col-sm-1 nav-toggle">
-      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+      <a href="" class="nav-icon" onclick="return false"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
   </div>
 </nav>
 
@@ -117,13 +117,13 @@ if (!doNotTrack) {
   <div class="col-xs-12">
     <div class="row middle-xs center-xs">
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h1></div>
       
     </div>
   </div>
@@ -141,90 +141,59 @@ if (!doNotTrack) {
               </div>
 
               <article class="entry-content" style="text-align: justify;">
-                  
-
-<h1 id="introduction">Introduction</h1>
-
+                  <h1 id="introduction">Introduction</h1>
 <p>As a reminder, if you ended up on this page by looking up on bing <code>pg_stat_statements</code>, first I&rsquo;m impressed, you get results with bing ? But also, this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis 2018</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a></p>
 
-
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="//www.youtube.com/embed/IwahVdNboc8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+  <iframe src="https://www.youtube.com/embed/IwahVdNboc8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
 </div>
 
-
-<h2 id="what-is-pg-stat-statements">What is pg_stat_statements ?</h2>
-
-<p>pg_stat_statement is a <strong>postgreSQL extension</strong>, once you enable it, it <strong>tracks statistics on the queries</strong> executed by a server. It will help you find slow queries.<br />
-<img src="http://www.louisemeta.com/images/Owls_attack.png" alt="Alt text" /></p>
-
+<h2 id="what-is-pg_stat_statements-">What is pg_stat_statements ?</h2>
+<p>pg_stat_statement is a <strong>postgreSQL extension</strong>, once you enable it, it <strong>tracks statistics on the queries</strong> executed by a server. It will help you find slow queries.
+<img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_attack.png" alt="Alt text"></p>
 <p>You can use it in your local environment but also on production, if you are afraid of the performances loss, here is an <a href="http://pgsnaga.blogspot.fr/2011/10/performance-impact-of-pgstatstatements.html">article</a> on the subject.</p>
-
-<h1 id="how-can-i-activate-it">How can I activate it ?</h1>
-
+<h1 id="how-can-i-activate-it-">How can I activate it ?</h1>
 <p>First go in your psql:</p>
-
-<pre><code class="language-code"> $ psql -U owl -d owl_conference
-</code></pre>
-
-<p>And create the extension. Only superuser or database owner can create extensions. So you might need to check the privileges of the user you are connecting with.</p>
-
-<pre><code class="language-code">CREATE EXTENSION pg_stat_statements;
-</code></pre>
-
-<p>You then have to change your <code>postgresql.conf</code> file and restart. You can&rsquo;t only reload your conf file because pg_stat_statements needs to be added to the <code>shared_preload_libraries</code>. So here is the configuration.</p>
-
-<pre><code class="language-code">shared_preload_libraries = 'pg_stat_statements'
+<pre><code class="language-code" data-lang="code"> $ psql -U owl -d owl_conference
+</code></pre><p>And create the extension. Only superuser or database owner can create extensions. So you might need to check the privileges of the user you are connecting with.</p>
+<pre><code class="language-code" data-lang="code">CREATE EXTENSION pg_stat_statements;
+</code></pre><p>You then have to change your <code>postgresql.conf</code> file and restart. You can&rsquo;t only reload your conf file because pg_stat_statements needs to be added to the <code>shared_preload_libraries</code>. So here is the configuration.</p>
+<pre><code class="language-code" data-lang="code">shared_preload_libraries = 'pg_stat_statements'
 pg_stat_statements.max = 10000
 pg_stat_statements.track = all
-</code></pre>
-
-<p>You can change the <code>pg_stat_statements.max</code> if you want to track more queries or are afraid of the size of the table.</p>
-
+</code></pre><p>You can change the <code>pg_stat_statements.max</code> if you want to track more queries or are afraid of the size of the table.</p>
 <h1 id="and-now-what">And now what?</h1>
-
 <p>Well, now you can simply find statistics about the queries tracked by running</p>
-
-<pre><code class="language-code">SELECT total_time, min_time, max_time, mean_time, calls, query
+<pre><code class="language-code" data-lang="code">SELECT total_time, min_time, max_time, mean_time, calls, query
 FROM pg_stat_statements
 ORDER BY mean_time DESC
 LIMIT 100;
-</code></pre>
-
-<p>You will get a set of results looking like:</p>
-
-<pre><code class="language-code">-[ RECORD 1 ]---------------------------------------------------------
+</code></pre><p>You will get a set of results looking like:</p>
+<pre><code class="language-code" data-lang="code">-[ RECORD 1 ]---------------------------------------------------------
 total_time | 643.624
 min_time   | 54.424
 max_time   | 531.417
 mean_time  | 214.541333333333
 calls      | 3
 query      | SELECT COUNT(*) FROM letters;
-</code></pre>
-
-<p>So from that you understand:</p>
-
+</code></pre><p>So from that you understand:</p>
 <ul>
-<li>The query has been executed 3 times (<code>calls</code>)<br /></li>
-<li>The execution time was between 54 and 531 ms (<code>min_time</code>, <code>max_time</code>)<br /></li>
-<li>The <code>total_time</code> is the sum of the time of each execution<br /></li>
-<li>The <code>mean_time</code> is total_time/calls<br />
-<br />
-<br /></li>
+<li>The query has been executed 3 times (<code>calls</code>)</li>
+<li>The execution time was between 54 and 531 ms (<code>min_time</code>, <code>max_time</code>)</li>
+<li>The <code>total_time</code> is the sum of the time of each execution</li>
+<li>The <code>mean_time</code> is total_time/calls</li>
 </ul>
-
 <h1 id="conclusion">Conclusion</h1>
-
 <p>Well that&rsquo;s it ! But now that you know which queries are slow, you probably want to understand what&rsquo;s wrong. To do that, I encourage you to use EXPLAIN, if you want to read about it, I am currently writing articles on <code>EXPLAIN</code>, so be patient, they should be available in the next few days :)</p>
 
               </article>
 
               <div class="pagination">
                   
-                      <a href="http://www.louisemeta.com/blog/developers-and-logs/">&laquo; PostgreSQL&#39;s logs - a …</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/">&laquo; PostgreSQL&#39;s logs - a …</a>
                   
                   
-                      <a href="http://www.louisemeta.com/blog/explain/">Understanding EXPLAIN - part 1 - … &raquo;</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">Understanding EXPLAIN - part 1 - … &raquo;</a>
                   
 
               </div>
@@ -272,7 +241,7 @@ query      | SELECT COUNT(*) FROM letters;
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
-  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+  <script src="https://louisegrandjonc.github.io/louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
 
 
   </body>

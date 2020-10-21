@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="generator" content="">
-  <base href="http://www.louisemeta.com/">
+  <base href="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
     <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
@@ -37,10 +37,10 @@
 
   <meta property="og:title" content="Understanding EXPLAIN - part 1 - Costs and actual time | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://www.louisemeta.com/">
+  <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
-    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
+    <meta property="og:image" content="https://louisegrandjonc.github.io/louisemeta.com//images/Owls_dance_04.png">
   
 
   
@@ -52,11 +52,11 @@
     <meta name="theme-color" content="#FFF">
   
 
-  <link rel="canonical" href="http://www.louisemeta.com/blog/explain/">
+  <link rel="canonical" href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">
 
   
 
-  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
+  <link rel="stylesheet" href="https://louisegrandjonc.github.io/louisemeta.com//styles/main.css" type="text/css">
 
   
 
@@ -89,27 +89,27 @@ if (!doNotTrack) {
 
 <nav class="row middle-xs center-xs">
   <div class="col-xs-6 col-sm-1 logo">
-    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+    <a href="https://louisegrandjonc.github.io/louisemeta.com/#"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
   </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h3>
       </div>
     
   <div class="col-xs-6 col-sm-1 nav-toggle">
-      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+      <a href="" class="nav-icon" onclick="return false"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
   </div>
 </nav>
 
@@ -117,13 +117,13 @@ if (!doNotTrack) {
   <div class="col-xs-12">
     <div class="row middle-xs center-xs">
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h1></div>
       
     </div>
   </div>
@@ -141,100 +141,63 @@ if (!doNotTrack) {
               </div>
 
               <article class="entry-content" style="text-align: justify;">
-                  
-
-<h1 id="introduction">Introduction</h1>
-
-<p>If you didn&rsquo;t read the articles on <a href="http://www.louisemeta.com/blog/developers-and-logs/">logs</a> and <a href="http://www.louisemeta.com/blog/pg-stat-statements/">pg_stat_statements</a> this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a>. You can watch the <a href="https://www.youtube.com/watch?v=Ph2hXpTW-Zg">Djangocon Europe 2017 version</a>, it&rsquo;s more django developer oriented, which can be interesting if you&rsquo;re using django&rsquo;s ORM. And here is <a href="https://www.youtube.com/watch?v=IwahVdNboc8">the video from the PGdayParis</a>.</p>
-
+                  <h1 id="introduction">Introduction</h1>
+<p>If you didn&rsquo;t read the articles on <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/">logs</a> and <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/">pg_stat_statements</a> this article is based on a talk that I did at the <a href="http://2018.pgday.paris">pgdayParis</a> and here are the <a href="https://fr.slideshare.net/LouiseGrandjonc/becoming-a-better-developer-with-explain">slides</a>. You can watch the <a href="https://www.youtube.com/watch?v=Ph2hXpTW-Zg">Djangocon Europe 2017 version</a>, it&rsquo;s more django developer oriented, which can be interesting if you&rsquo;re using django&rsquo;s ORM. And here is <a href="https://www.youtube.com/watch?v=IwahVdNboc8">the video from the PGdayParis</a>.</p>
 <p>If you want to test the queries, <strong>here is the <a href="https://github.com/louiseGrandjonc/owl-conference">github project</a></strong> for the talk. You can find a <strong>dump of the database</strong>, and the <a href="https://github.com/louiseGrandjonc/owl-conference/blob/master/sql/01_generate_data.sql">SQL</a> using <code>generate_series</code> to fill the DB.</p>
-
 <p>Let&rsquo;s say you have a slow query, if you&rsquo;ve never had this problem, a few advices:</p>
-
 <ul>
-<li>close this page, it&rsquo;s useless<br /></li>
-<li>start working a bit, if you&rsquo;ve never written any stupid code, what are you doing ?<br />
-<br /></li>
+<li>close this page, it&rsquo;s useless</li>
+<li>start working a bit, if you&rsquo;ve never written any stupid code, what are you doing ?</li>
 </ul>
-
 <p>So, back to our slow query, what you would want is understand why it&rsquo;s slow, so basicaly &ldquo;what the hell is postgres doing?&rdquo;. To do that, we are going to look into the query plan.</p>
-
 <h2 id="what-is-a-query-plan">What is a query plan?</h2>
-
-<p>You&rsquo;re wondering what I&rsquo;m talking about? Well let&rsquo;s start at the begining of the story, you are sending a query to your DB server and you get a result. Like this<br />
-<img src="http://www.louisemeta.com/images/explain/query.png" alt="Alt text" /></p>
-
+<p>You&rsquo;re wondering what I&rsquo;m talking about? Well let&rsquo;s start at the begining of the story, you are sending a query to your DB server and you get a result. Like this
+<img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/query.png" alt="Alt text"></p>
 <p>What is happening there ?</p>
-
 <ul>
-<li>First the query is <strong>parsed into a query tree</strong> (an internal data structure). The syntax errors are detected.<br /></li>
-<li>Then the planner and optimizer generates <strong>query plans</strong> (ways to execute the query) and <strong>calculate the cost</strong> of this plans.<br /></li>
-<li>The best <strong>query plan is executed</strong> and then the results are returned to you.<br />
-<br /></li>
+<li>First the query is <strong>parsed into a query tree</strong> (an internal data structure). The syntax errors are detected.</li>
+<li>Then the planner and optimizer generates <strong>query plans</strong> (ways to execute the query) and <strong>calculate the cost</strong> of this plans.</li>
+<li>The best <strong>query plan is executed</strong> and then the results are returned to you.</li>
 </ul>
-
-<p><img src="http://www.louisemeta.com/images/explain/query_path.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/query_path.png" alt="Alt text"></p>
 <h1 id="about-explain">About EXPLAIN</h1>
-
 <p><code>EXPLAIN</code> is the command that gives you the query plan used for a given query. By using it, you will know how the query is executed and it can help you understand why it is slow.</p>
-
 <p>To use <code>EXPLAIN</code>, take a query and run</p>
-
 <p><code>EXPLAIN (ANALYZE) your_query;</code></p>
-
-<p>If you use <code>ANALYZE</code>, your query will be executed, without it you get only the query plan with the estimated costs.<br />
+<p>If you use <code>ANALYZE</code>, your query will be executed, without it you get only the query plan with the estimated costs.
 If you want to add the <code>ANALYZE</code> option on an <code>UPDATE</code> or <code>DELETE</code>, you can rollback</p>
-
-<pre><code class="language-code">BEGIN;
+<pre><code class="language-code" data-lang="code">BEGIN;
 EXPLAIN ANALYZE my_query;
 ROLLBACK
-</code></pre>
-
-<p>You will get a result that will look like this:</p>
-
-<p><img src="http://www.louisemeta.com/images/explain/explain.png" alt="Alt text" /></p>
-
-<h1 id="what-are-costs-and-actual-times">What are costs and actual times ?</h1>
-
+</code></pre><p>You will get a result that will look like this:</p>
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/explain.png" alt="Alt text"></p>
+<h1 id="what-are-costs-and-actual-times-">What are costs and actual times ?</h1>
 <h2 id="costs">Costs</h2>
-
 <p>The costs are calculated using database statistics. They look like this :</p>
-
 <p><code>(cost=0.00..205.01 rows=1 width=35)</code></p>
-
 <ul>
-<li>The part <code>cost=0.00..205.01</code> has two numbers, the first one indicates the <strong>cost of retrieving the first row</strong>, and the second one, the estimated <strong>cost of retrieving all the rows</strong>.<br />
-You might wonder why the first cost is 0.00 and the second one 205.01. If there is only one row, why are the numbers not the same ? It&rsquo;s because it is using a sequential scan (explained in <a href="http://www.louisemeta.com/blog/explain-2/">this article</a>, the cost of reading the first row of the table is 0, but the cost of retrieving the one matching the <code>WHERE</code> clause is higher. It&rsquo;s like with a book, reading the first line of it costs you nothing, but reading the block that interests you is a bit more &ldquo;expensive&rdquo;.<br /></li>
-<li><code>rows=1</code> is the estimated number of rows returned in your result<br /></li>
-<li><code>width=35</code> is the average size of a row in kB.<br />
-<br /></li>
+<li>The part <code>cost=0.00..205.01</code> has two numbers, the first one indicates the <strong>cost of retrieving the first row</strong>, and the second one, the estimated <strong>cost of retrieving all the rows</strong>.
+You might wonder why the first cost is 0.00 and the second one 205.01. If there is only one row, why are the numbers not the same ? It&rsquo;s because it is using a sequential scan (explained in <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/">this article</a>, the cost of reading the first row of the table is 0, but the cost of retrieving the one matching the <code>WHERE</code> clause is higher. It&rsquo;s like with a book, reading the first line of it costs you nothing, but reading the block that interests you is a bit more &ldquo;expensive&rdquo;.</li>
+<li><code>rows=1</code> is the estimated number of rows returned in your result</li>
+<li><code>width=35</code> is the average size of a row in kB.</li>
 </ul>
-
 <p>If you&rsquo;re using <code>EXPLAIN</code> without <code>ANALYZE</code> and the <code>rows</code> seem really of from the reality, you can force postgres to collect statistics on a table by running.</p>
-
 <p><code>ANALYZE my_table;</code></p>
-
 <h2 id="actual-times">Actual times</h2>
-
 <p>The actual time is only displayed if you are using <code>ANALYZE</code>.</p>
-
 <p><code>(actual time=1.945..1.946 rows=1 loops=1)</code> means that the <code>seq scan</code> was executed once (<code>loops=1</code>), retrieved one row <code>rows=1</code> and took 1.946ms.</p>
-
 <p>Be careful about the <code>loops</code>, if the scan takes 5ms but is executed 1000 times in a loop, it can be the reason of a slow query !</p>
-
 <h1 id="conclusion">Conclusion</h1>
-
-<p>Now it&rsquo;s time to understand the different scans used by postgreSQL. I mentionned the sequential scan (<code>seq scan</code>), the next <a href="http://www.louisemeta.com/blog/explain-2/">article</a> focuses on that.</p>
+<p>Now it&rsquo;s time to understand the different scans used by postgreSQL. I mentionned the sequential scan (<code>seq scan</code>), the next <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/">article</a> focuses on that.</p>
 
               </article>
 
               <div class="pagination">
                   
-                      <a href="http://www.louisemeta.com/blog/pg-stat-statements/">&laquo; pg_stat_statements - finding …</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/">&laquo; pg_stat_statements - finding …</a>
                   
                   
-                      <a href="http://www.louisemeta.com/blog/explain-2/">Understanding EXPLAIN - part 2 - … &raquo;</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/">Understanding EXPLAIN - part 2 - … &raquo;</a>
                   
 
               </div>
@@ -282,7 +245,7 @@ You might wonder why the first cost is 0.00 and the second one 205.01. If there 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
-  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+  <script src="https://louisegrandjonc.github.io/louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
 
 
   </body>

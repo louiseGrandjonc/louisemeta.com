@@ -1,139 +1,145 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>http://www.louisemeta.com/blog/indexes-gin-algorithms/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin-algorithms/</loc>
       <lastmod>2019-07-01T10:20:22-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/indexes-gin/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin/</loc>
       <lastmod>2019-07-01T10:20:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/indexes-btree-algorithms/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree-algorithms/</loc>
       <lastmod>2018-09-06T10:20:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/indexes-btree/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree/</loc>
       <lastmod>2018-09-05T10:20:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/intro-to-indexes/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/intro-to-indexes/</loc>
       <lastmod>2018-09-04T10:20:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/drafts/indexes-gist/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/drafts/indexes-gist/</loc>
       <lastmod>2018-08-20T10:20:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/drafts/indexes-gin/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/drafts/indexes-gin/</loc>
       <lastmod>2018-06-29T10:20:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/drafts/indexes-btree-algorithms/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gist/</loc>
+      <lastmod>2018-06-29T10:20:21-07:00</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/drafts/indexes-btree-algorithms/</loc>
       <lastmod>2018-06-23T10:20:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/drafts/indexes-btree/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/drafts/indexes-btree/</loc>
       <lastmod>2018-06-22T10:20:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/drafts/intro-to-indexes/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/drafts/intro-to-indexes/</loc>
       <lastmod>2018-06-21T10:20:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/explain-4/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-4/</loc>
       <lastmod>2018-03-27T14:39:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/explain-3/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-3/</loc>
       <lastmod>2018-03-26T14:39:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/explain-2/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/</loc>
       <lastmod>2018-03-25T19:39:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/explain/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/explain/</loc>
       <lastmod>2018-03-24T16:39:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/pg-stat-statements/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements/</loc>
       <lastmod>2018-03-23T17:39:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/developers-and-logs/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/developers-and-logs/</loc>
       <lastmod>2018-03-21T18:39:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/projects/zim/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/indexes/</loc>
+    </url>
+  
+    <url>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/select-all/</loc>
+    </url>
+  
+    <url>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/blog/</loc>
+      <lastmod>2019-07-01T10:20:22-07:00</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/</loc>
+      <lastmod>2019-07-01T10:20:22-07:00</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/drafts/</loc>
+      <lastmod>2018-08-20T10:20:21-07:00</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/projects/</loc>
       <lastmod>2018-03-23T22:25:02-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/projects/pgday/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/projects/zim/</loc>
+      <lastmod>2018-03-23T22:25:02-07:00</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/projects/pgday/</loc>
       <lastmod>2018-03-22T22:25:02-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/about/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/about/</loc>
       <lastmod>2018-03-20T17:39:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/talks/</loc>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/talks/</loc>
       <lastmod>2018-03-20T17:39:21-07:00</lastmod>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/blog/</loc>
-      <lastmod>2019-07-01T10:20:22-07:00</lastmod>
-      <priority>0</priority>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/categories/</loc>
     </url>
   
     <url>
-      <loc>http://www.louisemeta.com/categories/</loc>
-      <priority>0</priority>
-    </url>
-  
-    <url>
-      <loc>http://www.louisemeta.com/drafts/</loc>
-      <lastmod>2018-08-20T10:20:21-07:00</lastmod>
-      <priority>0</priority>
-    </url>
-  
-    <url>
-      <loc>http://www.louisemeta.com/</loc>
-      <lastmod>2019-07-01T10:20:22-07:00</lastmod>
-      <priority>0</priority>
-    </url>
-  
-    <url>
-      <loc>http://www.louisemeta.com/projects/</loc>
-      <lastmod>2018-03-23T22:25:02-07:00</lastmod>
-      <priority>0</priority>
-    </url>
-  
-    <url>
-      <loc>http://www.louisemeta.com/tags/</loc>
-      <priority>0</priority>
+      <loc>https://louisegrandjonc.github.io/louisemeta.com/tags/</loc>
     </url>
   
 </urlset>

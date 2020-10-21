@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="generator" content="">
-  <base href="http://www.louisemeta.com/">
+  <base href="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
     <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
@@ -37,10 +37,10 @@
 
   <meta property="og:title" content="PostgreSQL&#39;s indexes – BTrees internal data structure | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://www.louisemeta.com/">
+  <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
-    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
+    <meta property="og:image" content="https://louisegrandjonc.github.io/louisemeta.com//images/Owls_dance_04.png">
   
 
   
@@ -52,11 +52,11 @@
     <meta name="theme-color" content="#FFF">
   
 
-  <link rel="canonical" href="http://www.louisemeta.com/blog/indexes-btree/">
+  <link rel="canonical" href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree/">
 
   
 
-  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
+  <link rel="stylesheet" href="https://louisegrandjonc.github.io/louisemeta.com//styles/main.css" type="text/css">
 
   
 
@@ -89,27 +89,27 @@ if (!doNotTrack) {
 
 <nav class="row middle-xs center-xs">
   <div class="col-xs-6 col-sm-1 logo">
-    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+    <a href="https://louisegrandjonc.github.io/louisemeta.com/#"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
   </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h3>
       </div>
     
   <div class="col-xs-6 col-sm-1 nav-toggle">
-      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+      <a href="" class="nav-icon" onclick="return false"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
   </div>
 </nav>
 
@@ -117,13 +117,13 @@ if (!doNotTrack) {
   <div class="col-xs-12">
     <div class="row middle-xs center-xs">
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h1></div>
       
     </div>
   </div>
@@ -141,119 +141,71 @@ if (!doNotTrack) {
               </div>
 
               <article class="entry-content" style="text-align: justify;">
-                  
-
-<h1 id="introduction">Introduction</h1>
-
-<p>BTree is the index type used by default on <code>CREATE INDEX</code>. As I said in the <a href="http://www.louisemeta.com/blog/intro-to-indexes">introduction to indexes article</a>, BTrees are also created automatically for primary key and unique constraints.</p>
-
-<p>Before I start going into the internal structure of BTree, I&rsquo;d like to talk to you about <a href="https://github.com/louiseGrandjonc/pageinspect_inspector">pageinspect_inspector, a python library</a> to generate a graphical representation of what&rsquo;s going on inside PostgreSQL&rsquo;s BTrees.<br />
-You pass your index to it on a command line and it generates an HTML allowing you to explore pages and items of your index.<br />
+                  <h1 id="introduction">Introduction</h1>
+<p>BTree is the index type used by default on <code>CREATE INDEX</code>. As I said in the <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/intro-to-indexes">introduction to indexes article</a>, BTrees are also created automatically for primary key and unique constraints.</p>
+<p>Before I start going into the internal structure of BTree, I&rsquo;d like to talk to you about <a href="https://github.com/louiseGrandjonc/pageinspect_inspector">pageinspect_inspector, a python library</a> to generate a graphical representation of what&rsquo;s going on inside PostgreSQL&rsquo;s BTrees.
+You pass your index to it on a command line and it generates an HTML allowing you to explore pages and items of your index.
 I wrote it using the extension <a href="https://www.postgresql.org/docs/10/static/pageinspect.html">pageinspect</a>. All the images in this article come from it.</p>
-
 <p>Here is a little video to show you how it works (where you <em>might</em> notice that I&rsquo;m not a great frontend developer).</p>
 
-
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="//www.youtube.com/embed/YbdMG3wIGEc" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+  <iframe src="https://www.youtube.com/embed/YbdMG3wIGEc" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
 </div>
 
-
-<h1 id="what-is-a-btree">What is a BTree ?</h1>
-
-<p>BTree stands for balanced tree.<br />
+<h1 id="what-is-a-btree-">What is a BTree ?</h1>
+<p>BTree stands for balanced tree.
 In a balanced tree, all the leaves are at equal distance from the root. Moreover the root and parents can have more than two children which minimize the depth of the tree.</p>
-
 <p>Here is a comparison of the same data in the form of a binary tree and a balanced tree.</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/btree.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/btree.png" alt="Alt text"></p>
 <h1 id="btrees-in-postgres">BTrees in postgres</h1>
-
 <p>Postgres implements the Lehman &amp; Yao Btree which has a few specificities that you will discover in this article, or if you&rsquo;re <em>really</em> into it, go read their <a href="https://www.csd.uoc.gr/~hy460/pdf/p650-lehman.pdf">research paper</a>. I did and it was a lot of fun (I guess).</p>
-
-<p>Let&rsquo;s talk again about crocos. So as we said in the <a href="http://www.louisemeta.com/blog/intro-to-indexes">previous article</a>, crocodiles eat candies like a 10yo left alone with money for dinner, and their number of teeth changes over life. It grows and then when they get old, they fall. Like humans. (Honestly, this is probably not 100% accurate, if you&rsquo;re a vet, sorry about that, also, what are you doing here?).<br />
+<p>Let&rsquo;s talk again about crocos. So as we said in the <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/intro-to-indexes">previous article</a>, crocodiles eat candies like a 10yo left alone with money for dinner, and their number of teeth changes over life. It grows and then when they get old, they fall. Like humans. (Honestly, this is probably not 100% accurate, if you&rsquo;re a vet, sorry about that, also, what are you doing here?).
 So, we want to be able to filter on the number of teeth and run queries like:</p>
-
-<pre><code class="language-code">SELECT email FROM crocodile WHERE number_of_teeth &lt; 18;
-</code></pre>
-
-<p>For that, we decided to create the following index.</p>
-
-<pre><code class="language-code">CREATE INDEX ON crocodile (number_of_teeth);
-</code></pre>
-
-<h2 id="metapage">Metapage</h2>
-
+<pre><code class="language-code" data-lang="code">SELECT email FROM crocodile WHERE number_of_teeth &lt; 18;
+</code></pre><p>For that, we decided to create the following index.</p>
+<pre><code class="language-code" data-lang="code">CREATE INDEX ON crocodile (number_of_teeth);
+</code></pre><h2 id="metapage">Metapage</h2>
 <p>I generated the html for this index using <code>pageinspect_inspector</code> and here a first screenshot.</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/metapage_root.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/metapage_root.png" alt="Alt text"></p>
 <p>Here we see the metapage of the index and the root. The metapage is always the first page of a posgres index. It contains:</p>
-
 <ul>
-<li>The block number of the root<br /></li>
-<li>The level of the root<br /></li>
-<li>A block number for the fast root<br /></li>
-<li>The level of the fast root<br />
-<br /></li>
+<li>The block number of the root</li>
+<li>The level of the root</li>
+<li>A block number for the fast root</li>
+<li>The level of the fast root</li>
 </ul>
-
-<p>The pointer to the root can change. It&rsquo;s a bit early to go into the details, but after an insert, it can be necessary to split the current root into two pages, in which case a new root is created with pointers on the split pages. Page splits will be detailed in <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms#inserting-in-a-btree">the insert algorithm part of the next article</a>.</p>
-
+<p>The pointer to the root can change. It&rsquo;s a bit early to go into the details, but after an insert, it can be necessary to split the current root into two pages, in which case a new root is created with pointers on the split pages. Page splits will be detailed in <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree-algorithms#inserting-in-a-btree">the insert algorithm part of the next article</a>.</p>
 <p>If you prefer using <code>pageinspect</code> here is the query returning information on the metapage.</p>
-
-<pre><code class="language-code">croco=# SELECT * FROM bt_metap('crocodile_number_of_teeth_idx');
+<pre><code class="language-code" data-lang="code">croco=# SELECT * FROM bt_metap('crocodile_number_of_teeth_idx');
  magic  | version | root | level | fastroot | fastlevel
 --------+---------+------+-------+----------+-----------
  340322 |       2 |  290 |     2 |      290 |         2
 (1 row)
-</code></pre>
-
-<p>You may be confused by this fast root thing that here is redundant with the root, but let&rsquo;s keep some of the suspense for <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms#deleting-from-a-btree">the deletion algorithm part&hellip;</a></p>
-
+</code></pre><p>You may be confused by this fast root thing that here is redundant with the root, but let&rsquo;s keep some of the suspense for <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree-algorithms#deleting-from-a-btree">the deletion algorithm part&hellip;</a></p>
 <h2 id="pages-and-items">Pages and items</h2>
-
 <h3 id="pages">Pages</h3>
-
 <p>The root, the parents, and the leaves are all pages with the same structure. Pages have:</p>
-
 <ul>
-<li>A block number, here the root block number is 290<br /></li>
-<li>A pointer to the next and previous pages<br /></li>
-<li>A high key<br /></li>
-<li>Items<br />
-<br /></li>
+<li>A block number, here the root block number is 290</li>
+<li>A pointer to the next and previous pages</li>
+<li>A high key</li>
+<li>Items</li>
 </ul>
-
-<p><img src="http://www.louisemeta.com/images/indexes/root_pointers.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/root_pointers.png" alt="Alt text"></p>
 <h3 id="next-and-previous-pages-pointers">Next and previous pages pointers</h3>
-
-<p>Thanks to the pointers to next and previous pages, pages in the same level are a linked list. This is a specificity of the Yao and Lehmann BTree. For example it&rsquo;s very usefull in the leaves for <code>ORDER BY</code> queries.<br />
+<p>Thanks to the pointers to next and previous pages, pages in the same level are a linked list. This is a specificity of the Yao and Lehmann BTree. For example it&rsquo;s very usefull in the leaves for <code>ORDER BY</code> queries.
 Here would be the pages on the level 0 (leaves)</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/leaves_only.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/leaves_only.png" alt="Alt text"></p>
 <p>If we wanted to run the query</p>
-
 <p><code>SELECT email FROM crocodile ORDER BY number_of_teeth ASC</code></p>
-
 <p>Postgres would start at the first leaf page and thanks to the next page pointer, has directly all rows in the right order.</p>
-
 <h3 id="about-the-high-key">About the high key</h3>
-
 <p>The high key is also specific to Lehman &amp; Yao BTrees. Any item in the page will have a value lower or equal to the high key.</p>
-
 <p>The root doesn&rsquo;t have a high key, but for example in a parent level of my crocodile&rsquo;s teeth index, like this one</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/parent.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/parent.png" alt="Alt text"></p>
 <p>I can see that in the page 3, I will find crocodiles with 3 or less teeth, in page 289, with 31 and less, and in page 575, there is no high key as it&rsquo;s the rightmost page.</p>
-
 <p><code>pageinspect</code> allows you to have more information on BTree pages</p>
-
-<pre><code class="language-code">croco_test=# SELECT * FROM bt_page_stats('crocodile_number_of_teeth_idx', 289);
+<pre><code class="language-code" data-lang="code">croco_test=# SELECT * FROM bt_page_stats('crocodile_number_of_teeth_idx', 289);
 -[ RECORD 1 ]-+-----
 blkno         | 289
 type          | i
@@ -266,17 +218,11 @@ btpo_prev     | 3
 btpo_next     | 575
 btpo          | 1
 btpo_flags    | 0
-</code></pre>
-
-<h3 id="items">Items</h3>
-
-<p>The items of a page (that are in green in my drawings) have a value and a ctid. The ctid indicated the physical location of a heap tuple, you can read about it in the <a href="http://www.louisemeta.com/blog/intro-to-indexes/">previous article</a>.</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/parent_items.png" alt="Alt text" /></p>
-
+</code></pre><h3 id="items">Items</h3>
+<p>The items of a page (that are in green in my drawings) have a value and a ctid. The ctid indicated the physical location of a heap tuple, you can read about it in the <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/intro-to-indexes/">previous article</a>.</p>
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/parent_items.png" alt="Alt text"></p>
 <p>If you use the <code>pageinspect</code> extension, you will see that the first item of a page defines the high key like following:</p>
-
-<pre><code class="language-code">croco_test=# SELECT * FROM bt_page_items('crocodile_number_of_teeth_idx', 12);
+<pre><code class="language-code" data-lang="code">croco_test=# SELECT * FROM bt_page_items('crocodile_number_of_teeth_idx', 12);
 -[ RECORD 1 ]-----------------------
 itemoffset | 1
 ctid       | (163,87)
@@ -298,41 +244,31 @@ itemlen    | 16
 nulls      | f
 vars       | f
 data       | 02 00 00 00 00 00 00 00
-</code></pre>
-
-<p>The difference between the parents/root level and leaves is that the ctid of a parent level page would point to a child page.<br />
+</code></pre><p>The difference between the parents/root level and leaves is that the ctid of a parent level page would point to a child page.
 In the leaves, the ctid is the one from the row.</p>
-
-<p>The value of an item in a leaf page is the value of the column(s) of the row.<br />
+<p>The value of an item in a leaf page is the value of the column(s) of the row.
 The value of an item in a parent page is the value of the first item in the child page.</p>
-
 <p>Here is what leaf level items look like.</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/leaves_items.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/leaves_items.png" alt="Alt text"></p>
 <h1 id="to-sum-it-up">To sum it up</h1>
-
 <ul>
-<li>A Btree is a balanced tree. PostgreSQL implements the Lehmann &amp; Yao algorithm.<br /></li>
-<li>A BTree starts with a metapage containing information on the root and fast root block numbers and levels.<br /></li>
-<li>Root, parent, and leaves are pages. Each level is a linked list making it easier to move from one page to an other within the same level.<br /></li>
-<li>Pages have a high key defining the biggest value that can be found and inserted in the page.<br /></li>
-<li>A page has items. In the root or the parent levels, the items point to a page on the child level. In the leaves, it points to the heap of the row in the table.<br />
-<br /></li>
+<li>A Btree is a balanced tree. PostgreSQL implements the Lehmann &amp; Yao algorithm.</li>
+<li>A BTree starts with a metapage containing information on the root and fast root block numbers and levels.</li>
+<li>Root, parent, and leaves are pages. Each level is a linked list making it easier to move from one page to an other within the same level.</li>
+<li>Pages have a high key defining the biggest value that can be found and inserted in the page.</li>
+<li>A page has items. In the root or the parent levels, the items point to a page on the child level. In the leaves, it points to the heap of the row in the table.</li>
 </ul>
-
 <p>Sometimes an image is worth a thousand words, so don&rsquo;t hesitate to try <a href="https://github.com/louiseGrandjonc/pageinspect_inspector">pageinspect_inspector</a> to visualize one of your own BTree indexes.</p>
-
-<p>In the <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms">next article</a> we will go over the algorithms used to search and maintain a BTree index.</p>
+<p>In the <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree-algorithms">next article</a> we will go over the algorithms used to search and maintain a BTree index.</p>
 
               </article>
 
               <div class="pagination">
                   
-                      <a href="http://www.louisemeta.com/blog/intro-to-indexes/">&laquo; Introduction to PostgreSQL&#39;s …</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/intro-to-indexes/">&laquo; Introduction to PostgreSQL&#39;s …</a>
                   
                   
-                      <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms/">PostgreSQL&#39;s indexes - BTrees … &raquo;</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree-algorithms/">PostgreSQL&#39;s indexes - BTrees … &raquo;</a>
                   
 
               </div>
@@ -380,7 +316,7 @@ The value of an item in a parent page is the value of the first item in the chil
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
-  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+  <script src="https://louisegrandjonc.github.io/louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
 
 
   </body>

@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="generator" content="">
-  <base href="http://www.louisemeta.com/">
+  <base href="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
     <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
@@ -37,10 +37,10 @@
 
   <meta property="og:title" content="Introduction to PostgreSQL&#39;s indexes | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://www.louisemeta.com/">
+  <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
 
   
-    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
+    <meta property="og:image" content="https://louisegrandjonc.github.io/louisemeta.com//images/Owls_dance_04.png">
   
 
   
@@ -52,11 +52,11 @@
     <meta name="theme-color" content="#FFF">
   
 
-  <link rel="canonical" href="http://www.louisemeta.com/blog/intro-to-indexes/">
+  <link rel="canonical" href="https://louisegrandjonc.github.io/louisemeta.com/blog/intro-to-indexes/">
 
   
 
-  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
+  <link rel="stylesheet" href="https://louisegrandjonc.github.io/louisemeta.com//styles/main.css" type="text/css">
 
   
 
@@ -89,27 +89,27 @@ if (!doNotTrack) {
 
 <nav class="row middle-xs center-xs">
   <div class="col-xs-6 col-sm-1 logo">
-    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+    <a href="https://louisegrandjonc.github.io/louisemeta.com/#"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
   </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
+        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h3>
       </div>
     
   <div class="col-xs-6 col-sm-1 nav-toggle">
-      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+      <a href="" class="nav-icon" onclick="return false"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
   </div>
 </nav>
 
@@ -117,13 +117,13 @@ if (!doNotTrack) {
   <div class="col-xs-12">
     <div class="row middle-xs center-xs">
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
+        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h1></div>
       
     </div>
   </div>
@@ -141,45 +141,29 @@ if (!doNotTrack) {
               </div>
 
               <article class="entry-content" style="text-align: justify;">
-                  
-
-<h1 id="introduction">Introduction</h1>
-
-<p>When I understand precisely what&rsquo;s happening in my database, it helps me make smarter choices. It&rsquo;s why <a href="http://www.louisemeta.com/blog/explain/">previous articles</a> focused on <code>EXPLAIN</code> and the algorithms used. Because to me, it was the best way to understand why things were not working as expected.</p>
-
-<p>And I believe that when it comes to indexes, it&rsquo;s the same. Of course you could use your ORM to add an index on a column you picked kind of randomly, but there&rsquo;s a smarter way&hellip;<br />
-First because ORMs create BTrees and if you&rsquo;re using PostgreSQL there are other types that can be very handy. Understanding their structure, how they are searched and updated, might help you pick the one that best fits your usecase.<br />
+                  <h1 id="introduction">Introduction</h1>
+<p>When I understand precisely what&rsquo;s happening in my database, it helps me make smarter choices. It&rsquo;s why <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">previous articles</a> focused on <code>EXPLAIN</code> and the algorithms used. Because to me, it was the best way to understand why things were not working as expected.</p>
+<p>And I believe that when it comes to indexes, it&rsquo;s the same. Of course you could use your ORM to add an index on a column you picked kind of randomly, but there&rsquo;s a smarter way&hellip;
+First because ORMs create BTrees and if you&rsquo;re using PostgreSQL there are other types that can be very handy. Understanding their structure, how they are searched and updated, might help you pick the one that best fits your usecase.
 I also hope that studying what&rsquo;s going on internally might raise an awareness on the cost of having multiple (and some unused ;) ) indexes.</p>
-
 <p>So in this series of articles, I will cover the magical world of the following index types:</p>
-
 <ul>
-<li><a href="http://www.louisemeta.com/blog/indexes-btree">BTrees</a><br /></li>
-<li>Gin Indexes<br /></li>
-<li>GiST<br /></li>
-<li>SPGiST<br /></li>
-<li>BRIN<br /></li>
-<li>Hash<br />
-<br /></li>
+<li><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree">BTrees</a></li>
+<li>Gin Indexes</li>
+<li>GiST</li>
+<li>SPGiST</li>
+<li>BRIN</li>
+<li>Hash</li>
 </ul>
-
 <p>Before I get into the subject, let&rsquo;s understand what indexes are for. We talked a little bit about tunning queries, but that’s not their only purpose.</p>
-
-<h1 id="let-s-talk-about-crocodiles">Let&rsquo;s talk about crocodiles</h1>
-
+<h1 id="lets-talk-about-crocodiles">Let&rsquo;s talk about crocodiles</h1>
 <p>First of all, I&rsquo;d like to introduce you to the data model I&rsquo;m going to use for the examples.</p>
-
 <p>Did you know that crocodiles love candies? <a href="https://youtu.be/RujAuz28TzQ">Especially marshmallows</a> ! So it&rsquo;s very important for them to get their teeth cleaned, and the best at it are <a href="http://smallscience.hbcse.tifr.res.in/crocodile-and-the-plover-bird/">plover birds</a>. If crocodiles don&rsquo;t do it, they&rsquo;re much slower at chewing things, and that&rsquo;s a big problem!</p>
-
 <p>So they have a website to get an appointment and give their current location (obviously it&rsquo;s much easier for birds to fly to the crocodile than it is for crocodiles to walk to a bird). The goal is to find the closest free bird to intervene. Also birds have birds teachers. How would they learn how to clean teeth otherwise?</p>
-
 <p>So here is the data model</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/datamodel.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/datamodel.png" alt="Alt text"></p>
 <p>And here is the SQL used to create the tables.</p>
-
-<pre><code class="language-code">
+<pre><code class="language-code" data-lang="code">
 CREATE TABLE IF NOT EXISTS crocodile (
        id serial,
        email varchar(250) UNIQUE NOT NULL,
@@ -222,114 +206,72 @@ CREATE TABLE IF NOT EXISTS appointment (
        EXCLUDE USING GIST (crocodile_id WITH =, schedule WITH &amp;&amp;),
        CONSTRAINT appointment_pkey PRIMARY KEY (id)
 );
-</code></pre>
-
-<h1 id="what-are-indexes-for">What are indexes for</h1>
-
+</code></pre><h1 id="what-are-indexes-for">What are indexes for</h1>
 <p>Indexes have two purposes: constraints and query optimization.</p>
-
 <h2 id="constraints">Constraints</h2>
-
 <p>While working on your data model, you might notice that some constraints transform into indexes. There are three cases where an index is automatically created to insure the consistency of data when you add a constraint:</p>
-
 <ul>
-<li>PRIMARY KEY<br /></li>
-<li>UNIQUE<br /></li>
-<li>EXCLUDE USING<br />
-<br /></li>
+<li>PRIMARY KEY</li>
+<li>UNIQUE</li>
+<li>EXCLUDE USING</li>
 </ul>
-
 <p>So for example, my crocodile table has the following indexes when I create it:</p>
-
-<pre><code class="language-code">&quot;crocodile_pkey&quot; PRIMARY KEY, btree (id)
+<pre><code class="language-code" data-lang="code">&quot;crocodile_pkey&quot; PRIMARY KEY, btree (id)
 &quot;crocodile_email_uq&quot; UNIQUE CONSTRAINT, btree (email)
-</code></pre>
-
-<p>And same goes with the appointment table</p>
-
-<pre><code class="language-code">Indexes:
+</code></pre><p>And same goes with the appointment table</p>
+<pre><code class="language-code" data-lang="code">Indexes:
     &quot;appointment_pkey&quot; PRIMARY KEY, btree (id)
     &quot;appointment_crocodile_id_schedule_excl&quot; EXCLUDE USING gist (crocodile_id WITH =, schedule WITH &amp;&amp;)
-</code></pre>
-
-<p>Postgres created these indexes for me and they&rsquo;re ready to ensure consistency.<br />
-In my example I used a GiST index for the <code>EXCLUDE</code>. I&rsquo;ll get back to it in the article on GiST. But what you can see is that the default index for constraint is a BTree.<br />
+</code></pre><p>Postgres created these indexes for me and they&rsquo;re ready to ensure consistency.
+In my example I used a GiST index for the <code>EXCLUDE</code>. I&rsquo;ll get back to it in the article on GiST. But what you can see is that the default index for constraint is a BTree.
 And more generally, BTree is the default index when you use <code>CREATE INDEX</code>.</p>
-
 <p>To sum up, indexes can be used as a data modeling strategy. If you have write latencies and trace it back to having too many indexes on a table, maybe these constraints indexes should not be the first to get rid of&hellip;</p>
-
 <p>If you want to know more about constraints, I really recommend watching <a href="https://www.youtube.com/watch?v=hWh8QoV8z8k&amp;feature=youtu.be">Will Leinweber&rsquo;s talk</a> on the subject. It also goes more into details of unique partial indexes.</p>
-
 <h2 id="query-optimization">Query optimization</h2>
-
-<p>The second use for indexes is to tune your queries. There&rsquo;s a lot to think about when you decide to add an index.<br />
-Maybe you are already using <a href="http://www.louisemeta.com/blog/pg-stat-statements">pg_stat_statements</a>, if you don&rsquo;t maybe consider it, it&rsquo;s awesome :). So, often we want to add an index to make a particular query faster, and there a lot of questions appear:</p>
-
+<p>The second use for indexes is to tune your queries. There&rsquo;s a lot to think about when you decide to add an index.
+Maybe you are already using <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/pg-stat-statements">pg_stat_statements</a>, if you don&rsquo;t maybe consider it, it&rsquo;s awesome :). So, often we want to add an index to make a particular query faster, and there a lot of questions appear:</p>
 <ul>
-<li><strong>Which column(s)</strong> do I want to index ?<br /></li>
-<li>What <strong>data type</strong> I want to index<br /></li>
-<li>What <strong>operations</strong> are done on this columns (=, &lt;, &amp;&amp; etc.)<br /></li>
-<li>Will this index <strong>usefull for other queries</strong> ?<br /></li>
-<li>Do I <em>really</em> need an index ?<br /></li>
-<li>&hellip;<br />
-<br /></li>
+<li><strong>Which column(s)</strong> do I want to index ?</li>
+<li>What <strong>data type</strong> I want to index</li>
+<li>What <strong>operations</strong> are done on this columns (=, &lt;, &amp;&amp; etc.)</li>
+<li>Will this index <strong>usefull for other queries</strong> ?</li>
+<li>Do I <em>really</em> need an index ?</li>
+<li>&hellip;</li>
 </ul>
-
 <p>All these questions are important.</p>
-
 <p>The first three will help you choose an index type. By default PostgreSQL uses BTrees, maybe this is the one you need in your case, or maybe another type of index could fit better. If you&rsquo;re a developer handling your indexes with an ORM, chances are that you won&rsquo;t use them. Which is a shame.</p>
-
 <p>As for the other questions, let&rsquo;s remember that maintaining an index has a cost that varies depending on its type. Indeed, indexes are redundant, they repeat data from your table and have to be consistent with the data in the rows. Which means that when you change the actual data (on inserts, delete or update), the index will need to be updated.</p>
-
 <p>For each index type, I will explain the algorithm used to maintain the data in the index, and I hope that it will help you understand why, for some indexes, there’s more risk to slow down your write queries.</p>
-
 <h2 id="why-do-indexes-make-queries-faster">Why do indexes make queries faster</h2>
-
 <p>In a previous talk I compared indexes in a database to the index of an encyclopaedia.</p>
-
 <p>If you want to know everything about crocodiles, without an index you would need to read the entire encyclopaedia and read a lot of things you didn’t need. But instead, you go to the index and it gives you a list of pages to read.</p>
-
 <p>A database index works the same. In the index, we store tuples with the value of the column(s) you want to index and a pointer to the row.</p>
-
 <p>If we created an index for the crocodiles emails, it would look like that:</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/index_croco.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/index_croco.png" alt="Alt text"></p>
 <p>Here you can see tuples with emails and their respective pointers.</p>
-
 <p>These tuples, are stored in pages.</p>
-
-<p>PostgreSQL uses pages to store data from indexes or tables. A page has a fixed size of 8kB.<br />
+<p>PostgreSQL uses pages to store data from indexes or tables. A page has a fixed size of 8kB.
 A page has a header and items. The items contain the actual data. So in an index, each item is a tuple (value, pointer).</p>
-
-<p>Each item in a page is referenced to with a pointer called <code>ctid</code>.<br />
+<p>Each item in a page is referenced to with a pointer called <code>ctid</code>.
 The pointer consist of two numbers, the first being the number of the page (the block number), the second being the offset of the item.</p>
-
 <p>If we took a page of an index:</p>
-
-<p><img src="http://www.louisemeta.com/images/indexes/example_ctid.png" alt="Alt text" /></p>
-
+<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/example_ctid.png" alt="Alt text"></p>
 <p>The <code>ctid</code> of the item with value <code>4</code> would be (3, 2).</p>
-
 <p>So, indexes and tables are arrays of pages.</p>
-
-<p>For an index, having a simple list of pages would mean reading the entire index to get a value, so we instead use trees to optimize searching and updating.<br />
+<p>For an index, having a simple list of pages would mean reading the entire index to get a value, so we instead use trees to optimize searching and updating.
 It’s the subject of the next article, understanding the BTree structure and how it’s implemented in postgres.</p>
-
 <h1 id="conclusion">Conclusion</h1>
-
 <p>In this article, I didn’t want to go into too much detail about indexes types and strategies like multi-column or partial indexes. We will keep that for another day. The main thing to remember is that indexes have two purposes: contraints and optimization.</p>
-
 <p>And now it’s time to take a little jump into the internal data structure of BTrees ! I know, this is very exciting…</p>
 
               </article>
 
               <div class="pagination">
                   
-                      <a href="http://www.louisemeta.com/blog/explain-4/">&laquo; Understanding EXPLAIN - part 4 - …</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gist/">&laquo; PostgreSQL&#39;s indexes - GIST</a>
                   
                   
-                      <a href="http://www.louisemeta.com/blog/indexes-btree/">PostgreSQL&#39;s indexes – BTrees … &raquo;</a>
+                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree/">PostgreSQL&#39;s indexes – BTrees … &raquo;</a>
                   
 
               </div>
@@ -377,7 +319,7 @@ It’s the subject of the next article, understanding the BTree structure and ho
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
-  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+  <script src="https://louisegrandjonc.github.io/louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
 
 
   </body>

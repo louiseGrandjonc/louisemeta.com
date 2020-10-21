@@ -1,5 +1,5 @@
 title = "Louise Grandjonc, Python/SQL developer but also a human"
-baseURL = "http://www.louisemeta.com/"
+baseURL = "https://louisegrandjonc.github.io/louisemeta.com/"
 tags = ["developer blog", "postgreSQL", "python"]
 languageCode = "en-US"
 config = "config.toml"
