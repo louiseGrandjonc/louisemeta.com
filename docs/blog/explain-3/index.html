@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="generator" content="">
-  <base href="https://louisegrandjonc.github.io/louisemeta.com/">
+  <base href="http://www.louisemeta.com/">
 
   
     <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
@@ -37,10 +37,10 @@
 
   <meta property="og:title" content="Understanding EXPLAIN - part 3 - Joins | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
+  <meta property="og:url" content="http://www.louisemeta.com/">
 
   
-    <meta property="og:image" content="https://louisegrandjonc.github.io/louisemeta.com//images/Owls_dance_04.png">
+    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
   
 
   
@@ -52,11 +52,11 @@
     <meta name="theme-color" content="#FFF">
   
 
-  <link rel="canonical" href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-3/">
+  <link rel="canonical" href="http://www.louisemeta.com/blog/explain-3/">
 
   
 
-  <link rel="stylesheet" href="https://louisegrandjonc.github.io/louisemeta.com//styles/main.css" type="text/css">
+  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
 
   
 
@@ -89,27 +89,27 @@ if (!doNotTrack) {
 
 <nav class="row middle-xs center-xs">
   <div class="col-xs-6 col-sm-1 logo">
-    <a href="https://louisegrandjonc.github.io/louisemeta.com/#"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
   </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h3>
+        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h3>
+        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h3>
+        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h3>
+        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
       </div>
     
   <div class="col-xs-6 col-sm-1 nav-toggle">
-      <a href="" class="nav-icon" onclick="return false"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
   </div>
 </nav>
 
@@ -117,13 +117,13 @@ if (!doNotTrack) {
   <div class="col-xs-12">
     <div class="row middle-xs center-xs">
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
       
     </div>
   </div>
@@ -142,8 +142,8 @@ if (!doNotTrack) {
 
               <article class="entry-content" style="text-align: justify;">
                   <h1 id="introduction">Introduction</h1>
-<p>If you haven&rsquo;t read the previous articles, I really encourage to start from the beginning, <code>EXPLAIN</code> can seem a bit complicated if you don&rsquo;t have the basics. So don&rsquo;t hesitate to take a look at <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain/">the first</a> and <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/">second</a> article on the subject. Moreover reading them will give you the data model and a bit more information on the examples used here !</p>
-<p>But if you have read them, welcome back !<img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_metal_01.png" alt="Alt text"></p>
+<p>If you haven&rsquo;t read the previous articles, I really encourage to start from the beginning, <code>EXPLAIN</code> can seem a bit complicated if you don&rsquo;t have the basics. So don&rsquo;t hesitate to take a look at <a href="http://www.louisemeta.com/blog/explain/">the first</a> and <a href="http://www.louisemeta.com/blog/explain-2/">second</a> article on the subject. Moreover reading them will give you the data model and a bit more information on the examples used here !</p>
+<p>But if you have read them, welcome back !<img src="http://www.louisemeta.com/images/Owls_metal_01.png" alt="Alt text"></p>
 <p>Now that you&rsquo;re a bit more familiar with <code>EXPLAIN</code>, the notions of costs, actual times, the different algorithm of scans, let&rsquo;s talk about joining tables.</p>
 <h1 id="nested-loops">Nested loops</h1>
 <p>Let&rsquo;s take a simple example, I want to get my owls with their jobs, for only the first jobs in my table.</p>
@@ -204,7 +204,7 @@ owls <span style="color:#f92672">=</span> Owl<span style="color:#f92672">.</span
 <li>A hash table is created in memory with the join values and a pointer to the rows.</li>
 <li>This hash is used to join</li>
 </ul>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/hash.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/explain/hash.png" alt="Alt text"></p>
 <p>For the Python developers, it would be like creating a dictionnary for the <code>job</code> table. Like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">jobs <span style="color:#f92672">=</span> Job<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>all()
 
@@ -252,7 +252,7 @@ owls <span style="color:#f92672">=</span> Owl<span style="color:#f92672">.</span
 <li>The two tables are sorted on the join value</li>
 <li>The join is performed on the sorted tables</li>
 </ul>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/explain/merge.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/explain/merge.png" alt="Alt text"></p>
 <p>This query takes almost a second and you can see that the quicksort (explained in the next article, that will be online in a couple days) uses <code>Memory: 1167kB</code> to sort the human table.
 As for the letters table, it uses <code>external merge  Disk: 15304kB</code>. That&rsquo;s because I have a <code>work_mem</code> setting of 4MB that makes it impossible to sort directly in Memory.</p>
 <p>If I added an index:</p>
@@ -272,19 +272,19 @@ As for the letters table, it uses <code>external merge  Disk: 15304kB</code>. Th
  Planning time: 0.626 ms
  Execution time: 691.338 ms
 (6 rows)
-</code></pre><p>The query is still slow, so this is the kind of situation where you would have to wonder why you want 400 000 letters with their receivers&hellip; Who would really read that page ?<img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_01.png" alt="Alt text"></p>
+</code></pre><p>The query is still slow, so this is the kind of situation where you would have to wonder why you want 400 000 letters with their receivers&hellip; Who would really read that page ?<img src="http://www.louisemeta.com/images/Owls_dance_01.png" alt="Alt text"></p>
 <h1 id="conclusion">Conclusion</h1>
 <p>I hope that you enjoyed reading this article and that now, you feel familiar with costs, actual times, scans and joins.</p>
-<p>The last step will be using <code>ORDER BY</code> and the serie of articles on <code>EXPLAIN</code> is over ! So <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-4/">here it is</a> :)</p>
+<p>The last step will be using <code>ORDER BY</code> and the serie of articles on <code>EXPLAIN</code> is over ! So <a href="http://www.louisemeta.com/blog/explain-4/">here it is</a> :)</p>
 
               </article>
 
               <div class="pagination">
                   
-                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-2/">&laquo; Understanding EXPLAIN - part 2 - …</a>
+                      <a href="http://www.louisemeta.com/blog/explain-2/">&laquo; Understanding EXPLAIN - part 2 - …</a>
                   
                   
-                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-4/">Understanding EXPLAIN - part 4 - … &raquo;</a>
+                      <a href="http://www.louisemeta.com/blog/explain-4/">Understanding EXPLAIN - part 4 - … &raquo;</a>
                   
 
               </div>
@@ -332,7 +332,7 @@ As for the letters table, it uses <code>external merge  Disk: 15304kB</code>. Th
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
-  <script src="https://louisegrandjonc.github.io/louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
 
 
   </body>

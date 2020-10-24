@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="generator" content="">
-  <base href="https://louisegrandjonc.github.io/louisemeta.com/">
+  <base href="http://www.louisemeta.com/">
 
   
     <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
@@ -37,10 +37,10 @@
 
   <meta property="og:title" content="PostgreSQL&#39;s indexes - GIST | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
+  <meta property="og:url" content="http://www.louisemeta.com/">
 
   
-    <meta property="og:image" content="https://louisegrandjonc.github.io/louisemeta.com//images/Owls_dance_04.png">
+    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
   
 
   
@@ -52,11 +52,11 @@
     <meta name="theme-color" content="#FFF">
   
 
-  <link rel="canonical" href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gist/">
+  <link rel="canonical" href="http://www.louisemeta.com/blog/indexes-gist/">
 
   
 
-  <link rel="stylesheet" href="https://louisegrandjonc.github.io/louisemeta.com//styles/main.css" type="text/css">
+  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
 
   
 
@@ -89,27 +89,27 @@ if (!doNotTrack) {
 
 <nav class="row middle-xs center-xs">
   <div class="col-xs-6 col-sm-1 logo">
-    <a href="https://louisegrandjonc.github.io/louisemeta.com/#"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
   </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h3>
+        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h3>
+        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h3>
+        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h3>
+        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
       </div>
     
   <div class="col-xs-6 col-sm-1 nav-toggle">
-      <a href="" class="nav-icon" onclick="return false"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
   </div>
 </nav>
 
@@ -117,13 +117,13 @@ if (!doNotTrack) {
   <div class="col-xs-12">
     <div class="row middle-xs center-xs">
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
       
     </div>
   </div>
@@ -152,13 +152,13 @@ if (!doNotTrack) {
 <h2 id="a-quick-word-about-the-gevel-extension">A quick word about the gevel extension</h2>
 <p>TODO</p>
 <h1 id="gist-structure">GiST structure</h1>
-<p>So, as I said, the GiST index is also a balanced tree. If you have a doubt on what an balanced tree is, you can read <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree">the article on BTree</a>.</p>
+<p>So, as I said, the GiST index is also a balanced tree. If you have a doubt on what an balanced tree is, you can read <a href="http://www.louisemeta.com/blog/indexes-btree">the article on BTree</a>.</p>
 <p>As in a BTree, the keys in a GiST are a tuple (value, pointer). The main difference with a BTree index, the data isn&rsquo;t ordered in the pages. And the key ranges of the pages can overlap. This means that a tuple could potentially fit in different pages.</p>
 <p>In order to be able to visualise the data in a GiST index, I used the extension <a href="http://www.sai.msu.su/~megera/wiki/Gevel">Gevel</a>.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/gist_root.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/gist_root.png" alt="Alt text"></p>
 <p>Here is only the root level and its children (I didn&rsquo;t display the items for readability). But what you can see is that, indeed, the items are not ordered like in a BTree.</p>
 <p>Moreover if you zoom in, you can see that, if we wanted to insert an appointment scheduled from August 14th 2014 at 7:30am to 8:30am, if could fit in both branches (circled in red) of the tree.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/gist_root_insert_multiple.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/gist_root_insert_multiple.png" alt="Alt text"></p>
 <p>The rest of the structure of a GiST index is quite close to the BTree, the leaf pages have pointers to the heap tuples in the table. There is nothing quite fancy to explain except the values in the pages overlapping and unordered.</p>
 <p>But I believe that it will become clearer why a GiST index has such odd values if we talk about the search algorithm.</p>
 <h1 id="searching-in-a-gist-index">Searching in a GiST index</h1>
@@ -219,7 +219,7 @@ emergency_level | 9
       -&gt;  Bitmap Index Scan on appointment_schedule_idx  (cost=... rows=246 width=0)
             Index Cond: (schedule &amp;&amp; '[&quot;2018-05-17 08:00:00+02&quot;,
                                        &quot;2018-05-17 13:00:00+02&quot;]'::tstzrange)
-</code></pre><p>The search algorithm for GiST also uses scan keys. If scan keys are new to you, you can read about them in the <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree">first article</a> of this serie.</p>
+</code></pre><p>The search algorithm for GiST also uses scan keys. If scan keys are new to you, you can read about them in the <a href="http://www.louisemeta.com/blog/indexes-btree">first article</a> of this serie.</p>
 <p>Once scan keys are initialised, the function <a href="https://github.com/postgres/postgres/blob/master/src/backend/access/gist/gistget.c#L630"><code>gistgetbitmap</code></a> returns a bitmap of all the heap tuple pointers (tids) matching the scan keys.</p>
 <p>To do that the GiST tree is explored starting from the root.</p>
 <p>The function <a href="https://github.com/postgres/postgres/blob/master/src/backend/access/gist/gistget.c#L324"><code>GistScanPage</code></a> scans the items from a page.</p>
@@ -231,7 +231,7 @@ In the cases of ranges or geometries the <code>Consistent</code> method checks i
 If the scan is ordered. The distance from the scankey if evaluated thanks to the <code>Distance</code> function, that is a key class function.</p>
 <p>Else, if the page is not a leaf page, the item is pushed in a seach queue. The page pointed by the item will then be recursively explored.</p>
 <p>Let&rsquo;s go back to our query. So if we are looking for the rows overlapping the period &lsquo;[2018-05-17 08:00:00, 2018-05-17 13:00:00]&rsquo;, as you can see in the following figure, there are two items in the root (at least, I didn&rsquo;t look into ALL the root items) that could lead to leaves with matching rows. So this branches are going to be explored recursively until the leaves.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/gist_search.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/gist_search.png" alt="Alt text"></p>
 <p>It&rsquo;s also important to note that the key class defines a <code>Distance</code> function. This function is used if in the query there was an ORDER BY like here.</p>
 <pre><code class="language-code" data-lang="code">croco_new=# SELECT c.email, schedule, done, emergency_level
             FROM appointment
@@ -270,8 +270,8 @@ emergency_level | 1
 <p>It&rsquo;s <a href="https://github.com/postgres/postgres/blob/master/src/backend/access/gist/gist.c#L215"><code>gistplacetopage</code></a> that handles the two cases (update or insert).</p>
 <h3 id="update">Update</h3>
 <p>Indeed, it can be necessary to update the key in a parent level if the range changed. For example, let&rsquo;s say I insert an appointment with the schedule value [2013-11-20 05:30:00, 2013-11-20 06:30:00]. As you can see in the following images, the range of the page where it was inserted changed which led to an update of the value in the root page.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/gist_before_insert_no_split.png" alt="Alt text"></p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/gist_after_insert_no_split.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/gist_before_insert_no_split.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/gist_after_insert_no_split.png" alt="Alt text"></p>
 <p>The key class function <code>Union</code> is used to find the new range.</p>
 <h3 id="insert">Insert</h3>
 <p>If we reached the leaf page, it&rsquo;s time to insert. <code>gistplacetopage</code> checks if there is enough space in the page to insert the tuple. If there is, it simply inserts it and we&rsquo;re done as the parent levels were already updated with the union key.</p>
@@ -279,8 +279,8 @@ emergency_level | 1
 <p>To do that, each key class defines a <code>PickSplit</code> method. PickSplit decides which items stay on the old page and which ones will be on the new one.</p>
 <p>In case of page split, it becomes necessary to recurse in the parent level to insert a new item with a pointer to the new page. Of course this can also generate a page split.</p>
 <p>On the following pictures you can see that after a page split, the new page becomes the rightmost page and the range of the old page changed.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/gist_before_split.png" alt="Alt text"></p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/gist_after_split.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/gist_before_split.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/gist_after_split.png" alt="Alt text"></p>
 <h2 id="to-sum-up-1">To sum up</h2>
 <p>In order to insert GiST follows the path with the least penalty updating on its way the parents keys.</p>
 <p>I&rsquo;d say that it&rsquo;s important to remember that the functions <code>Union</code>, <code>Penalty</code> and <code>PickSplit</code> are key class function.</p>
@@ -297,10 +297,10 @@ PickSplit</p>
 
               <div class="pagination">
                   
-                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/explain-4/">&laquo; Understanding EXPLAIN - part 4 - …</a>
+                      <a href="http://www.louisemeta.com/blog/explain-4/">&laquo; Understanding EXPLAIN - part 4 - …</a>
                   
                   
-                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/intro-to-indexes/">Introduction to PostgreSQL&#39;s … &raquo;</a>
+                      <a href="http://www.louisemeta.com/blog/intro-to-indexes/">Introduction to PostgreSQL&#39;s … &raquo;</a>
                   
 
               </div>
@@ -348,7 +348,7 @@ PickSplit</p>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
-  <script src="https://louisegrandjonc.github.io/louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
 
 
   </body>

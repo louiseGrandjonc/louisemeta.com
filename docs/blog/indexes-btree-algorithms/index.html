@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="generator" content="">
-  <base href="https://louisegrandjonc.github.io/louisemeta.com/">
+  <base href="http://www.louisemeta.com/">
 
   
     <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
@@ -37,10 +37,10 @@
 
   <meta property="og:title" content="PostgreSQL&#39;s indexes - BTrees algorithms | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
+  <meta property="og:url" content="http://www.louisemeta.com/">
 
   
-    <meta property="og:image" content="https://louisegrandjonc.github.io/louisemeta.com//images/Owls_dance_04.png">
+    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
   
 
   
@@ -52,11 +52,11 @@
     <meta name="theme-color" content="#FFF">
   
 
-  <link rel="canonical" href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree-algorithms/">
+  <link rel="canonical" href="http://www.louisemeta.com/blog/indexes-btree-algorithms/">
 
   
 
-  <link rel="stylesheet" href="https://louisegrandjonc.github.io/louisemeta.com//styles/main.css" type="text/css">
+  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
 
   
 
@@ -89,27 +89,27 @@ if (!doNotTrack) {
 
 <nav class="row middle-xs center-xs">
   <div class="col-xs-6 col-sm-1 logo">
-    <a href="https://louisegrandjonc.github.io/louisemeta.com/#"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
   </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h3>
+        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h3>
+        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h3>
+        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h3>
+        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
       </div>
     
   <div class="col-xs-6 col-sm-1 nav-toggle">
-      <a href="" class="nav-icon" onclick="return false"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
   </div>
 </nav>
 
@@ -117,13 +117,13 @@ if (!doNotTrack) {
   <div class="col-xs-12">
     <div class="row middle-xs center-xs">
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
       
     </div>
   </div>
@@ -142,7 +142,7 @@ if (!doNotTrack) {
 
               <article class="entry-content" style="text-align: justify;">
                   <h1 id="introduction">Introduction</h1>
-<p>In the <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree">previous article</a>, I introduced the internal data structure of a postgres BTree index. Now it&rsquo;s time to talk about searching and maintaining them.</p>
+<p>In the <a href="http://www.louisemeta.com/blog/indexes-btree">previous article</a>, I introduced the internal data structure of a postgres BTree index. Now it&rsquo;s time to talk about searching and maintaining them.</p>
 <p>I think that understanding this can help know when using a BTree makes sense and when it wouldn&rsquo;t be very efficient.</p>
 <h1 id="searching-in-a-btree">Searching in a BTree</h1>
 <h2 id="initializing-scankeys">Initializing scankeys</h2>
@@ -166,7 +166,7 @@ Its purpose is to <strong>find the first leaf page</strong> where the <strong>sc
 </code></pre><p><strong>Step 1: Initialize</strong>
 <code>_bt_search</code> <strong>initialize a page pointer</strong> <code>bufP</code> to the <strong>root or fast root</strong>.
 At this step, if we take my BTree, <code>bufP</code> would be on the root with block number 290.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/root_pointers.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/root_pointers.png" alt="Alt text"></p>
 <p><strong>Step 2: Let&rsquo;s climb down that tree</strong>
 The second step is a loop iterating until the <code>bufP</code> pointer is a leaf page.</p>
 <p><em>Step 2.1: should I stop looking ?</em></p>
@@ -184,10 +184,10 @@ It decides <strong>if it&rsquo;s necessary to follow the right pointer</strong> 
 It could then be possible that the current <code>bufP</code> page was split.</p>
 <p>For example, the <code>_bt_search</code> for my previous query is looking for the first leaf page that could contain crocodiles with more than 20 teeth. The root doesn&rsquo;t have a right page, so <code>bufP</code> wouldn&rsquo;t change.
 It would then descend on the page 289 where the high key is 31 and the minimum value is 16 like you can see here.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/root_pointers_2.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/root_pointers_2.png" alt="Alt text"></p>
 <p>So the new <code>bufP</code> is the page circled in orange.</p>
 <p>But let&rsquo;s say, while the parents pages of the index were being explored, an insert forced the page to be split in two and the BTree looks like that</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/parents_17.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/parents_17.png" alt="Alt text"></p>
 <p>You can see that the high key of the page 289 went from 31 to 19 and the page has a new right sibling because it was split.
 In this case, we know that the crocodiles with 20 teeth or more won&rsquo;t be on the branch of the page 289 anymore, and the new <code>bufP</code>is set to the direct right sibling, so page with block number 840.</p>
 <p>The algorithm <strong>moves right if the page high key is stricly lower than the scankey</strong>.</p>
@@ -197,7 +197,7 @@ In this case, we know that the crocodiles with 20 teeth or more won&rsquo;t be o
 As I&rsquo;m trying to actually make this article not too long (maybe you haven&rsquo;t noticed ;) ) I won&rsquo;t explain the binary search algorithm, but you can read <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">the wikipedia article</a> and <a href="https://github.com/postgres/postgres/blob/master/src/backend/access/nbtree/nbtsearch.c#L296">the source code</a></p>
 <p>If the page is <strong>not a leaf</strong>, it returns the <strong>offset of the last item</strong> with a value stricly <strong>lower than the scankey</strong>. So all the rows matching the clause can be found in the index after that item.</p>
 <p>Let&rsquo;s get back to our index and the query.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/metapage_root.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/metapage_root.png" alt="Alt text"></p>
 <p><code>_bt_binsrch</code> would return the offset of the item with value 16, as it&rsquo;s not a leaf page and it&rsquo;s the last item with a key lower than the scankey (which is 20)</p>
 <p>In a <strong>leaf page</strong> however, <code>_bt_binsrch</code> returns the <strong>offset of the first element</strong> with a value <strong>higher or equal than the scankey</strong>.</p>
 <p><em>Step 2.4: locking and moving</em></p>
@@ -269,18 +269,18 @@ So <strong>there is a conflict</strong> and the new tuple can&rsquo;t be inserte
 <h3 id="2-splitting-the-page-if-necessary">2. Splitting the page if necessary</h3>
 <p>A page split occurs when there <strong>isn&rsquo;t enough space</strong> to add the item <strong>in the target page</strong>, so <strong>a new page is created on the right of the page</strong>.</p>
 <p>These screenshots are before and after inserts of crocodiles. (I re-created a new one which is why the root block number changed ;))</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/split_no_item_1.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/split_no_item_1.png" alt="Alt text"></p>
 <p>On the following screenshot, you can see that a <strong>new page appeared</strong> on the right and <strong>the high key changed</strong>. That&rsquo;s because of the page split.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/split_no_item_2.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/split_no_item_2.png" alt="Alt text"></p>
 <p><strong>Step 1: is a split necessary?</strong></p>
 <p>In order to decide if the page should be split, <code>_bt_insertonpg()</code> compares the size of the item that we want to insert to the free space on the page.</p>
 <p>If the <strong>free space is lower than the item&rsquo;s size</strong>, then a split is necessary.</p>
 <p><strong>Step 2: finding the split point</strong></p>
 <p>You could think that it would be logical to simply create a new empty page and start filling it with the new tuples.</p>
 <p>But let&rsquo;s look more closely at the page split after the insert of crocodiles. Focus on the first item of the new page.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/split_item_2.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/split_item_2.png" alt="Alt text"></p>
 <p>You can see here that it used to be in the target page.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/split_item_1.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/split_item_1.png" alt="Alt text"></p>
 <p>Which means that, when postgres performs a page split, it does not simply create an empty page !</p>
 <p>Postgres wants to <strong>equalize the free space on each page</strong> to limit page splits in future inserts. The goal being to limit as much as possible the number of pages in an index.</p>
 <p>If it&rsquo;s the <strong>right-most page on a level</strong> (so the last page of the level), instead of cutting in half, and having two pages with 50% of the data, the <strong>left page is filled as much as possible</strong>.
@@ -313,18 +313,18 @@ The function <strong><code>_bt_insertonpg()</code> is called recursively</strong
 <p>When we delete a row from a table, the index has to be updated. Which means that any tuple in the leaf pages leading to this row has to be deleted.</p>
 <p>The item is not immediatly removed from the index. It is first <strong>marked as deleted</strong> and will be <strong>ignored in index scans</strong>.</p>
 <p>So if I deleted the row pointed by this item:</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/deleted_row.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/deleted_row.png" alt="Alt text"></p>
 <p>The <strong>item still appears until the next VACUUM</strong>.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/before_vaccuum.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/before_vaccuum.png" alt="Alt text"></p>
 <p>The parents don&rsquo;t need to be updated when deleting an item in a leaf page. The rest of the tree <strong>only changes in case of page deletion</strong>.</p>
 <h2 id="deleting-a-page">Deleting a page</h2>
 <p>A page is deleted <strong>only if all its items have been deleted</strong>.</p>
 <p>When a leaf page is empty, it is <strong>marked</strong> with a <code>btpo_flag</code> <strong>as half-dead</strong>. So any <strong>concurrent search</strong> will ignore it and <strong>move right</strong>.</p>
 <p>Then the page&rsquo;s left page has to point to the page&rsquo;s right page.
 If we deleted the page with block number 30.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/before_delete_page.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/before_delete_page.png" alt="Alt text"></p>
 <p>Then the tree would look like this. The new right sibling from page no 29, is the page no 31.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/after_delete_page.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/after_delete_page.png" alt="Alt text"></p>
 <p>The tuple that would have been inserted in page 30, will now be inserted in the right page.</p>
 <p>Once the links have been updated, the page&rsquo;s <code>btpo_flags</code> changes to deleted. The page is <strong>marked as deleted</strong>, but <strong>cannot be reused immediately</strong> because their could be other processes using it. For example a search can be in the parent page and has to aknowledge the fact that the page is marked dead.
 A <strong>VACUUM will then reclaim the page</strong> under the condition that no processes is referencing it.. Once a page is free, it can be <strong>reused for a future page split</strong> and its <strong>content is overwritten</strong>.</p>
@@ -333,7 +333,7 @@ A <strong>VACUUM will then reclaim the page</strong> under the condition that no
 <p>The <strong>rightmost page of a level can never be deleted</strong>. This means that <strong>the height of a BTree can only grow</strong>.</p>
 <p>But if we delete a big amount of data, then it&rsquo;s possible to end up with a tree with several levels with only one page.</p>
 <p>On the following picture you can see that my root only has one child.</p>
-<p><img src="https://louisegrandjonc.github.io/louisemeta.com/images/indexes/fast_root.png" alt="Alt text"></p>
+<p><img src="http://www.louisemeta.com/images/indexes/fast_root.png" alt="Alt text"></p>
 <p>In this case, PostgreSQL updates the <code>fast root</code> of the metapage. The <strong><code>fast root</code> becomes the first level with more than one child</strong>.</p>
 <p>In this case, the fast root is the page with block number <code>575</code>.</p>
 <p>The fast root is used to <strong>optimize the search</strong>. Instead of starting from the root, it starts from the fast root, avoiding to climb down levels with only one child.</p>
@@ -346,10 +346,10 @@ This index is therefor efficient for this operations.</p>
 
               <div class="pagination">
                   
-                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree/">&laquo; PostgreSQL&#39;s indexes – BTrees …</a>
+                      <a href="http://www.louisemeta.com/blog/indexes-btree/">&laquo; PostgreSQL&#39;s indexes – BTrees …</a>
                   
                   
-                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin/">PostgreSQL&#39;s indexes - GIN &raquo;</a>
+                      <a href="http://www.louisemeta.com/blog/indexes-gin/">PostgreSQL&#39;s indexes - GIN &raquo;</a>
                   
 
               </div>
@@ -397,7 +397,7 @@ This index is therefor efficient for this operations.</p>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
-  <script src="https://louisegrandjonc.github.io/louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
 
 
   </body>

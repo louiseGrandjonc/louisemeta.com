@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="generator" content="">
-  <base href="https://louisegrandjonc.github.io/louisemeta.com/">
+  <base href="http://www.louisemeta.com/">
 
   
     <meta name="description" content="Python/Django/SQL developer, PostgreSQL enthousiast">
@@ -37,10 +37,10 @@
 
   <meta property="og:title" content="PostgreSQL&#39;s indexes - GIN algorithms | Louise Grandjonc, Python/SQL developer but also a human">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://louisegrandjonc.github.io/louisemeta.com/">
+  <meta property="og:url" content="http://www.louisemeta.com/">
 
   
-    <meta property="og:image" content="https://louisegrandjonc.github.io/louisemeta.com//images/Owls_dance_04.png">
+    <meta property="og:image" content="http://www.louisemeta.com//images/Owls_dance_04.png">
   
 
   
@@ -52,11 +52,11 @@
     <meta name="theme-color" content="#FFF">
   
 
-  <link rel="canonical" href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin-algorithms/">
+  <link rel="canonical" href="http://www.louisemeta.com/blog/indexes-gin-algorithms/">
 
   
 
-  <link rel="stylesheet" href="https://louisegrandjonc.github.io/louisemeta.com//styles/main.css" type="text/css">
+  <link rel="stylesheet" href="http://www.louisemeta.com//styles/main.css" type="text/css">
 
   
 
@@ -89,27 +89,27 @@ if (!doNotTrack) {
 
 <nav class="row middle-xs center-xs">
   <div class="col-xs-6 col-sm-1 logo">
-    <a href="https://louisegrandjonc.github.io/louisemeta.com/#"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
+    <a href="http://www.louisemeta.com/#"><img src="http://www.louisemeta.com/images/Owls_dance_04.png" alt="Louise Grandjonc, Python/SQL developer but also a human"></a>
   </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h3>
+        <h3><a href="http://www.louisemeta.com/#about">About</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h3>
+        <h3><a href="http://www.louisemeta.com/blog/">Blog</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h3>
+        <h3><a href="http://www.louisemeta.com/talks/">Talks</a></h3>
       </div>
     
       <div class="col-xs-3 col-sm-2">
-        <h3><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h3>
+        <h3><a href="http://www.louisemeta.com/projects/">Projects</a></h3>
       </div>
     
   <div class="col-xs-6 col-sm-1 nav-toggle">
-      <a href="" class="nav-icon" onclick="return false"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="https://louisegrandjonc.github.io/louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+      <a href="" class="nav-icon" onclick="return false"><img src="http://www.louisemeta.com/images/icon-menu.png" alt="Open Menu"><img src="http://www.louisemeta.com/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
   </div>
 </nav>
 
@@ -117,13 +117,13 @@ if (!doNotTrack) {
   <div class="col-xs-12">
     <div class="row middle-xs center-xs">
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/#about">About</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/#about">About</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/blog/">Blog</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/blog/">Blog</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/talks/">Talks</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/talks/">Talks</a></h1></div>
       
-        <div class="col-xs-12"><h1><a href="https://louisegrandjonc.github.io/louisemeta.com/projects/">Projects</a></h1></div>
+        <div class="col-xs-12"><h1><a href="http://www.louisemeta.com/projects/">Projects</a></h1></div>
       
     </div>
   </div>
@@ -142,7 +142,7 @@ if (!doNotTrack) {
 
               <article class="entry-content" style="text-align: justify;">
                   <h1 id="introduction">Introduction</h1>
-<p>In the <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin">previous article</a>, I introduced the internal data structure of a postgres GIN index. Now it&rsquo;s time to talk about searching and maintaining them.</p>
+<p>In the <a href="http://www.louisemeta.com/blog/indexes-gin">previous article</a>, I introduced the internal data structure of a postgres GIN index. Now it&rsquo;s time to talk about searching and maintaining them.</p>
 <h1 id="searching-in-a-gin-index">Searching in a GIN index</h1>
 <p>When postgres uses the GIN index, you&rsquo;ll notice in the EXPLAIN that it&rsquo;s always doing a bitmap heap scan. It means that the search algorithm returns a map of tids (pointers to rows) in physical memory order.</p>
 <p>Considering the way the data is stored inside the posting lists and trees, it makes a lot of sense to use this method.</p>
@@ -220,7 +220,7 @@ Once the data in moved to the main BTree, we reclean the one that might have bee
 <p>If <strong>the value is already</strong> in the <strong>main BTree</strong>, it means that the <strong>posting tree</strong> or <strong>posting list</strong> has to <strong>be updated</strong>.
 Updating a posting list can be tricky (<code>addItemPointersToLeafTuple</code>). First, the list is updated and compressed. If the size of the list reaches the <code>GinMaxItemSize</code>, a posting tree has to be created.
 In this case, the function <code>GinEntryInsert</code> calls <code>createPostingTree</code> with the pointers that were in the posting list. As they are already in order, it makes it faster to create the posting tree.</p>
-<p>If the <strong>value wasn&rsquo;t in the main BTree</strong>, the function <code>buildFreshLeafTuple</code> is called to add a leaf tuple in the current leaf page with a posting list (or tree) containing the new items. This might lead to a page split. To know more about page split, you can refer to the <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-btree-algorithms#inserting-the-tuple-and-page-splits">previous article</a> as the page splits here are very similar.</p>
+<p>If the <strong>value wasn&rsquo;t in the main BTree</strong>, the function <code>buildFreshLeafTuple</code> is called to add a leaf tuple in the current leaf page with a posting list (or tree) containing the new items. This might lead to a page split. To know more about page split, you can refer to the <a href="http://www.louisemeta.com/blog/indexes-btree-algorithms#inserting-the-tuple-and-page-splits">previous article</a> as the page splits here are very similar.</p>
 <h2 id="recursing-to-the-parents">Recursing to the parents</h2>
 <p>If a new tuple had to be inserted in a leaf page and it led to a page split, the parent needs to be updated to contain the downlink to the new page. I&rsquo;m not going to go into much details here as this is quite similar to the behaviour in a BTree.</p>
 <p>If you want to have fun you can look into the source code of the function <a href="https://github.com/postgres/postgres/blob/master/src/backend/access/gin/ginbtree.c#L333"><code>ginPlaceToPage</code></a> that recursively inserts in the parents and handles the page splits.</p>
@@ -253,7 +253,7 @@ In this case, the function <code>GinEntryInsert</code> calls <code>createPosting
 
               <div class="pagination">
                   
-                      <a href="https://louisegrandjonc.github.io/louisemeta.com/blog/indexes-gin/">&laquo; PostgreSQL&#39;s indexes - GIN</a>
+                      <a href="http://www.louisemeta.com/blog/indexes-gin/">&laquo; PostgreSQL&#39;s indexes - GIN</a>
                   
                   
 
@@ -302,7 +302,7 @@ In this case, the function <code>GinEntryInsert</code> calls <code>createPosting
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
-  <script src="https://louisegrandjonc.github.io/louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
+  <script src="http://www.louisemeta.com/scripts/main.min.js" type="text/javascript"></script>
 
 
   </body>
